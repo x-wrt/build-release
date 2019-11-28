@@ -1,18 +1,17 @@
 #=================================================
 #   Description: Build X-Wrt using GitHub Actions
 #   Lisence: MIT
-#   Author: P3TERX
-#   Blog: https://p3terx.com
+#   Author: ptpt52
 #=================================================
 
-name: Build X-Wrt
+name: build-x-wrt-6.0_b201911280240
 
 on: 
   release:
     types: [published]
-  push:
-    branches: 
-      - master
+#  push:
+#    branches:
+#      - master
 #  schedule:
 #    - cron: 0 8 * * 5
 #  watch:
@@ -66,6 +65,7 @@ jobs:
     - name: Building
       run: |
         cp *.sh x-wrt/
+        cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
         sh build.sh $(nproc)
@@ -73,5 +73,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: X-Wrt
+        name: build-x-wrt-6.0_b201911280240
         path: x-wrt/rom

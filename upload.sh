@@ -8,3 +8,5 @@ mkdir -p rom/sdk
 mv `cat upload.list` map.list sha256sums.txt rom
 test -f sdk_upload.list || exit 0
 mv `cat sdk_upload.list` sdk_map.list sdk_sha256sums.txt rom/sdk
+sh -c "cd rom && sh ../gen_index.sh"
+sh -c "cd rom/sdk && sh ../../gen_sdk_index.sh"
