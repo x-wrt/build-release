@@ -63,7 +63,7 @@ jobs:
     - name: Install feeds
       run: cd x-wrt && ./scripts/feeds install -a
 
-    - name: Load custom configuration
+    - name: Building
       run: |
         cp *.sh x-wrt/
         cd x-wrt
