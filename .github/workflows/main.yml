@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911300022-TARGET=x86_generic
+name: build-x-wrt-6.0_b201911300022-TARGET=ar71xx
 
 on: 
   release:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911300022-TARGET=x86_generic
+        name: build-x-wrt-6.0_b201911300022-TARGET=ar71xx
         path: x-wrt/rom
