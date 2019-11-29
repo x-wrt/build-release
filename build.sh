@@ -1,5 +1,5 @@
 
-TARGET=ar71xx
+TARGET=ath79
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
