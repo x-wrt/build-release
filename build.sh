@@ -1,5 +1,5 @@
 
-TARGET=mvebu-cortexa9
+TARGET=bcm53xx-generic
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
