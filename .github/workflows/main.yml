@@ -77,7 +77,7 @@ jobs:
       if: failure()
       with:
         name: build-failure-log
-        path: x-wrt/make.log
+        path: make.log
 
     - name : Upload artifact
       uses: actions/upload-artifact@master
