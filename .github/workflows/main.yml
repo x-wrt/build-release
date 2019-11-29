@@ -33,7 +33,7 @@ jobs:
         echo "Deleting files, please wait ..."
         sudo -E apt-get update
         sudo -E apt-get -y install git
-        git log -1 --pretty=%B | grep -q "^release:" || {echo "Stop build: not a release commit" >make.log; exit 1}
+        git log -1 --pretty=%B | grep -q "^release:" || (echo "Stop build: not a release commit" >make.log && exit 1)
         sudo rm -rf \
           /usr/share/dotnet \
           /etc/mysql \
