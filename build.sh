@@ -1,5 +1,5 @@
 
-TARGET=ipq806x-generic
+TARGET=kirkwood-generic
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
