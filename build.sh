@@ -1,5 +1,5 @@
 
-TARGET=bcm53xx-generic
+TARGET=brcm2708-bcm2710
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
