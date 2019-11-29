@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911290805-TARGET=brcm2708-bcm2710
+name: build-x-wrt-6.0_b201911290805-TARGET=brcm2708-bcm2711
 
 on: 
   release:
@@ -73,5 +73,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911290805-TARGET=brcm2708-bcm2710
+        name: build-x-wrt-6.0_b201911290805-TARGET=brcm2708-bcm2711
         path: x-wrt/rom
