@@ -1,5 +1,5 @@
 
-TARGET=ipq40xx-generic
+TARGET=sunxi-cortexa7
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
