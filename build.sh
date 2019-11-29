@@ -22,7 +22,6 @@ df -h .
 free -m
 echo start build in 10s
 sleep 10
-exit 0
 
 mkdir .build_x
 echo CONFIG_VERSION_NUMBER=\"`cat release.tag`\" >.build_x/env
