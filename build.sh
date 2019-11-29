@@ -1,5 +1,5 @@
 
-TARGET=ramips-mt7621
+TARGET=ramips-mt76x8
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 

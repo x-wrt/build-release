@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911300022-TARGET=ramips-mt7621
+name: build-x-wrt-6.0_b201911300022-TARGET=ramips-mt76x8
 
 on: 
   release:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911300022-TARGET=ramips-mt7621
+        name: build-x-wrt-6.0_b201911300022-TARGET=ramips-mt76x8
         path: x-wrt/rom
