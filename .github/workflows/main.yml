@@ -9,9 +9,9 @@ name: build-x-wrt-6.0_b201911290805
 on: 
   release:
     types: [published]
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 #  schedule:
 #    - cron: 0 8 * * 5
 #  watch:
