@@ -21,6 +21,6 @@ echo CONFIG_VERSION_NUMBER=\"`cat release.tag`\" >.build_x/env
 
 _EXIT=$?
 [ "x$_EXIT" = "x0" ] || {
-	make V=s >>make.log
+	make V=s >>make.log 2>&1
 	exit $_EXIT
 }
