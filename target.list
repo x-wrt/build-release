@@ -1,6 +1,10 @@
 TARGET=ar71xx
 TARGET=ath79
-TARGET=ramips
+TARGET=ramips-mt7620
+TARGET=ramips-mt7621
+TARGET=ramips-mt76x8
+TARGET=ramips-rt3883
+TARGET=ramips-rt305x
 TARGET=ipq40xx-generic
 TARGET=sunxi-cortexa7
 TARGET=brcm2708-bcm2709

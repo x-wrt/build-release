@@ -30,7 +30,11 @@ Available targets see `cat target.list`
 ```
 TARGET=ar71xx
 TARGET=ath79
-TARGET=ramips
+TARGET=ramips-mt7620
+TARGET=ramips-mt7621
+TARGET=ramips-mt76x8
+TARGET=ramips-rt3883
+TARGET=ramips-rt305x
 TARGET=ipq40xx-generic
 TARGET=sunxi-cortexa7
 TARGET=brcm2708-bcm2709
@@ -57,7 +61,7 @@ and then you should known the target name
 
 for example:
 
-`Xiaomi Mi Router R3` target is `ramips`
+`Xiaomi Mi Router R3` target is `ramips-mt7620`
 
 `P&W R619AC` target is `ipq40xx-generic`
 
