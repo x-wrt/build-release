@@ -1,5 +1,5 @@
 
-TARGET=ramips
+TARGET=ipq40xx-generic
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
