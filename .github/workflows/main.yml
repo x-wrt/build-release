@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911300022-TARGET=mvebu-cortexa9
+name: build-x-wrt-6.0_b201911300022-TARGET=bcm53xx-generic
 
 on: 
   release:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911300022-TARGET=mvebu-cortexa9
+        name: build-x-wrt-6.0_b201911300022-TARGET=bcm53xx-generic
         path: x-wrt/rom
