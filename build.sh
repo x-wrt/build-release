@@ -1,5 +1,5 @@
 
-TARGET=sunxi-cortexa7
+TARGET=brcm2708-bcm2709
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
