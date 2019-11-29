@@ -1,15 +1,7 @@
 
-CFGS="
-config.ath79-generic
-config.ath79-generic-nosymbol
-config.ath79-nand
-config.ramips-mt7620
-config.ramips-mt7620-nosymbol
-config.ramips-mt7621
-config.ramips-mt76x8
-config.ramips-mt76x8-nosymbol
-config.ipq40xx-generic
-"
+TARGET=ar71xx
+
+CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
 export CFGS="`echo $CFGS`"
 export TMPFS="1"
