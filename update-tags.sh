@@ -1,5 +1,8 @@
 
 cat target.list | while read target; do
+	test -n "$1" && {
+		echo $target | grep -q "$1" || continue
+	}
 	TAG="`cat release.tag`-$target"
 	echo push $TAG
 	sleep 2
