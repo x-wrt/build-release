@@ -1,5 +1,5 @@
 
-TARGET=kirkwood-generic
+TARGET=mvebu-cortexa9
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
