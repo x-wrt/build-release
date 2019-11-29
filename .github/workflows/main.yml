@@ -70,6 +70,13 @@ jobs:
         echo -e "$(nproc) thread build."
         sh build.sh $(nproc)
 
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log
+        path: x-wrt/make.log
+
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
