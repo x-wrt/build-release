@@ -12,3 +12,7 @@ cat target.list | while read target; do
 		sed -i "s/TARGET=.* sh /$target sh /" main.yml && \
 		cp main.yml .github/workflows/$target.yml
 done
+
+TAG="v`cat release.tag`"
+git commit --signoff -am "release: $TAG" && \
+		git push origin parallel-jobs
