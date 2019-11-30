@@ -8,7 +8,7 @@ cat target.list | while read target; do
 	sleep 2
 
 	sed -i "s/name: x-wrt-.*=.*/name: x-wrt-$TAG/g" .github/workflows/main.yml && \
-		sed -i "s/^TARGET=.*/$target/" build.sh && \
+		sed -i "s/TARGET=.* sh /$target sh /" .github/workflows/main.yml && \
 		git commit --signoff -am "release: $TAG" && \
 		git push origin master || exit 1
 done

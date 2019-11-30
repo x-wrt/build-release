@@ -1,5 +1,5 @@
 #=================================================
-#   Description: Build X-Wrt using GitHub Actions
+#   Description: Build X-WRT using GitHub Actions
 #   Lisence: MIT
 #   Author: ptpt52
 #=================================================
@@ -71,7 +71,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        sh build.sh $(nproc)
+        TARGET=x86_64 sh build.sh $(nproc)
 
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
