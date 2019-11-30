@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911300022-TARGET=x86_generic
+name: build-x-wrt-6.0_b201911301252-TARGET=ramips-mt7621
 
 on: 
   release:
@@ -70,7 +70,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        sh build.sh $(nproc)
+        TARGET=ramips-mt7621 sh build.sh $(nproc)
 
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911300022-TARGET=x86_generic
+        name: build-x-wrt-6.0_b201911301252-TARGET=ramips-mt7621
         path: x-wrt/rom
