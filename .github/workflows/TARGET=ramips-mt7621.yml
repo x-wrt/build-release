@@ -1,10 +1,10 @@
 #=================================================
-#   Description: Build X-Wrt using GitHub Actions
+#   Description: Build X-WRT using GitHub Actions
 #   Lisence: MIT
 #   Author: ptpt52
 #=================================================
 
-name: x-wrt-6.0_b201911301252-TARGET=ramips-mt7621
+name: x-wrt-6.0_b201911301252=ramips-mt7621
 
 on: 
   release:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: x-wrt-6.0_b201911301252-TARGET=ramips-mt7621
+        name: x-wrt-6.0_b201911301252=ramips-mt7621
         path: x-wrt/rom

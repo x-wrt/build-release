@@ -1,10 +1,10 @@
 #=================================================
-#   Description: Build X-Wrt using GitHub Actions
+#   Description: Build X-WRT using GitHub Actions
 #   Lisence: MIT
 #   Author: ptpt52
 #=================================================
 
-name: x-wrt-6.0_b201911301252-TARGET=ipq40xx-generic
+name: x-wrt-6.0_b201911301252=ipq40xx-generic
 
 on: 
   release:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: x-wrt-6.0_b201911301252-TARGET=ipq40xx-generic
+        name: x-wrt-6.0_b201911301252=ipq40xx-generic
         path: x-wrt/rom
