@@ -1,5 +1,5 @@
 
-TARGET=x86_generic
+TARGET=ar71xx
 
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
