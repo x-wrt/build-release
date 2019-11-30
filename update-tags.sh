@@ -6,7 +6,7 @@ cat target.list | while read target; do
 	TAG="`cat release.tag`-$target"
 	echo push $TAG
 
-	sed -i "s/name: build-x-wrt-.*/name: build-x-wrt-$TAG/g" main.yml && \
+	sed -i "s/name: x-wrt-.*/name: x-wrt-$TAG/g" main.yml && \
 		sed -i "s/TARGET=.* sh /$target sh /" main.yml && \
 		cp main.yml .github/workflows/$target.yml
 done

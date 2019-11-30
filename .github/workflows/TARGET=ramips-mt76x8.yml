@@ -4,14 +4,14 @@
 #   Author: ptpt52
 #=================================================
 
-name: build-x-wrt-6.0_b201911301252-TARGET=ramips-mt76x8
+name: x-wrt-6.0_b201911301252-TARGET=ramips-mt76x8
 
 on: 
   release:
     types: [published]
   push:
     branches:
-      - master
+      - parallel-jobs
 #  schedule:
 #    - cron: 0 8 * * 5
 #  watch:
@@ -82,5 +82,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: build-x-wrt-6.0_b201911301252-TARGET=ramips-mt76x8
+        name: x-wrt-6.0_b201911301252-TARGET=ramips-mt76x8
         path: x-wrt/rom
