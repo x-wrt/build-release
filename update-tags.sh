@@ -15,4 +15,5 @@ done
 
 TAG="v`cat release.tag`"
 git commit --signoff -am "release: $TAG" && \
+		git tag $TAG && \
 		git push origin parallel-jobs
