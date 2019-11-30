@@ -1,0 +1,1434 @@
+#=================================================
+#   Description: Build X-WRT using GitHub Actions
+#   Lisence: MIT
+#   Author: ptpt52
+#=================================================
+
+name: Build Jobs 6.0_b201912012345
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  build-ar71xx:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ar71xx sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ar71xx
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ar71xx
+        path: x-wrt/rom
+  build-ath79:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ath79 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ath79
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ath79
+        path: x-wrt/rom
+  build-ramips-mt7620:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ramips-mt7620 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ramips-mt7620
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt7620
+        path: x-wrt/rom
+  build-ramips-mt7621:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ramips-mt7621 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ramips-mt7621
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt7621
+        path: x-wrt/rom
+  build-ramips-mt76x8:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ramips-mt76x8 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ramips-mt76x8
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt76x8
+        path: x-wrt/rom
+  build-ramips-rt3883:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ramips-rt3883 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ramips-rt3883
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-rt3883
+        path: x-wrt/rom
+  build-ramips-rt305x:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ramips-rt305x sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ramips-rt305x
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-rt305x
+        path: x-wrt/rom
+  build-ipq40xx-generic:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ipq40xx-generic sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ipq40xx-generic
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ipq40xx-generic
+        path: x-wrt/rom
+  build-sunxi-cortexa7:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=sunxi-cortexa7 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-sunxi-cortexa7
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-sunxi-cortexa7
+        path: x-wrt/rom
+  build-brcm2708-bcm2709:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=brcm2708-bcm2709 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-brcm2708-bcm2709
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2709
+        path: x-wrt/rom
+  build-ipq806x-generic:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=ipq806x-generic sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-ipq806x-generic
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-ipq806x-generic
+        path: x-wrt/rom
+  build-kirkwood-generic:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=kirkwood-generic sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-kirkwood-generic
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-kirkwood-generic
+        path: x-wrt/rom
+  build-mvebu-cortexa9:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=mvebu-cortexa9 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-mvebu-cortexa9
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-mvebu-cortexa9
+        path: x-wrt/rom
+  build-bcm53xx-generic:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=bcm53xx-generic sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-bcm53xx-generic
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-bcm53xx-generic
+        path: x-wrt/rom
+  build-brcm2708-bcm2710:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=brcm2708-bcm2710 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-brcm2708-bcm2710
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2710
+        path: x-wrt/rom
+  build-brcm2708-bcm2711:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=brcm2708-bcm2711 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-brcm2708-bcm2711
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2711
+        path: x-wrt/rom
+  build-x86_64:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=x86_64 sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-x86_64
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-x86_64
+        path: x-wrt/rom
+  build-x86_generic:
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clone source code
+      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+    - name: Update feeds
+      run: cd x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh x-wrt/
+        cp release.tag x-wrt/
+        cd x-wrt
+        echo -e "$(nproc) thread build."
+        TARGET=x86_generic sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+        name: build-failure-log-x86_generic
+        path: make.log
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: x-wrt-6.0_b201912012345-x86_generic
+        path: x-wrt/rom
+  release:
+    name: Create Github Release
+    if: contains(github.event.head_commit.message, 'release:')
+    needs: [build-ar71xx,build-ath79,build-ramips-mt7620,build-ramips-mt7621,build-ramips-mt76x8,build-ramips-rt3883,build-ramips-rt305x,build-ipq40xx-generic,build-sunxi-cortexa7,build-brcm2708-bcm2709,build-ipq806x-generic,build-kirkwood-generic,build-mvebu-cortexa9,build-bcm53xx-generic,build-brcm2708-bcm2710,build-brcm2708-bcm2711,build-x86_64,build-x86_generic]
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Load x-wrt-6.0_b201912012345-ar71xx from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ar71xx
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ar71xx rom
+        zip -r x-wrt-6.0_b201912012345-ar71xx.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ar71xx
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ar71xx.zip
+        asset_name: x-wrt-6.0_b201912012345-ar71xx.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ar71xx
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ar71xx.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ath79 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ath79
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ath79 rom
+        zip -r x-wrt-6.0_b201912012345-ath79.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ath79
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ath79.zip
+        asset_name: x-wrt-6.0_b201912012345-ath79.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ath79
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ath79.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ramips-mt7620 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt7620
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ramips-mt7620 rom
+        zip -r x-wrt-6.0_b201912012345-ramips-mt7620.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ramips-mt7620
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ramips-mt7620.zip
+        asset_name: x-wrt-6.0_b201912012345-ramips-mt7620.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ramips-mt7620
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ramips-mt7620.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ramips-mt7621 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt7621
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ramips-mt7621 rom
+        zip -r x-wrt-6.0_b201912012345-ramips-mt7621.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ramips-mt7621
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ramips-mt7621.zip
+        asset_name: x-wrt-6.0_b201912012345-ramips-mt7621.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ramips-mt7621
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ramips-mt7621.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ramips-mt76x8 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-mt76x8
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ramips-mt76x8 rom
+        zip -r x-wrt-6.0_b201912012345-ramips-mt76x8.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ramips-mt76x8
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ramips-mt76x8.zip
+        asset_name: x-wrt-6.0_b201912012345-ramips-mt76x8.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ramips-mt76x8
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ramips-mt76x8.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ramips-rt3883 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-rt3883
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ramips-rt3883 rom
+        zip -r x-wrt-6.0_b201912012345-ramips-rt3883.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ramips-rt3883
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ramips-rt3883.zip
+        asset_name: x-wrt-6.0_b201912012345-ramips-rt3883.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ramips-rt3883
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ramips-rt3883.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ramips-rt305x from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ramips-rt305x
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ramips-rt305x rom
+        zip -r x-wrt-6.0_b201912012345-ramips-rt305x.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ramips-rt305x
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ramips-rt305x.zip
+        asset_name: x-wrt-6.0_b201912012345-ramips-rt305x.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ramips-rt305x
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ramips-rt305x.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ipq40xx-generic from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ipq40xx-generic
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ipq40xx-generic rom
+        zip -r x-wrt-6.0_b201912012345-ipq40xx-generic.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ipq40xx-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ipq40xx-generic.zip
+        asset_name: x-wrt-6.0_b201912012345-ipq40xx-generic.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ipq40xx-generic
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ipq40xx-generic.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-sunxi-cortexa7 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-sunxi-cortexa7
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-sunxi-cortexa7 rom
+        zip -r x-wrt-6.0_b201912012345-sunxi-cortexa7.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-sunxi-cortexa7
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-sunxi-cortexa7.zip
+        asset_name: x-wrt-6.0_b201912012345-sunxi-cortexa7.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-sunxi-cortexa7
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-sunxi-cortexa7.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-brcm2708-bcm2709 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2709
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-brcm2708-bcm2709 rom
+        zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2709
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip
+        asset_name: x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-brcm2708-bcm2709
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-ipq806x-generic from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-ipq806x-generic
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-ipq806x-generic rom
+        zip -r x-wrt-6.0_b201912012345-ipq806x-generic.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-ipq806x-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-ipq806x-generic.zip
+        asset_name: x-wrt-6.0_b201912012345-ipq806x-generic.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-ipq806x-generic
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-ipq806x-generic.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-kirkwood-generic from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-kirkwood-generic
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-kirkwood-generic rom
+        zip -r x-wrt-6.0_b201912012345-kirkwood-generic.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-kirkwood-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-kirkwood-generic.zip
+        asset_name: x-wrt-6.0_b201912012345-kirkwood-generic.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-kirkwood-generic
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-kirkwood-generic.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-mvebu-cortexa9 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-mvebu-cortexa9
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-mvebu-cortexa9 rom
+        zip -r x-wrt-6.0_b201912012345-mvebu-cortexa9.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-mvebu-cortexa9
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-mvebu-cortexa9.zip
+        asset_name: x-wrt-6.0_b201912012345-mvebu-cortexa9.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-mvebu-cortexa9
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-mvebu-cortexa9.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-bcm53xx-generic from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-bcm53xx-generic
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-bcm53xx-generic rom
+        zip -r x-wrt-6.0_b201912012345-bcm53xx-generic.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-bcm53xx-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-bcm53xx-generic.zip
+        asset_name: x-wrt-6.0_b201912012345-bcm53xx-generic.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-bcm53xx-generic
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-bcm53xx-generic.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-brcm2708-bcm2710 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2710
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-brcm2708-bcm2710 rom
+        zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2710
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip
+        asset_name: x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-brcm2708-bcm2710
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-brcm2708-bcm2711 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-brcm2708-bcm2711
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-brcm2708-bcm2711 rom
+        zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2711
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip
+        asset_name: x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-brcm2708-bcm2711
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-x86_64 from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-x86_64
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-x86_64 rom
+        zip -r x-wrt-6.0_b201912012345-x86_64.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-x86_64
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-x86_64.zip
+        asset_name: x-wrt-6.0_b201912012345-x86_64.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-x86_64
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-x86_64.zip ./rom
+    - name: Load x-wrt-6.0_b201912012345-x86_generic from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: x-wrt-6.0_b201912012345-x86_generic
+    - name: Archive firmware zip
+      run: |
+        mv x-wrt-6.0_b201912012345-x86_generic rom
+        zip -r x-wrt-6.0_b201912012345-x86_generic.zip rom
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912012345-x86_generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: x-wrt-6.0_b201912012345-x86_generic.zip
+        asset_name: x-wrt-6.0_b201912012345-x86_generic.zip
+        asset_content_type: application/zip
+    - name: Removing x-wrt-6.0_b201912012345-x86_generic
+      run: |
+        rm -rf ./x-wrt-6.0_b201912012345-x86_generic.zip ./rom

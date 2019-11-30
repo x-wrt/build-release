@@ -1,0 +1,14 @@
+#=================================================
+#   Description: Build X-WRT using GitHub Actions
+#   Lisence: MIT
+#   Author: ptpt52
+#=================================================
+
+name: Build Jobs _TAG_
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:

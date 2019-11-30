@@ -1,0 +1,21 @@
+    - name: Load _ASSET_NAME_ from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: _ASSET_NAME_
+    - name: Archive firmware zip
+      run: |
+        mv _ASSET_NAME_ rom
+        zip -r _ASSET_NAME_.zip rom
+    - name: Upload Release Asset
+      id: asset-_ASSET_ID_
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: _ASSET_NAME_.zip
+        asset_name: _ASSET_NAME_.zip
+        asset_content_type: application/zip
+    - name: Removing _ASSET_NAME_
+      run: |
+        rm -rf ./_ASSET_NAME_.zip ./rom
