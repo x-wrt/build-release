@@ -53,7 +53,7 @@ For example, to build all `ipq40xx-generic` target devices, please run:
 sh update-tags.sh ipq40xx-generic
 ```
 
-## What target is your device?
+## What is your device target?
 
 You can find your device firmware at [https://downloads.x-wrt.com/rom/](https://downloads.x-wrt.com/rom/)
 
