@@ -4,7 +4,7 @@ TARGET=${TARGET-x86_64}
 CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
 
 export CFGS="`echo $CFGS`"
-export TMPFS="1"
+export WORKFLOW="1"
 
 echo starting build.
 echo starting build..
