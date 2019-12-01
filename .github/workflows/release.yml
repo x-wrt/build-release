@@ -1048,7 +1048,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1.0.0
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
@@ -1066,7 +1066,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ar71xx
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ar71xx.zip
@@ -1087,7 +1087,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ath79
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ath79.zip
@@ -1108,7 +1108,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ramips-mt7620
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ramips-mt7620.zip
@@ -1129,7 +1129,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ramips-mt7621
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ramips-mt7621.zip
@@ -1150,7 +1150,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ramips-mt76x8
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ramips-mt76x8.zip
@@ -1171,7 +1171,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ramips-rt3883
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ramips-rt3883.zip
@@ -1192,7 +1192,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ramips-rt305x
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ramips-rt305x.zip
@@ -1213,7 +1213,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ipq40xx-generic
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ipq40xx-generic.zip
@@ -1234,7 +1234,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-sunxi-cortexa7
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-sunxi-cortexa7.zip
@@ -1255,7 +1255,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2709
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip
@@ -1276,7 +1276,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-ipq806x-generic
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-ipq806x-generic.zip
@@ -1297,7 +1297,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-kirkwood-generic
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-kirkwood-generic.zip
@@ -1318,7 +1318,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-mvebu-cortexa9
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-mvebu-cortexa9.zip
@@ -1339,7 +1339,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-bcm53xx-generic
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-bcm53xx-generic.zip
@@ -1360,7 +1360,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2710
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip
@@ -1381,7 +1381,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2711
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip
@@ -1402,7 +1402,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-x86_64
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-x86_64.zip
@@ -1423,7 +1423,7 @@ jobs:
       id: asset-x-wrt-6-0_b201912012345-x86_generic
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: x-wrt-6.0_b201912012345-x86_generic.zip
