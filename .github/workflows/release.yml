@@ -1058,9 +1058,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ar71xx
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ar71xx rom
         zip -r x-wrt-6.0_b201912012345-ar71xx.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ar71xx
@@ -1079,9 +1079,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ath79
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ath79 rom
         zip -r x-wrt-6.0_b201912012345-ath79.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ath79
@@ -1100,9 +1100,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ramips-mt7620
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ramips-mt7620 rom
         zip -r x-wrt-6.0_b201912012345-ramips-mt7620.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ramips-mt7620
@@ -1121,9 +1121,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ramips-mt7621
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ramips-mt7621 rom
         zip -r x-wrt-6.0_b201912012345-ramips-mt7621.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ramips-mt7621
@@ -1142,9 +1142,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ramips-mt76x8
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ramips-mt76x8 rom
         zip -r x-wrt-6.0_b201912012345-ramips-mt76x8.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ramips-mt76x8
@@ -1163,9 +1163,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ramips-rt3883
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ramips-rt3883 rom
         zip -r x-wrt-6.0_b201912012345-ramips-rt3883.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ramips-rt3883
@@ -1184,9 +1184,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ramips-rt305x
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ramips-rt305x rom
         zip -r x-wrt-6.0_b201912012345-ramips-rt305x.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ramips-rt305x
@@ -1205,9 +1205,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ipq40xx-generic
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ipq40xx-generic rom
         zip -r x-wrt-6.0_b201912012345-ipq40xx-generic.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ipq40xx-generic
@@ -1226,9 +1226,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-sunxi-cortexa7
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-sunxi-cortexa7 rom
         zip -r x-wrt-6.0_b201912012345-sunxi-cortexa7.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-sunxi-cortexa7
@@ -1247,9 +1247,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-brcm2708-bcm2709
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-brcm2708-bcm2709 rom
         zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2709.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2709
@@ -1268,9 +1268,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-ipq806x-generic
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-ipq806x-generic rom
         zip -r x-wrt-6.0_b201912012345-ipq806x-generic.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-ipq806x-generic
@@ -1289,9 +1289,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-kirkwood-generic
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-kirkwood-generic rom
         zip -r x-wrt-6.0_b201912012345-kirkwood-generic.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-kirkwood-generic
@@ -1310,9 +1310,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-mvebu-cortexa9
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-mvebu-cortexa9 rom
         zip -r x-wrt-6.0_b201912012345-mvebu-cortexa9.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-mvebu-cortexa9
@@ -1331,9 +1331,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-bcm53xx-generic
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-bcm53xx-generic rom
         zip -r x-wrt-6.0_b201912012345-bcm53xx-generic.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-bcm53xx-generic
@@ -1352,9 +1352,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-brcm2708-bcm2710
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-brcm2708-bcm2710 rom
         zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2710.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2710
@@ -1373,9 +1373,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-brcm2708-bcm2711
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-brcm2708-bcm2711 rom
         zip -r x-wrt-6.0_b201912012345-brcm2708-bcm2711.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-brcm2708-bcm2711
@@ -1394,9 +1394,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-x86_64
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-x86_64 rom
         zip -r x-wrt-6.0_b201912012345-x86_64.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-x86_64
@@ -1415,9 +1415,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: x-wrt-6.0_b201912012345-x86_generic
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv x-wrt-6.0_b201912012345-x86_generic rom
         zip -r x-wrt-6.0_b201912012345-x86_generic.zip rom
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912012345-x86_generic

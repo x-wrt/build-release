@@ -2,9 +2,9 @@
       uses: actions/download-artifact@v1
       with:
         name: _ASSET_NAME_
+        path: rom
     - name: Archive firmware zip
       run: |
-        mv _ASSET_NAME_ rom
         zip -r _ASSET_NAME_.zip rom
     - name: Upload Release Asset
       id: asset-_ASSET_ID_
