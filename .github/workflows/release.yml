@@ -12,8 +12,31 @@ on:
     - 'v*'
 
 jobs:
+  release:
+    name: Create Github Release
+    if: contains(github.event.head_commit.message, 'release:')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Output Release URL File
+      run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
+    - name: Save Release URL File for publish
+      uses: actions/upload-artifact@v1
+      with:
+        name: release_url
+        path: release_url.txt
   build-ar71xx:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -64,13 +87,35 @@ jobs:
       with:
         name: build-failure-log-ar71xx
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ar71xx.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ar71xx
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ar71xx
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ar71xx.zip
+        asset_name: x-wrt-6.0_b201912020001-ar71xx.zip
+        asset_content_type: application/zip
   build-ath79:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -121,13 +166,35 @@ jobs:
       with:
         name: build-failure-log-ath79
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ath79.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ath79
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ath79
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ath79.zip
+        asset_name: x-wrt-6.0_b201912020001-ath79.zip
+        asset_content_type: application/zip
   build-ramips-mt7620:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -178,13 +245,35 @@ jobs:
       with:
         name: build-failure-log-ramips-mt7620
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ramips-mt7620.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ramips-mt7620
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ramips-mt7620
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ramips-mt7620.zip
+        asset_name: x-wrt-6.0_b201912020001-ramips-mt7620.zip
+        asset_content_type: application/zip
   build-ramips-mt7621:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -235,13 +324,35 @@ jobs:
       with:
         name: build-failure-log-ramips-mt7621
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ramips-mt7621.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ramips-mt7621
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ramips-mt7621
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ramips-mt7621.zip
+        asset_name: x-wrt-6.0_b201912020001-ramips-mt7621.zip
+        asset_content_type: application/zip
   build-ramips-mt76x8:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -292,13 +403,35 @@ jobs:
       with:
         name: build-failure-log-ramips-mt76x8
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ramips-mt76x8.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ramips-mt76x8
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ramips-mt76x8
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ramips-mt76x8.zip
+        asset_name: x-wrt-6.0_b201912020001-ramips-mt76x8.zip
+        asset_content_type: application/zip
   build-ramips-rt3883:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -349,13 +482,35 @@ jobs:
       with:
         name: build-failure-log-ramips-rt3883
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ramips-rt3883.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ramips-rt3883
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ramips-rt3883
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ramips-rt3883.zip
+        asset_name: x-wrt-6.0_b201912020001-ramips-rt3883.zip
+        asset_content_type: application/zip
   build-ramips-rt305x:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -406,13 +561,35 @@ jobs:
       with:
         name: build-failure-log-ramips-rt305x
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ramips-rt305x.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ramips-rt305x
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ramips-rt305x
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ramips-rt305x.zip
+        asset_name: x-wrt-6.0_b201912020001-ramips-rt305x.zip
+        asset_content_type: application/zip
   build-ipq40xx-generic:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -463,13 +640,35 @@ jobs:
       with:
         name: build-failure-log-ipq40xx-generic
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ipq40xx-generic.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ipq40xx-generic
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ipq40xx-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ipq40xx-generic.zip
+        asset_name: x-wrt-6.0_b201912020001-ipq40xx-generic.zip
+        asset_content_type: application/zip
   build-sunxi-cortexa7:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -520,13 +719,35 @@ jobs:
       with:
         name: build-failure-log-sunxi-cortexa7
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-sunxi-cortexa7.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-sunxi-cortexa7
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-sunxi-cortexa7
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-sunxi-cortexa7.zip
+        asset_name: x-wrt-6.0_b201912020001-sunxi-cortexa7.zip
+        asset_content_type: application/zip
   build-brcm2708-bcm2709:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -577,13 +798,35 @@ jobs:
       with:
         name: build-failure-log-brcm2708-bcm2709
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2709
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2709
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip
+        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip
+        asset_content_type: application/zip
   build-ipq806x-generic:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -634,13 +877,35 @@ jobs:
       with:
         name: build-failure-log-ipq806x-generic
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-ipq806x-generic.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-ipq806x-generic
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-ipq806x-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-ipq806x-generic.zip
+        asset_name: x-wrt-6.0_b201912020001-ipq806x-generic.zip
+        asset_content_type: application/zip
   build-kirkwood-generic:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -691,13 +956,35 @@ jobs:
       with:
         name: build-failure-log-kirkwood-generic
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-kirkwood-generic.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-kirkwood-generic
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-kirkwood-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-kirkwood-generic.zip
+        asset_name: x-wrt-6.0_b201912020001-kirkwood-generic.zip
+        asset_content_type: application/zip
   build-mvebu-cortexa9:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -748,13 +1035,35 @@ jobs:
       with:
         name: build-failure-log-mvebu-cortexa9
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-mvebu-cortexa9.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-mvebu-cortexa9
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-mvebu-cortexa9
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-mvebu-cortexa9.zip
+        asset_name: x-wrt-6.0_b201912020001-mvebu-cortexa9.zip
+        asset_content_type: application/zip
   build-bcm53xx-generic:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -805,13 +1114,35 @@ jobs:
       with:
         name: build-failure-log-bcm53xx-generic
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-bcm53xx-generic.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-bcm53xx-generic
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-bcm53xx-generic
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-bcm53xx-generic.zip
+        asset_name: x-wrt-6.0_b201912020001-bcm53xx-generic.zip
+        asset_content_type: application/zip
   build-brcm2708-bcm2710:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -862,13 +1193,35 @@ jobs:
       with:
         name: build-failure-log-brcm2708-bcm2710
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2710
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2710
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip
+        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip
+        asset_content_type: application/zip
   build-brcm2708-bcm2711:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -919,13 +1272,35 @@ jobs:
       with:
         name: build-failure-log-brcm2708-bcm2711
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2711
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2711
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip
+        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip
+        asset_content_type: application/zip
   build-x86_64:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -976,13 +1351,35 @@ jobs:
       with:
         name: build-failure-log-x86_64
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r x-wrt-6.0_b201912020001-x86_64.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: x-wrt-6.0_b201912020001-x86_64
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-x-wrt-6-0_b201912020001-x86_64
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-x86_64.zip
+        asset_name: x-wrt-6.0_b201912020001-x86_64.zip
+        asset_content_type: application/zip
   build-x86_generic:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -1033,402 +1430,29 @@ jobs:
       with:
         name: build-failure-log-x86_generic
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: x-wrt-6.0_b201912020001-x86_generic
-        path: x-wrt/rom
-  release:
-    name: Create Github Release
-    if: contains(github.event.head_commit.message, 'release:')
-    needs: [build-ar71xx,build-ath79,build-ramips-mt7620,build-ramips-mt7621,build-ramips-mt76x8,build-ramips-rt3883,build-ramips-rt305x,build-ipq40xx-generic,build-sunxi-cortexa7,build-brcm2708-bcm2709,build-ipq806x-generic,build-kirkwood-generic,build-mvebu-cortexa9,build-bcm53xx-generic,build-brcm2708-bcm2710,build-brcm2708-bcm2711,build-x86_64,build-x86_generic]
-    runs-on: ubuntu-18.04
-    steps:
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - name: Load x-wrt-6.0_b201912020001-ar71xx from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ar71xx
-        path: rom
     - name: Archive firmware zip
       run: |
-        zip -r x-wrt-6.0_b201912020001-ar71xx.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ar71xx
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ar71xx.zip
-        asset_name: x-wrt-6.0_b201912020001-ar71xx.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ar71xx
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ar71xx.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ath79 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ath79
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ath79.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ath79
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ath79.zip
-        asset_name: x-wrt-6.0_b201912020001-ath79.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ath79
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ath79.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ramips-mt7620 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ramips-mt7620
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ramips-mt7620.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ramips-mt7620
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ramips-mt7620.zip
-        asset_name: x-wrt-6.0_b201912020001-ramips-mt7620.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ramips-mt7620
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ramips-mt7620.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ramips-mt7621 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ramips-mt7621
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ramips-mt7621.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ramips-mt7621
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ramips-mt7621.zip
-        asset_name: x-wrt-6.0_b201912020001-ramips-mt7621.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ramips-mt7621
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ramips-mt7621.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ramips-mt76x8 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ramips-mt76x8
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ramips-mt76x8.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ramips-mt76x8
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ramips-mt76x8.zip
-        asset_name: x-wrt-6.0_b201912020001-ramips-mt76x8.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ramips-mt76x8
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ramips-mt76x8.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ramips-rt3883 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ramips-rt3883
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ramips-rt3883.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ramips-rt3883
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ramips-rt3883.zip
-        asset_name: x-wrt-6.0_b201912020001-ramips-rt3883.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ramips-rt3883
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ramips-rt3883.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ramips-rt305x from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ramips-rt305x
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ramips-rt305x.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ramips-rt305x
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ramips-rt305x.zip
-        asset_name: x-wrt-6.0_b201912020001-ramips-rt305x.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ramips-rt305x
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ramips-rt305x.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ipq40xx-generic from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ipq40xx-generic
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ipq40xx-generic.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ipq40xx-generic
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ipq40xx-generic.zip
-        asset_name: x-wrt-6.0_b201912020001-ipq40xx-generic.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ipq40xx-generic
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ipq40xx-generic.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-sunxi-cortexa7 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-sunxi-cortexa7
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-sunxi-cortexa7.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-sunxi-cortexa7
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-sunxi-cortexa7.zip
-        asset_name: x-wrt-6.0_b201912020001-sunxi-cortexa7.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-sunxi-cortexa7
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-sunxi-cortexa7.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-brcm2708-bcm2709 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2709
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2709
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip
-        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-brcm2708-bcm2709
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-ipq806x-generic from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-ipq806x-generic
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-ipq806x-generic.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-ipq806x-generic
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-ipq806x-generic.zip
-        asset_name: x-wrt-6.0_b201912020001-ipq806x-generic.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-ipq806x-generic
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-ipq806x-generic.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-kirkwood-generic from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-kirkwood-generic
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-kirkwood-generic.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-kirkwood-generic
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-kirkwood-generic.zip
-        asset_name: x-wrt-6.0_b201912020001-kirkwood-generic.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-kirkwood-generic
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-kirkwood-generic.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-mvebu-cortexa9 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-mvebu-cortexa9
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-mvebu-cortexa9.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-mvebu-cortexa9
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-mvebu-cortexa9.zip
-        asset_name: x-wrt-6.0_b201912020001-mvebu-cortexa9.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-mvebu-cortexa9
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-mvebu-cortexa9.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-bcm53xx-generic from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-bcm53xx-generic
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-bcm53xx-generic.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-bcm53xx-generic
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-bcm53xx-generic.zip
-        asset_name: x-wrt-6.0_b201912020001-bcm53xx-generic.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-bcm53xx-generic
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-bcm53xx-generic.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-brcm2708-bcm2710 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2710
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2710
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip
-        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-brcm2708-bcm2710
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-brcm2708-bcm2711 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-brcm2708-bcm2711
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-brcm2708-bcm2711
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip
-        asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-brcm2708-bcm2711
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-x86_64 from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-x86_64
-        path: rom
-    - name: Archive firmware zip
-      run: |
-        zip -r x-wrt-6.0_b201912020001-x86_64.zip rom
-    - name: Upload Release Asset
-      id: asset-x-wrt-6-0_b201912020001-x86_64
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-x86_64.zip
-        asset_name: x-wrt-6.0_b201912020001-x86_64.zip
-        asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-x86_64
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-x86_64.zip ./rom
-    - name: Load x-wrt-6.0_b201912020001-x86_generic from build job
-      uses: actions/download-artifact@v1
-      with:
-        name: x-wrt-6.0_b201912020001-x86_generic
-        path: rom
-    - name: Archive firmware zip
-      run: |
+        cd x-wrt
         zip -r x-wrt-6.0_b201912020001-x86_generic.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
+      with:
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
       id: asset-x-wrt-6-0_b201912020001-x86_generic
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: x-wrt-6.0_b201912020001-x86_generic.zip
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/x-wrt-6.0_b201912020001-x86_generic.zip
         asset_name: x-wrt-6.0_b201912020001-x86_generic.zip
         asset_content_type: application/zip
-    - name: Removing x-wrt-6.0_b201912020001-x86_generic
-      run: |
-        rm -rf ./x-wrt-6.0_b201912020001-x86_generic.zip ./rom

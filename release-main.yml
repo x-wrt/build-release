@@ -1,5 +1,6 @@
   build-_TARGET_:
     if: contains(github.event.head_commit.message, 'release:')
+    needs: release
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -50,8 +51,29 @@
       with:
         name: build-failure-log-_TARGET_
         path: make.log
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Archive firmware zip
+      run: |
+        cd x-wrt
+        zip -r _ASSET_NAME_.zip rom
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v1
       with:
-        name: _ASSET_NAME_
-        path: x-wrt/rom
+        name: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt`
+        echo ::set-output name=upload_url::$value
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset
+      id: asset-_ASSET_ID_
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/_ASSET_NAME_.zip
+        asset_name: _ASSET_NAME_.zip
+        asset_content_type: application/zip
