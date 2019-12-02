@@ -14,7 +14,7 @@ on:
 jobs:
   release:
     name: Create Github Release
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     runs-on: ubuntu-18.04
     steps:
     - name: Create Release
@@ -35,7 +35,7 @@ jobs:
         name: release_url
         path: release_url.txt
   build-ar71xx:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -114,7 +114,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ar71xx.zip
         asset_content_type: application/zip
   build-ath79:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -193,7 +193,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ath79.zip
         asset_content_type: application/zip
   build-ramips-mt7620:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -272,7 +272,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ramips-mt7620.zip
         asset_content_type: application/zip
   build-ramips-mt7621:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -351,7 +351,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ramips-mt7621.zip
         asset_content_type: application/zip
   build-ramips-mt76x8:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -430,7 +430,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ramips-mt76x8.zip
         asset_content_type: application/zip
   build-ramips-rt3883:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -509,7 +509,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ramips-rt3883.zip
         asset_content_type: application/zip
   build-ramips-rt305x:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -588,7 +588,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ramips-rt305x.zip
         asset_content_type: application/zip
   build-ipq40xx-generic:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -667,7 +667,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ipq40xx-generic.zip
         asset_content_type: application/zip
   build-sunxi-cortexa7:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -746,7 +746,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-sunxi-cortexa7.zip
         asset_content_type: application/zip
   build-brcm2708-bcm2709:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -825,7 +825,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2709.zip
         asset_content_type: application/zip
   build-ipq806x-generic:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -904,7 +904,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-ipq806x-generic.zip
         asset_content_type: application/zip
   build-kirkwood-generic:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -983,7 +983,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-kirkwood-generic.zip
         asset_content_type: application/zip
   build-mvebu-cortexa9:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -1062,7 +1062,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-mvebu-cortexa9.zip
         asset_content_type: application/zip
   build-bcm53xx-generic:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -1141,7 +1141,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-bcm53xx-generic.zip
         asset_content_type: application/zip
   build-brcm2708-bcm2710:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -1220,7 +1220,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2710.zip
         asset_content_type: application/zip
   build-brcm2708-bcm2711:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -1299,7 +1299,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-brcm2708-bcm2711.zip
         asset_content_type: application/zip
   build-x86_64:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
@@ -1378,7 +1378,7 @@ jobs:
         asset_name: x-wrt-6.0_b201912020001-x86_64.zip
         asset_content_type: application/zip
   build-x86_generic:
-    if: contains(github.event.head_commit.message, 'release:')
+    if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
     steps:
