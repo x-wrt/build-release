@@ -1,4 +1,9 @@
 
+test -n "$1" || {
+	echo "sh $0 <target>"
+	exit 1
+}
+
 cat target.list | while read target; do
 	test -n "$1" && {
 		echo $target | grep -q "$1" || continue

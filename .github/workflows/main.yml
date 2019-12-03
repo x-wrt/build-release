@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: x-wrt-6.0_b201911301252=x86_64
+name: x-wrt-master=x86_64
 
 on: 
   release:
@@ -83,5 +83,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: x-wrt-6.0_b201911301252=x86_64
+        name: x-wrt-master=x86_64
         path: x-wrt/rom
