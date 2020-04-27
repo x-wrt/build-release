@@ -1,4 +1,4 @@
-  build-_TARGET_:
+  build-_TARGETNAME_:
     if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-18.04
@@ -44,12 +44,12 @@
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGET=_TARGET_ sh build.sh $(nproc)
+        TARGET="_TARGET_" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
       with:
-        name: build-failure-log-_TARGET_
+        name: build-failure-log-_TARGETNAME_
         path: make.log
     - name: Archive firmware zip
       run: |

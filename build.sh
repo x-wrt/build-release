@@ -1,7 +1,9 @@
 
 TARGET=${TARGET-x86_64}
 
-CFGS=`cat ./feeds/x/rom/lede/cfg.list | grep $TARGET`
+CFGS=`for t in $TARGET; do
+	cat ./feeds/x/rom/lede/cfg.list | grep "^config.$t$"
+done`
 
 export CFGS="`echo $CFGS`"
 export WORKFLOW="1"
