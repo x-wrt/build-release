@@ -19,7 +19,7 @@ cat target.list | while read target; do
 	cat release-main.yml | sed "s/_TARGET_/${TARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
 done
 
-test -n "$change" || exit 0
+git diff release.tag || exit 0
 
 TAG="v`cat release.tag`"
 git commit --signoff -am "release: $TAG" && \

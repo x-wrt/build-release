@@ -6,7 +6,7 @@ CFGS=`for t in $TARGET; do
 done`
 
 export CFGS="`echo $CFGS`"
-export WORKFLOW="1"
+export WORKFLOW="0"
 
 echo starting build.
 echo starting build..
