@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
   </p>
 EOF
 
-echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date</th></tr>' >>$OUT
+echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date(GTM+8)</th></tr>' >>$OUT
 idx=0
 cat map.list | while read line; do
 	idx=$((idx+1))
@@ -131,7 +131,7 @@ cat map.list | while read line; do
 	#test $((idx%2)) -eq 1 && TRS=""
 	echo '<tr '$TRS'><td colspan=3>'$name'</td></td>' >>$OUT
 	for file in $files; do
-		LC_ALL=C ls -lh --time-style="+%Y-%m-%d %H:%M:%S" $file | awk '{print $5" "$6" "$7}' | while read size _date; do
+		TZ=:/usr/share/zoneinfo/Asia/Shanghai LC_ALL=C ls -lh --time-style="+%Y-%m-%d %H:%M:%S" $file | awk '{print $5" "$6" "$7}' | while read size _date; do
 			image='<a href="'$file'">'$file'</a>'
 			echo '<tr '$TRS'><td>'$image'</td><td>'$size'</td><td>'$_date'</td></tr>' >>$OUT
 		done
