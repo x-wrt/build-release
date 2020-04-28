@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
   </p>
 EOF
 
-echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date(GTM+8)</th></tr>' >>$OUT
+echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>$OUT
 idx=0
 cat map.list | while read line; do
 	idx=$((idx+1))

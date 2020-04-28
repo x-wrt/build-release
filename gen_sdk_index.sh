@@ -93,7 +93,7 @@ cat <<EOF >>index.html
   <p>这些是常用的 <b>LEDE/OpenWrt</b> 固件SDK包。ptpt52编译，代号：<font face="Arial Black" size="6">X</font><font size="5" face="Arial Black">-</font><font size="4" face="Arial Black">Wrt </font></p>
 EOF
 
-echo '<table><tr><th>Image SDK for your Device</th><th>File Size</th><th>Date(GTM+8)</th></tr>' >>index.html
+echo '<table><tr><th>Image SDK for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>index.html
 cat sdk_map.list | while read name; do
 	files=$name
 	for _file in $files; do echo $_file; done | sort -n | while read file; do
