@@ -1,7 +1,7 @@
 
-TARGET=${TARGET-x86_64}
+TARGETS=${TARGETS-x86_64}
 
-CFGS=`for t in $TARGET; do
+CFGS=`for t in $TARGETS; do
 	cat ./feeds/x/rom/lede/cfg.list | grep "^config.$t$"
 done`
 

@@ -44,7 +44,7 @@
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGET="_TARGET_" sh build.sh $(nproc)
+        TARGETS="_TARGET_" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
