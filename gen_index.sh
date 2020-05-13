@@ -1,5 +1,5 @@
 OUT=index.html
-cp $OUT $OUT.old
+cp $OUT $OUT.old 2>/dev/null
 echo -n >$OUT
 cat <<EOF >>$OUT
 <html><head>

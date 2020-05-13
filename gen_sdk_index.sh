@@ -1,4 +1,4 @@
-cp index.html index.html.old
+cp index.html index.html.old 2>/dev/null
 echo -n >index.html
 cat <<EOF >>index.html
 <html><head>
