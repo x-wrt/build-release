@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 8.0_b202005101652
+name: Build Jobs 8.0_b202005130422
 
 on:
   push:
@@ -90,7 +90,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip rom
+        zip -r x-wrt-8.0_b202005130422-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -104,14 +104,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-17f54b92b9abc1d68076cb949ae1311d
+      id: asset-8d99db1843cc56bb68174e1c661b734a
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip
-        asset_name: x-wrt-8.0_b202005101652-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip
+        asset_name: x-wrt-8.0_b202005130422-ar71xx-generic_ar71xx-generic-nosymbol_ar71xx-nand_ar71xx-nand-nosymbol_ar71xx-tiny.zip
         asset_content_type: application/zip
   build-ath79-generic_ath79-generic-nosymbol_ath79-nand:
     if: contains(github.ref, 'tags/v')
@@ -169,7 +169,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip rom
+        zip -r x-wrt-8.0_b202005130422-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -183,14 +183,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-81c409c036015f34fd84a31c5ab1274c
+      id: asset-f8930e4d4fa438d0e98c42a387523b1e
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip
-        asset_name: x-wrt-8.0_b202005101652-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip
+        asset_name: x-wrt-8.0_b202005130422-ath79-generic_ath79-generic-nosymbol_ath79-nand.zip
         asset_content_type: application/zip
   build-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7:
     if: contains(github.ref, 'tags/v')
@@ -248,7 +248,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip rom
+        zip -r x-wrt-8.0_b202005130422-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -262,14 +262,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-a5d45ef818eeb9a4a019261f12ff00c0
+      id: asset-1608e7080b07ac12d13a75e9d966af3f
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip
-        asset_name: x-wrt-8.0_b202005101652-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip
+        asset_name: x-wrt-8.0_b202005130422-bcm27xx-bcm2709_ipq40xx-generic_sunxi-cortexa7.zip
         asset_content_type: application/zip
   build-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711:
     if: contains(github.ref, 'tags/v')
@@ -327,7 +327,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip rom
+        zip -r x-wrt-8.0_b202005130422-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -341,14 +341,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-47db45dc380f0a83df759e36e7e75ec5
+      id: asset-41e3ceaf8765d6b08990848cf2224c7d
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip
-        asset_name: x-wrt-8.0_b202005101652-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip
+        asset_name: x-wrt-8.0_b202005130422-bcm27xx-bcm2710_mvebu-cortexa53_bcm27xx-bcm2711.zip
         asset_content_type: application/zip
   build-bcm53xx-generic:
     if: contains(github.ref, 'tags/v')
@@ -406,7 +406,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-bcm53xx-generic.zip rom
+        zip -r x-wrt-8.0_b202005130422-bcm53xx-generic.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -420,14 +420,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-d452ddb346d74c6015f631af6edf5cef
+      id: asset-b0162a85a89e7cb6cf17a91741afe248
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-bcm53xx-generic.zip
-        asset_name: x-wrt-8.0_b202005101652-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-bcm53xx-generic.zip
+        asset_name: x-wrt-8.0_b202005130422-bcm53xx-generic.zip
         asset_content_type: application/zip
   build-ipq806x-generic:
     if: contains(github.ref, 'tags/v')
@@ -485,7 +485,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-ipq806x-generic.zip rom
+        zip -r x-wrt-8.0_b202005130422-ipq806x-generic.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -499,14 +499,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-0eacb5ee2c7f826cf92b72b0c65c174a
+      id: asset-25b39fe4fcf78520287652d87a8c699c
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-ipq806x-generic.zip
-        asset_name: x-wrt-8.0_b202005101652-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-ipq806x-generic.zip
+        asset_name: x-wrt-8.0_b202005130422-ipq806x-generic.zip
         asset_content_type: application/zip
   build-kirkwood-generic:
     if: contains(github.ref, 'tags/v')
@@ -564,7 +564,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-kirkwood-generic.zip rom
+        zip -r x-wrt-8.0_b202005130422-kirkwood-generic.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -578,14 +578,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-20941a98192df9f68222ab759e2f2777
+      id: asset-6b0ba6e34e5ae6dfe643369b76e40091
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-kirkwood-generic.zip
-        asset_name: x-wrt-8.0_b202005101652-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-kirkwood-generic.zip
+        asset_name: x-wrt-8.0_b202005130422-kirkwood-generic.zip
         asset_content_type: application/zip
   build-mvebu-cortexa9:
     if: contains(github.ref, 'tags/v')
@@ -643,7 +643,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-mvebu-cortexa9.zip rom
+        zip -r x-wrt-8.0_b202005130422-mvebu-cortexa9.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -657,14 +657,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-575d2a421f2527f37992e65529d0c985
+      id: asset-cad957d09024496db62f4ff58bf334ea
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-mvebu-cortexa9.zip
-        asset_name: x-wrt-8.0_b202005101652-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-mvebu-cortexa9.zip
+        asset_name: x-wrt-8.0_b202005130422-mvebu-cortexa9.zip
         asset_content_type: application/zip
   build-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x:
     if: contains(github.ref, 'tags/v')
@@ -722,7 +722,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip rom
+        zip -r x-wrt-8.0_b202005130422-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -736,14 +736,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-55dfaa9e31e7e927ba84f2a76f9d7c7b
+      id: asset-6077f5ae3dbbd26c9319b2838c9a4025
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip
-        asset_name: x-wrt-8.0_b202005101652-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip
+        asset_name: x-wrt-8.0_b202005130422-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621_ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x.zip
         asset_content_type: application/zip
   build-ramips-rt3883-nosymbol:
     if: contains(github.ref, 'tags/v')
@@ -801,7 +801,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-ramips-rt3883-nosymbol.zip rom
+        zip -r x-wrt-8.0_b202005130422-ramips-rt3883-nosymbol.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -815,14 +815,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-d7fc649593e391d83f5092fdda850835
+      id: asset-4835cab17071ddb3c6b72c1f47d934dd
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-ramips-rt3883-nosymbol.zip
-        asset_name: x-wrt-8.0_b202005101652-ramips-rt3883-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-ramips-rt3883-nosymbol.zip
+        asset_name: x-wrt-8.0_b202005130422-ramips-rt3883-nosymbol.zip
         asset_content_type: application/zip
   build-x86_64:
     if: contains(github.ref, 'tags/v')
@@ -880,7 +880,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-x86_64.zip rom
+        zip -r x-wrt-8.0_b202005130422-x86_64.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -894,14 +894,14 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-498c5cb4e49735ecf82b4699bb2aefe8
+      id: asset-fec9ae22517b08875f2ae750dcecbd59
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-x86_64.zip
-        asset_name: x-wrt-8.0_b202005101652-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-x86_64.zip
+        asset_name: x-wrt-8.0_b202005130422-x86_64.zip
         asset_content_type: application/zip
   build-x86_generic:
     if: contains(github.ref, 'tags/v')
@@ -959,7 +959,7 @@ jobs:
     - name: Archive firmware zip
       run: |
         cd x-wrt
-        zip -r x-wrt-8.0_b202005101652-x86_generic.zip rom
+        zip -r x-wrt-8.0_b202005130422-x86_generic.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -973,12 +973,12 @@ jobs:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
     - name: Upload Release Asset
-      id: asset-dab6ce163e30a2f7d055b44b4cdaca9e
+      id: asset-3e87248ea3c1d4f513d501e9f9d8c518
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202005101652-x86_generic.zip
-        asset_name: x-wrt-8.0_b202005101652-x86_generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202005130422-x86_generic.zip
+        asset_name: x-wrt-8.0_b202005130422-x86_generic.zip
         asset_content_type: application/zip
