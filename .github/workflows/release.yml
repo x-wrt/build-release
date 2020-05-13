@@ -80,7 +80,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="ar71xx-generic ar71xx-generic-nosymbol ar71xx-nand ar71xx-nand-nosymbol ar71xx-tiny" sh build.sh $(nproc)
+        BTARGET="ar71xx-generic ar71xx-generic-nosymbol ar71xx-nand ar71xx-nand-nosymbol ar71xx-tiny" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -159,7 +159,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="ath79-generic ath79-generic-nosymbol ath79-nand" sh build.sh $(nproc)
+        BTARGET="ath79-generic ath79-generic-nosymbol ath79-nand" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -238,7 +238,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="bcm27xx-bcm2709 ipq40xx-generic sunxi-cortexa7" sh build.sh $(nproc)
+        BTARGET="bcm27xx-bcm2709 ipq40xx-generic sunxi-cortexa7" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -317,7 +317,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="bcm27xx-bcm2710 mvebu-cortexa53 bcm27xx-bcm2711" sh build.sh $(nproc)
+        BTARGET="bcm27xx-bcm2710 mvebu-cortexa53 bcm27xx-bcm2711" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -396,7 +396,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="bcm53xx-generic" sh build.sh $(nproc)
+        BTARGET="bcm53xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -475,7 +475,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="ipq806x-generic" sh build.sh $(nproc)
+        BTARGET="ipq806x-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -554,7 +554,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="kirkwood-generic" sh build.sh $(nproc)
+        BTARGET="kirkwood-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -633,7 +633,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="mvebu-cortexa9" sh build.sh $(nproc)
+        BTARGET="mvebu-cortexa9" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -712,7 +712,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="ramips-mt7620 ramips-mt7620-nosymbol ramips-mt7621 ramips-mt76x8 ramips-mt76x8-nosymbol ramips-rt305x" sh build.sh $(nproc)
+        BTARGET="ramips-mt7620 ramips-mt7620-nosymbol ramips-mt7621 ramips-mt76x8 ramips-mt76x8-nosymbol ramips-rt305x" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -791,7 +791,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="ramips-rt3883-nosymbol" sh build.sh $(nproc)
+        BTARGET="ramips-rt3883-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -870,7 +870,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="x86_64" sh build.sh $(nproc)
+        BTARGET="x86_64" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
@@ -949,7 +949,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGETS="x86_generic" sh build.sh $(nproc)
+        BTARGET="x86_generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
       if: failure()
