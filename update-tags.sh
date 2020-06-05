@@ -17,6 +17,11 @@ cat target.list | while read target; do
 		change=1
 	}
 	cat release-main.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
+	for bt in $BTARGET; do
+		ASSET_NAME=`echo "x-wrt-${TAG}-${bt}" | tr ' ' _`
+		ASSET_ID=`echo ${ASSET_NAME} | md5sum | head -c32`
+		cat release-upload-one.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
+	done
 done
 
 git diff release.tag || exit 0

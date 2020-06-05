@@ -1,0 +1,10 @@
+    - name: Upload Release Asset _ASSET_NAME_
+      id: asset-_ASSET_ID_
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: ./x-wrt/_ASSET_NAME_.zip
+        asset_name: _ASSET_NAME_.zip
+        asset_content_type: application/zip

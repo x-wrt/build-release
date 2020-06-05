@@ -51,10 +51,6 @@
       with:
         name: build-failure-log-_TARGETNAME_
         path: make.log
-    - name: Archive firmware zip
-      run: |
-        cd x-wrt
-        zip -r _ASSET_NAME_.zip rom
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
@@ -67,13 +63,3 @@
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset
-      id: asset-_ASSET_ID_
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      with:
-        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/_ASSET_NAME_.zip
-        asset_name: _ASSET_NAME_.zip
-        asset_content_type: application/zip
