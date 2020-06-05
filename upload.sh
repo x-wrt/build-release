@@ -2,12 +2,7 @@ for cfg in $CFGS; do
 
 CFGS=$cfg sh feeds/x/rom/lede/gen_map.sh
 
-echo gen upload.list...
-echo -n >upload.list
-for i in `cat map.list | cut -d: -f2`; do
-	find bin/targets -type f -name $i
-done | tee upload.list
-
+echo gen zip
 mkdir -p rom/sdk
 mv `cat upload.list` map.list sha256sums.txt rom
 test -f sdk_upload.list || exit 0
