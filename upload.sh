@@ -1,8 +1,9 @@
-test -f .build_x/env && source .build_x/env
+. .build_x/env
 
 for cfg in $CFGS; do
 
-CFGS=$cfg sh feeds/x/rom/lede/gen_map.sh
+export CFGS="$cfg"
+sh feeds/x/rom/lede/gen_map.sh
 
 echo gen zip
 mkdir -p rom/sdk
@@ -12,6 +13,7 @@ mv `cat sdk_upload.list` sdk_map.list sdk_sha256sums.txt rom/sdk
 sh -c "cd rom && sh ../gen_index.sh"
 sh -c "cd rom/sdk && sh ../../gen_sdk_index.sh"
 
+echo gen x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}.zip
 zip -r x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}.zip rom && rm -rf rom || exit 255
 
 done
