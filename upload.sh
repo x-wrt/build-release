@@ -1,3 +1,5 @@
+test -f .build_x/env && source .build_x/env
+
 for cfg in $CFGS; do
 
 CFGS=$cfg sh feeds/x/rom/lede/gen_map.sh
