@@ -4,7 +4,7 @@
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -46,7 +46,7 @@
         echo -e "$(nproc) thread build."
         BTARGET="_TARGET_" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@main
       if: failure()
       with:
         name: build-failure-log-_TARGETNAME_
