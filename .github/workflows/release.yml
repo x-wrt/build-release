@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 8.0_b202012170013
+name: Build Jobs 8.0_b202012211725
 
 on:
   push:
@@ -99,25 +99,25 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ath79-generic
-      id: asset-a68ec9cc045a1ce39ceedaa129eb0e33
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ath79-generic
+      id: asset-4e5587aaf154c3135525f3f48b20da4a
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ath79-generic.zip
-        asset_name: x-wrt-8.0_b202012170013-ath79-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ath79-generic.zip
+        asset_name: x-wrt-8.0_b202012211725-ath79-generic.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ath79-generic-nosymbol
-      id: asset-7309cf0cc16fbedf0d66400696304af5
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ath79-generic-nosymbol
+      id: asset-96647de55c133f02d697ee84a2a0ed60
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ath79-generic-nosymbol.zip
-        asset_name: x-wrt-8.0_b202012170013-ath79-generic-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ath79-generic-nosymbol.zip
+        asset_name: x-wrt-8.0_b202012211725-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
   build-ath79-nand:
     if: contains(github.ref, 'tags/v')
@@ -184,15 +184,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ath79-nand
-      id: asset-d8b88d993cc7dd9da3ff11c4de4d7237
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ath79-nand
+      id: asset-ec4ff7ad2b2aae4f0c7a2ef2002d5f92
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ath79-nand.zip
-        asset_name: x-wrt-8.0_b202012170013-ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ath79-nand.zip
+        asset_name: x-wrt-8.0_b202012211725-ath79-nand.zip
         asset_content_type: application/zip
   build-bcm27xx-bcm2709:
     if: contains(github.ref, 'tags/v')
@@ -259,15 +259,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-bcm27xx-bcm2709
-      id: asset-e0bef489386fab572f350eaf01673289
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-bcm27xx-bcm2709
+      id: asset-604f21f5777cadf7f033c7bc79d731fa
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-bcm27xx-bcm2709.zip
-        asset_name: x-wrt-8.0_b202012170013-bcm27xx-bcm2709.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-bcm27xx-bcm2709.zip
+        asset_name: x-wrt-8.0_b202012211725-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
   build-ipq40xx-generic:
     if: contains(github.ref, 'tags/v')
@@ -334,15 +334,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ipq40xx-generic
-      id: asset-7f8c60957ca35680179f42c50ac41226
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ipq40xx-generic
+      id: asset-6aed56d6d694b97a584946ce65ea6da2
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ipq40xx-generic.zip
-        asset_name: x-wrt-8.0_b202012170013-ipq40xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ipq40xx-generic.zip
+        asset_name: x-wrt-8.0_b202012211725-ipq40xx-generic.zip
         asset_content_type: application/zip
   build-sunxi-cortexa7:
     if: contains(github.ref, 'tags/v')
@@ -409,15 +409,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-sunxi-cortexa7
-      id: asset-e39e737f4ce736d58da5e1587835a375
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-sunxi-cortexa7
+      id: asset-8c801c993dad8c3a7eb10cc2eeddc8af
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-sunxi-cortexa7.zip
-        asset_name: x-wrt-8.0_b202012170013-sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-sunxi-cortexa7.zip
+        asset_name: x-wrt-8.0_b202012211725-sunxi-cortexa7.zip
         asset_content_type: application/zip
   build-bcm27xx-bcm2710:
     if: contains(github.ref, 'tags/v')
@@ -484,15 +484,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-bcm27xx-bcm2710
-      id: asset-35b14f566b0c23684a6569fe0011d6f1
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-bcm27xx-bcm2710
+      id: asset-c95308d76e24fd8269ca1826ba5fcfb9
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-bcm27xx-bcm2710.zip
-        asset_name: x-wrt-8.0_b202012170013-bcm27xx-bcm2710.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-bcm27xx-bcm2710.zip
+        asset_name: x-wrt-8.0_b202012211725-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
   build-mvebu-cortexa53:
     if: contains(github.ref, 'tags/v')
@@ -559,15 +559,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-mvebu-cortexa53
-      id: asset-33066137f9fbe06b97eff09c8b87d9e3
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-mvebu-cortexa53
+      id: asset-78ca7f454c5d1a0bfdb9034add9400e6
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-mvebu-cortexa53.zip
-        asset_name: x-wrt-8.0_b202012170013-mvebu-cortexa53.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-mvebu-cortexa53.zip
+        asset_name: x-wrt-8.0_b202012211725-mvebu-cortexa53.zip
         asset_content_type: application/zip
   build-bcm27xx-bcm2711:
     if: contains(github.ref, 'tags/v')
@@ -634,15 +634,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-bcm27xx-bcm2711
-      id: asset-1982eac42e14c6cec1070d76bae2360d
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-bcm27xx-bcm2711
+      id: asset-45e2e9c1a96aa538b524a78f7bf8f406
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-bcm27xx-bcm2711.zip
-        asset_name: x-wrt-8.0_b202012170013-bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-bcm27xx-bcm2711.zip
+        asset_name: x-wrt-8.0_b202012211725-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
   build-bcm53xx-generic:
     if: contains(github.ref, 'tags/v')
@@ -709,15 +709,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-bcm53xx-generic
-      id: asset-75b765244ec15b52f3d6b761fa986bba
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-bcm53xx-generic
+      id: asset-934c7a4b2adc8cec270e42c6e1e0ddc3
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-bcm53xx-generic.zip
-        asset_name: x-wrt-8.0_b202012170013-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-bcm53xx-generic.zip
+        asset_name: x-wrt-8.0_b202012211725-bcm53xx-generic.zip
         asset_content_type: application/zip
   build-ipq806x-generic:
     if: contains(github.ref, 'tags/v')
@@ -784,15 +784,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ipq806x-generic
-      id: asset-fdc8cd1db51a817500cb4908203f2400
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ipq806x-generic
+      id: asset-8b60ac49245c2276cf4b4290d3400252
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ipq806x-generic.zip
-        asset_name: x-wrt-8.0_b202012170013-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ipq806x-generic.zip
+        asset_name: x-wrt-8.0_b202012211725-ipq806x-generic.zip
         asset_content_type: application/zip
   build-kirkwood-generic:
     if: contains(github.ref, 'tags/v')
@@ -859,15 +859,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-kirkwood-generic
-      id: asset-02b21d32c0cd20352dccbc7ebe58b4cd
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-kirkwood-generic
+      id: asset-f508411685abd452061fbdcf19ac7f74
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-kirkwood-generic.zip
-        asset_name: x-wrt-8.0_b202012170013-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-kirkwood-generic.zip
+        asset_name: x-wrt-8.0_b202012211725-kirkwood-generic.zip
         asset_content_type: application/zip
   build-mvebu-cortexa9:
     if: contains(github.ref, 'tags/v')
@@ -934,15 +934,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-mvebu-cortexa9
-      id: asset-8bea53ac86ca90282a22f0c4546955a1
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-mvebu-cortexa9
+      id: asset-4bcff70a39accea8de7ab3071f053e9b
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-mvebu-cortexa9.zip
-        asset_name: x-wrt-8.0_b202012170013-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-mvebu-cortexa9.zip
+        asset_name: x-wrt-8.0_b202012211725-mvebu-cortexa9.zip
         asset_content_type: application/zip
   build-ramips-mt7620_ramips-mt7620-nosymbol_ramips-mt7621:
     if: contains(github.ref, 'tags/v')
@@ -1009,35 +1009,35 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-mt7620
-      id: asset-924a07b0d01b55c37a7d8898cd70e04a
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-mt7620
+      id: asset-56a2b6fac1067b3904613764295e0416
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-mt7620.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-mt7620.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-mt7620.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-mt7620.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-mt7620-nosymbol
-      id: asset-03480fb706b3fe3dac3551e75eee744f
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-mt7620-nosymbol
+      id: asset-f55a9d58af1a8072fb7ce5a9e1630f3b
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-mt7620-nosymbol.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-mt7620-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-mt7620-nosymbol.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-mt7621
-      id: asset-9e7ca2493c952fbde245fb45cba2b4fd
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-mt7621
+      id: asset-b9c0c617dda3edb41633cf6df83cbc03
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-mt7621.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-mt7621.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-mt7621.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-mt7621.zip
         asset_content_type: application/zip
   build-ramips-mt76x8_ramips-mt76x8-nosymbol_ramips-rt305x:
     if: contains(github.ref, 'tags/v')
@@ -1104,35 +1104,35 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-mt76x8
-      id: asset-68c4a4567e1bae0cb541fda62402e23e
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-mt76x8
+      id: asset-444678a043ff200a512a61e5fa26ec17
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-mt76x8.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-mt76x8.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-mt76x8.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-mt76x8.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-mt76x8-nosymbol
-      id: asset-6095fe79e8b37748b6566b8c854652e0
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-mt76x8-nosymbol
+      id: asset-060b204a823393913c57867f919d7340
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-mt76x8-nosymbol.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-mt76x8-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-mt76x8-nosymbol.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-rt305x
-      id: asset-a339ce3b653762f9169954f1150c4cfc
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-rt305x
+      id: asset-a7e07212481a746f0543d01b45ac51e3
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-rt305x.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-rt305x.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-rt305x.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-rt305x.zip
         asset_content_type: application/zip
   build-ramips-rt3883-nosymbol:
     if: contains(github.ref, 'tags/v')
@@ -1199,15 +1199,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-ramips-rt3883-nosymbol
-      id: asset-c9640647c5b74daa2a7c9ca42f51e3fc
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-ramips-rt3883-nosymbol
+      id: asset-03fc238ad8afd4e37d27010f7797eb97
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-ramips-rt3883-nosymbol.zip
-        asset_name: x-wrt-8.0_b202012170013-ramips-rt3883-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-ramips-rt3883-nosymbol.zip
+        asset_name: x-wrt-8.0_b202012211725-ramips-rt3883-nosymbol.zip
         asset_content_type: application/zip
   build-rockchip-armv8:
     if: contains(github.ref, 'tags/v')
@@ -1274,15 +1274,15 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-rockchip-armv8
-      id: asset-6548031f4a2421969bc1c20cbc5709f2
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-rockchip-armv8
+      id: asset-7f6010e3838cae1673a31c5875716e95
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-rockchip-armv8.zip
-        asset_name: x-wrt-8.0_b202012170013-rockchip-armv8.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-rockchip-armv8.zip
+        asset_name: x-wrt-8.0_b202012211725-rockchip-armv8.zip
         asset_content_type: application/zip
   build-x86_64_x86_64-docker:
     if: contains(github.ref, 'tags/v')
@@ -1349,25 +1349,25 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-x86_64
-      id: asset-a74a9a7699b23023a2e05767b944cb7f
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-x86_64
+      id: asset-d2bc56a7cf617e78842a8ce57b262e21
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-x86_64.zip
-        asset_name: x-wrt-8.0_b202012170013-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-x86_64.zip
+        asset_name: x-wrt-8.0_b202012211725-x86_64.zip
         asset_content_type: application/zip
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-x86_64-docker
-      id: asset-609e062f6ff4c5fe24f0c99d18c134ae
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-x86_64-docker
+      id: asset-616032e3afb982d12b65ec846f482ecb
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-x86_64-docker.zip
-        asset_name: x-wrt-8.0_b202012170013-x86_64-docker.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-x86_64-docker.zip
+        asset_name: x-wrt-8.0_b202012211725-x86_64-docker.zip
         asset_content_type: application/zip
   build-x86_generic:
     if: contains(github.ref, 'tags/v')
@@ -1434,13 +1434,13 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-8.0_b202012170013-x86_generic
-      id: asset-848f0b1ddc26bd4ce6af405e5180f50c
+    - name: Upload Release Asset x-wrt-8.0_b202012211725-x86_generic
+      id: asset-e73ee65d252e57cb6ee01ee8fa617cd0
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-8.0_b202012170013-x86_generic.zip
-        asset_name: x-wrt-8.0_b202012170013-x86_generic.zip
+        asset_path: ./x-wrt/x-wrt-8.0_b202012211725-x86_generic.zip
+        asset_name: x-wrt-8.0_b202012211725-x86_generic.zip
         asset_content_type: application/zip
