@@ -1,4 +1,5 @@
-BTARGET=ath79-generic ath79-generic-nosymbol ath79-nand
+BTARGET=ath79-generic ath79-generic-nosymbol
+BTARGET=ath79-nand
 BTARGET=ipq40xx-generic bcm27xx-bcm2709 sunxi-cortexa7
 BTARGET=bcm27xx-bcm2710 mvebu-cortexa53
 BTARGET=mediatek-mt7622 bcm4908-generic
@@ -10,8 +11,6 @@ BTARGET=mvebu-cortexa9
 BTARGET=ramips-mt7620 ramips-mt7620-nosymbol
 BTARGET=ramips-mt7621 ramips-mt7621-ext4fs
 BTARGET=ramips-mt76x8 ramips-mt76x8-nosymbol
-BTARGET=ramips-rt3883-nosymbol ramips-rt305x
-BTARGET=realtek-rtl838x
 BTARGET=rockchip-armv8
 BTARGET=x86_64 x86_64-docker
 BTARGET=x86_generic
