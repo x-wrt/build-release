@@ -1,6 +1,6 @@
     - name: Upload Release Asset _ASSET_NAME_
       id: asset-_ASSET_ID_
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       with:
