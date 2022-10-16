@@ -94,7 +94,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -179,7 +179,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -254,7 +254,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -329,7 +329,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -414,7 +414,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -499,7 +499,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -584,7 +584,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -659,7 +659,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -734,7 +734,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -809,7 +809,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -884,7 +884,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -959,7 +959,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1034,7 +1034,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1119,7 +1119,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1204,7 +1204,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1289,7 +1289,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1364,7 +1364,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1439,7 +1439,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
@@ -1514,7 +1514,7 @@ jobs:
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt`
+        value=`cat release_url/release_url.txt || cat release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
