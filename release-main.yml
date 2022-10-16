@@ -55,6 +55,7 @@
       uses: actions/download-artifact@v3
       with:
         name: release_url
+        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
       run: |
