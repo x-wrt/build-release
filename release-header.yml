@@ -19,13 +19,11 @@ jobs:
     steps:
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: ncipollo/release-action@v1
       with:
         token: ${{ secrets.WORKFLOW_TOKEN }}
-        tag_name: ${{ github.ref }}
-        name: X-WRT ${{ github.ref }}
+        name: X-WRT ${{ github.ref_name }}
         draft: false
-        prerelease: false
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
