@@ -60,7 +60,7 @@
       id: get_release_info
       run: |
         value=`cat release_url/release_url.txt || cat release_url.txt`
-        echo ::set-output name=upload_url::$value
+        echo "upload_url=$value" >> $GITHUB_OUTPUT
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
