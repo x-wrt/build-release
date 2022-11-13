@@ -24,6 +24,7 @@ jobs:
         token: ${{ secrets.WORKFLOW_TOKEN }}
         name: X-WRT ${{ github.ref_name }}
         draft: false
+        allowUpdates: true
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
@@ -106,6 +107,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ath79-generic.zip
         asset_name: x-wrt-22.10_b202211130313-ath79-generic.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-ath79-generic-nosymbol
       id: asset-abe393ac0e1a729270e54bff5933afb0
       uses: shogo82148/actions-upload-release-asset@v1
@@ -115,6 +117,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ath79-generic-nosymbol.zip
         asset_name: x-wrt-22.10_b202211130313-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ath79-nand:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -190,6 +193,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ath79-nand.zip
         asset_name: x-wrt-22.10_b202211130313-ath79-nand.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ipq40xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -265,6 +269,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ipq40xx-generic.zip
         asset_name: x-wrt-22.10_b202211130313-ipq40xx-generic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-bcm27xx-bcm2709_sunxi-cortexa7:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -340,6 +345,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-bcm27xx-bcm2709.zip
         asset_name: x-wrt-22.10_b202211130313-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-sunxi-cortexa7
       id: asset-9d41f4ef3e50b2e38a1b4d8f45c1ec82
       uses: shogo82148/actions-upload-release-asset@v1
@@ -349,6 +355,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-sunxi-cortexa7.zip
         asset_name: x-wrt-22.10_b202211130313-sunxi-cortexa7.zip
         asset_content_type: application/zip
+        overwrite: true
   build-bcm27xx-bcm2710_bcm4908-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -424,6 +431,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-bcm27xx-bcm2710.zip
         asset_name: x-wrt-22.10_b202211130313-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-bcm4908-generic
       id: asset-b6ad4e68bb3937a8c98a622273e428b6
       uses: shogo82148/actions-upload-release-asset@v1
@@ -433,6 +441,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-bcm4908-generic.zip
         asset_name: x-wrt-22.10_b202211130313-bcm4908-generic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-mediatek-mt7622_mediatek-filogic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -508,6 +517,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-mediatek-mt7622.zip
         asset_name: x-wrt-22.10_b202211130313-mediatek-mt7622.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-mediatek-filogic
       id: asset-15bdb1c707e6c2331661609582157cae
       uses: shogo82148/actions-upload-release-asset@v1
@@ -517,6 +527,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-mediatek-filogic.zip
         asset_name: x-wrt-22.10_b202211130313-mediatek-filogic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-mvebu-cortexa53:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -592,6 +603,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-mvebu-cortexa53.zip
         asset_name: x-wrt-22.10_b202211130313-mvebu-cortexa53.zip
         asset_content_type: application/zip
+        overwrite: true
   build-bcm27xx-bcm2711:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -667,6 +679,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-bcm27xx-bcm2711.zip
         asset_name: x-wrt-22.10_b202211130313-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
+        overwrite: true
   build-bcm53xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -742,6 +755,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-bcm53xx-generic.zip
         asset_name: x-wrt-22.10_b202211130313-bcm53xx-generic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ipq806x-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -817,6 +831,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ipq806x-generic.zip
         asset_name: x-wrt-22.10_b202211130313-ipq806x-generic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-kirkwood-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -892,6 +907,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-kirkwood-generic.zip
         asset_name: x-wrt-22.10_b202211130313-kirkwood-generic.zip
         asset_content_type: application/zip
+        overwrite: true
   build-mvebu-cortexa9:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -967,6 +983,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-mvebu-cortexa9.zip
         asset_name: x-wrt-22.10_b202211130313-mvebu-cortexa9.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ramips-mt7620_ramips-mt7620-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1042,6 +1059,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt7620.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt7620.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-ramips-mt7620-nosymbol
       id: asset-f9198389a27d04e2b1f814ecaffad003
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1051,6 +1069,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt7620-nosymbol.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ramips-mt7621_ramips-mt7621-ext4fs:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1126,6 +1145,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt7621.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt7621.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-ramips-mt7621-ext4fs
       id: asset-3b9a3f85e1e614022d8d96e3177ef5b4
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1135,6 +1155,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt7621-ext4fs.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt7621-ext4fs.zip
         asset_content_type: application/zip
+        overwrite: true
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1210,6 +1231,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt76x8.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt76x8.zip
         asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-22.10_b202211130313-ramips-mt76x8-nosymbol
       id: asset-9b074a8346863f6d128ec13a0d1f80e1
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1219,6 +1241,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-ramips-mt76x8-nosymbol.zip
         asset_name: x-wrt-22.10_b202211130313-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
+        overwrite: true
   build-rockchip-armv8:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1294,6 +1317,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-rockchip-armv8.zip
         asset_name: x-wrt-22.10_b202211130313-rockchip-armv8.zip
         asset_content_type: application/zip
+        overwrite: true
   build-x86_64:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1369,6 +1393,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-x86_64.zip
         asset_name: x-wrt-22.10_b202211130313-x86_64.zip
         asset_content_type: application/zip
+        overwrite: true
   build-x86_64-docker:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1444,6 +1469,7 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-x86_64-docker.zip
         asset_name: x-wrt-22.10_b202211130313-x86_64-docker.zip
         asset_content_type: application/zip
+        overwrite: true
   build-x86_generic:
     if: contains(github.ref, 'tags/v')
     needs: release
@@ -1519,3 +1545,4 @@ jobs:
         asset_path: ./x-wrt/x-wrt-22.10_b202211130313-x86_generic.zip
         asset_name: x-wrt-22.10_b202211130313-x86_generic.zip
         asset_content_type: application/zip
+        overwrite: true
