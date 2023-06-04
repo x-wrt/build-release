@@ -27,7 +27,7 @@ permissions:
   contents: write
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_URL:  https://github.com/x-wrt/x-wrt.git
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config_1900acv1
@@ -82,7 +82,7 @@ jobs:
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P1_SH
           git fetch origin --tags
-          git describe --tags $(git rev-list --tags --max-count=1) > immortalwrt_version
+          git describe --tags $(git rev-list --tags --max-count=1) > xwrt_version
           git checkout -f $(git describe --tags $(git rev-list --tags --max-count=1))
 
       - name: Update feeds
@@ -95,7 +95,7 @@ jobs:
         run: |
           [ -e files ] && mv files openwrt/files
           [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-          sed -i 's/CONFIG_VERSION_NUMBER\s*=.*/CONFIG_VERSION_NUMBER=$immortalwrt_version/g' openwrt/.config
+          sed -i 's/CONFIG_VERSION_NUMBER\s*=.*/CONFIG_VERSION_NUMBER=$xwrt_version/g' openwrt/.config
           chmod +x $DIY_P2_SH && sed -i -e 's/\r$//' $GITHUB_WORKSPACE/$DIY_P2_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
