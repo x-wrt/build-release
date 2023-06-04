@@ -1,5 +1,4 @@
-#!/bin/sh
-###!/bin/bash
+#!/bin/bash
 #
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
@@ -14,13 +13,12 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# Add a feed source
+#Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 sed -i '$a src-git modemfeed https://github.com/koshev-msk/modemfeed.git' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 echo 'src-git 3Ginfo https://github.com/4IceG/luci-app-3ginfo-lite.git' >>feeds.conf.default
-#echo 'src-git ATC https://github.com/4IceG/luci-app-atcommands.git' >>feeds.conf.default
 echo 'src-git Modem https://github.com/4IceG/luci-app-modemband.git' >>feeds.conf.default
 echo 'src-git SMS https://github.com/4IceG/luci-app-sms-tool.git' >>feeds.conf.default
