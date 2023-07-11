@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: x-wrt-master=x86_64
+name: x-wrt-23.06_b202307110013=armsr-armv8
 
 on: 
   release:
@@ -71,7 +71,7 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGET=x86_64 sh build.sh $(nproc)
+        TARGET=armsr-armv8 sh build.sh $(nproc)
 
     - name : Upload make.log if failure
       uses: actions/upload-artifact@master
@@ -83,5 +83,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: x-wrt-master=x86_64
+        name: x-wrt-23.06_b202307110013=armsr-armv8
         path: x-wrt/rom
