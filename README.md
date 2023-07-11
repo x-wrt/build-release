@@ -11,13 +11,13 @@ git clone https://github.com/[your_account]/build-release.git
 
 ## Select a release tag to build.
 
-You can find available tags at [https://github.com/x-wrt/x-wrt/releases](https://github.com/x-wrt/x-wrt/releases)
+You can find available tags at [https://github.com/x-wrt/x-wrt/tags](https://github.com/x-wrt/x-wrt/tags)
 
-For example tag `6.0_b201911290805`
+For example tag `23.06_b202307110013`
 ```
-echo -n 6.0_b201911290805 >release.tag
+echo -n 23.06_b202307110013 >release.tag
 ```
-Then you are going to build release tag `6.0_b201911290805`
+Then you are going to build release tag `23.06_b202307110013`
 
 If you want to build master branch, then use `master` as tag name
 ```
@@ -28,24 +28,31 @@ echo -n master >release.tag
 
 Available targets see `cat target.list`
 ```
-TARGET=ar71xx
-TARGET=ath79
-TARGET=ramips-mt7620
-TARGET=ramips-mt7621
-TARGET=ramips-mt76x8
-TARGET=ramips-rt3883
-TARGET=ramips-rt305x
+TARGET=ath79-generic
+TARGET=ath79-generic-nosymbol
+TARGET=ath79-nand
 TARGET=ipq40xx-generic
+TARGET=bcm27xx-bcm2709
 TARGET=sunxi-cortexa7
-TARGET=brcm2708-bcm2709
+TARGET=bcm27xx-bcm2710
+TARGET=mediatek-mt7622
+TARGET=mediatek-filogic
+TARGET=qualcommax-ipq807x
+TARGET=bcm27xx-bcm2711
+TARGET=bcm53xx-generic
 TARGET=ipq806x-generic
 TARGET=kirkwood-generic
 TARGET=mvebu-cortexa9
-TARGET=bcm53xx-generic
-TARGET=brcm2708-bcm2710
-TARGET=brcm2708-bcm2711
+TARGET=ramips-mt7620
+TARGET=ramips-mt7620-nosymbol
+TARGET=ramips-mt7621
+TARGET=ramips-mt7621-ext4fs
+TARGET=ramips-mt76x8
+TARGET=ramips-mt76x8-nosymbol
+TARGET=rockchip-armv8
+TARGET=armsr-armv8
 TARGET=x86_64
-TARGET=x86_generic
+TARGET=x86_64-docker
 ```
 
 For example, to build all `ipq40xx-generic` target devices, please run:
