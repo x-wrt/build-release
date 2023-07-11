@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: x-wrt-23.06_b202307110013=armsr-armv8
+name: x-wrt-23.06_b202307110013=mediatek-filogic
 
 on: 
   release:
@@ -20,11 +20,11 @@ on:
 jobs:
   build:
     if: contains(github.event.head_commit.message, 'release:')
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v3
 
     - name: Initialization environment
       env:
@@ -57,7 +57,7 @@ jobs:
         sudo -E apt-get clean
 
     - name: Clone source code
-      run: git clone --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+      run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
 
     - name: Update feeds
       run: cd x-wrt && ./scripts/feeds update -a
@@ -71,17 +71,17 @@ jobs:
         cp release.tag x-wrt/
         cd x-wrt
         echo -e "$(nproc) thread build."
-        TARGET=armsr-armv8 sh build.sh $(nproc)
+        TARGET=mediatek-filogic sh build.sh $(nproc)
 
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: build-failure-log
         path: make.log
 
     - name : Upload artifact
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v3
       with:
-        name: x-wrt-23.06_b202307110013=armsr-armv8
-        path: x-wrt/rom
+        name: x-wrt-23.06_b202307110013=mediatek-filogic
+        path: x-wrt/rom/
