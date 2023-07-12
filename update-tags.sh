@@ -6,9 +6,9 @@ test -n "$1" || {
 
 cat target.list | while read target; do
 	test -n "$1" && {
-		echo $target | grep -q "$1" || continue
+		echo $target | grep -q "$1$" || continue
 	}
-	TAG="`cat release.tag`""`echo -n $target | sed 's/TARGET//'`"
+	TAG=$(cat release.tag)$(echo $target | sed 's/TARGET//')
 	echo push $TAG
 	sleep 2
 
