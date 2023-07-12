@@ -9,7 +9,6 @@ echo gen zip
 mkdir -p rom/sdk
 cp `find $(cat upload.list | cut -d/ -f1,2,3,4 | sort | uniq) | grep kmod-mtd-rw` rom
 mv `cat upload.list` map.list sha256sums.txt rom
-test -f sdk_upload.list || exit 0
 mv `cat sdk_upload.list` sdk_map.list sdk_sha256sums.txt rom/sdk
 sh -c "cd rom && sh ../gen_index.sh"
 sh -c "cd rom/sdk && sh ../../gen_sdk_index.sh"
