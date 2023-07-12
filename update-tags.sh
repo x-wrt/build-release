@@ -12,8 +12,11 @@ cat target.list | while read target; do
 	echo push $TAG
 	sleep 2
 
-	sed -i '' "s/name: x-wrt-.*=.*/name: x-wrt-$TAG/g" .github/workflows/main.yml &&
-		sed -i '' "s/TARGET=.* sh /$target sh /" .github/workflows/main.yml &&
-		git commit --signoff -am "release: $TAG" && \
-		git push origin master || exit 1
+	(sed -i "s/name: x-wrt-.*=.*/name: x-wrt-$TAG/g" .github/workflows/main.yml 2>/dev/null || \
+	 sed -i '' "s/name: x-wrt-.*=.*/name: x-wrt-$TAG/g" .github/workflows/main.yml 2>/dev/null) &&
+	(sed -i "s/TARGET=.* sh /$target sh /" .github/workflows/main.yml 2>/dev/null || \
+	 sed -i '' "s/TARGET=.* sh /$target sh /" .github/workflows/main.yml 2>/dev/null) &&
+	git commit --signoff -am "release: $TAG" &&
+	git push origin master ||
+	exit 1
 done
