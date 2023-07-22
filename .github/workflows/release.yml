@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 23.06_b202307220720
+name: Build Jobs 23.06_b202307220719
 
 on:
   push:
@@ -66,8 +66,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -100,24 +100,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ath79-generic
-      id: asset-7a8ff9ee971085d88bb9393ade39dcd4
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ath79-generic
+      id: asset-f57e77ceb7b91cb86ba09f15dd515c82
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ath79-generic.zip
-        asset_name: x-wrt-23.06_b202307220720-ath79-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ath79-generic.zip
+        asset_name: x-wrt-23.06_b202307220719-ath79-generic.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ath79-generic-nosymbol
-      id: asset-75f90f310f2177c77928bff01b380032
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ath79-generic-nosymbol
+      id: asset-2ce5dc52c48fbb629bd67e40b02d43d0
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ath79-generic-nosymbol.zip
-        asset_name: x-wrt-23.06_b202307220720-ath79-generic-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ath79-generic-nosymbol.zip
+        asset_name: x-wrt-23.06_b202307220719-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ath79-nand:
@@ -154,8 +154,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -188,14 +188,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ath79-nand
-      id: asset-2b26f73e25bcedb00025d7190a2dd92b
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ath79-nand
+      id: asset-ad5654956776869af6941031e45a1e3c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ath79-nand.zip
-        asset_name: x-wrt-23.06_b202307220720-ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ath79-nand.zip
+        asset_name: x-wrt-23.06_b202307220719-ath79-nand.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq40xx-generic:
@@ -232,8 +232,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -266,14 +266,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ipq40xx-generic
-      id: asset-ea79716a26514442ca6eddc7ae8336cc
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ipq40xx-generic
+      id: asset-1aa90718f48d5242975f414102230117
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ipq40xx-generic.zip
-        asset_name: x-wrt-23.06_b202307220720-ipq40xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ipq40xx-generic.zip
+        asset_name: x-wrt-23.06_b202307220719-ipq40xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2709_sunxi-cortexa7:
@@ -310,8 +310,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -344,24 +344,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-bcm27xx-bcm2709
-      id: asset-8fab0245fc08b8d32113a9f2f8ca1415
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-bcm27xx-bcm2709
+      id: asset-e54696f13f81f90dab2d4dd3ebc4138f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-bcm27xx-bcm2709.zip
-        asset_name: x-wrt-23.06_b202307220720-bcm27xx-bcm2709.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-bcm27xx-bcm2709.zip
+        asset_name: x-wrt-23.06_b202307220719-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-sunxi-cortexa7
-      id: asset-63b472349703573b1d7d0085f255d080
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-sunxi-cortexa7
+      id: asset-bcd8bf81bcfa81306c79c68afab8933a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-sunxi-cortexa7.zip
-        asset_name: x-wrt-23.06_b202307220720-sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-sunxi-cortexa7.zip
+        asset_name: x-wrt-23.06_b202307220719-sunxi-cortexa7.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2710:
@@ -398,8 +398,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -432,14 +432,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-bcm27xx-bcm2710
-      id: asset-c2b71f59ea5d0d90368fe2cbd7881655
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-bcm27xx-bcm2710
+      id: asset-810f1c7d2220eb5fa40ffaa77cd48538
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-bcm27xx-bcm2710.zip
-        asset_name: x-wrt-23.06_b202307220720-bcm27xx-bcm2710.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-bcm27xx-bcm2710.zip
+        asset_name: x-wrt-23.06_b202307220719-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
         overwrite: true
   build-mediatek-mt7622_mediatek-filogic:
@@ -476,8 +476,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -510,24 +510,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-mediatek-mt7622
-      id: asset-fb68f6c28fd5baf8f6636f6b318d2361
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-mediatek-mt7622
+      id: asset-35d078e12b649f230151f7a9856148bd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-mediatek-mt7622.zip
-        asset_name: x-wrt-23.06_b202307220720-mediatek-mt7622.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-mediatek-mt7622.zip
+        asset_name: x-wrt-23.06_b202307220719-mediatek-mt7622.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-mediatek-filogic
-      id: asset-d11ae891b9c228d17bee7ddfb253dcf7
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-mediatek-filogic
+      id: asset-c6bff6b8aa1bd43feb5dacd78c2d38e3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-mediatek-filogic.zip
-        asset_name: x-wrt-23.06_b202307220720-mediatek-filogic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-mediatek-filogic.zip
+        asset_name: x-wrt-23.06_b202307220719-mediatek-filogic.zip
         asset_content_type: application/zip
         overwrite: true
   build-qualcommax-ipq807x:
@@ -564,8 +564,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -598,14 +598,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-qualcommax-ipq807x
-      id: asset-7fc064e550266ff78e7706df071678a9
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-qualcommax-ipq807x
+      id: asset-03b1ec8bf24b090478c63692eed2ea09
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-qualcommax-ipq807x.zip
-        asset_name: x-wrt-23.06_b202307220720-qualcommax-ipq807x.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-qualcommax-ipq807x.zip
+        asset_name: x-wrt-23.06_b202307220719-qualcommax-ipq807x.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2711:
@@ -642,8 +642,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -676,14 +676,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-bcm27xx-bcm2711
-      id: asset-fe9b8d7f7004049b16ffec324654a359
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-bcm27xx-bcm2711
+      id: asset-0246fe510a685446690fb09949f95887
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-bcm27xx-bcm2711.zip
-        asset_name: x-wrt-23.06_b202307220720-bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-bcm27xx-bcm2711.zip
+        asset_name: x-wrt-23.06_b202307220719-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm53xx-generic:
@@ -720,8 +720,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -754,14 +754,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-bcm53xx-generic
-      id: asset-706b0f791d02fd1ef7d298a76313607a
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-bcm53xx-generic
+      id: asset-96842a2d75717961be6987397bc8281e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-bcm53xx-generic.zip
-        asset_name: x-wrt-23.06_b202307220720-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-bcm53xx-generic.zip
+        asset_name: x-wrt-23.06_b202307220719-bcm53xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq806x-generic:
@@ -798,8 +798,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -832,14 +832,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ipq806x-generic
-      id: asset-f674b56ec32c2f290222fbb46168327b
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ipq806x-generic
+      id: asset-4b0c966f160110df4280842f2bd3cecf
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ipq806x-generic.zip
-        asset_name: x-wrt-23.06_b202307220720-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ipq806x-generic.zip
+        asset_name: x-wrt-23.06_b202307220719-ipq806x-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-kirkwood-generic:
@@ -876,8 +876,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -910,14 +910,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-kirkwood-generic
-      id: asset-ee7598e546e54cf761988581c5137275
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-kirkwood-generic
+      id: asset-f81671098232c51b9d055b9ec8d4fe90
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-kirkwood-generic.zip
-        asset_name: x-wrt-23.06_b202307220720-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-kirkwood-generic.zip
+        asset_name: x-wrt-23.06_b202307220719-kirkwood-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-mvebu-cortexa9:
@@ -954,8 +954,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -988,14 +988,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-mvebu-cortexa9
-      id: asset-6eb69ed94055e7677dfbc56859b5bf99
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-mvebu-cortexa9
+      id: asset-5d01f3b676efcb1035861d4653467c6e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-mvebu-cortexa9.zip
-        asset_name: x-wrt-23.06_b202307220720-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-mvebu-cortexa9.zip
+        asset_name: x-wrt-23.06_b202307220719-mvebu-cortexa9.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7620_ramips-mt7620-nosymbol:
@@ -1032,8 +1032,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1066,24 +1066,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt7620
-      id: asset-39e382d426dea6289d71ba514bd70396
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt7620
+      id: asset-d9810fd8715d82af389752e0906700a3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt7620.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt7620.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt7620.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt7620.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt7620-nosymbol
-      id: asset-78d5085e193add9b1c3ba74ec20f0a1a
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt7620-nosymbol
+      id: asset-4c9c55eebf0bfb47dff073fce562d548
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt7620-nosymbol.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt7620-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt7620-nosymbol.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7621_ramips-mt7621-ext4fs:
@@ -1120,8 +1120,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1154,24 +1154,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt7621
-      id: asset-8f9679c11e52047ba68209e23ec6478f
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt7621
+      id: asset-a414b062d3321b74e5cf18398babee32
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt7621.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt7621.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt7621.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt7621.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt7621-ext4fs
-      id: asset-fc80c0e7717fa0885ca5e8427fc80bed
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt7621-ext4fs
+      id: asset-87148c0ebb029a6bb1d17241dead82b7
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt7621-ext4fs.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt7621-ext4fs.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt7621-ext4fs.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt7621-ext4fs.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
@@ -1208,8 +1208,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1242,24 +1242,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt76x8
-      id: asset-a74ec6faad9ab4272ef017987a65bc44
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt76x8
+      id: asset-e780700d7bc410a0db5ba92c851e255f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt76x8.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt76x8.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt76x8.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt76x8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-ramips-mt76x8-nosymbol
-      id: asset-5041013d0b0c282e28818f0118f5cce9
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-ramips-mt76x8-nosymbol
+      id: asset-c2b11a90950f616dc325f0b094672818
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-ramips-mt76x8-nosymbol.zip
-        asset_name: x-wrt-23.06_b202307220720-ramips-mt76x8-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-ramips-mt76x8-nosymbol.zip
+        asset_name: x-wrt-23.06_b202307220719-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-rockchip-armv8_armsr-armv8:
@@ -1296,8 +1296,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1330,24 +1330,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-rockchip-armv8
-      id: asset-7378ed62bfc213e8ca665f5080fd5088
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-rockchip-armv8
+      id: asset-cd088bd5a3c44d8fd4fba106978e8feb
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-rockchip-armv8.zip
-        asset_name: x-wrt-23.06_b202307220720-rockchip-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-rockchip-armv8.zip
+        asset_name: x-wrt-23.06_b202307220719-rockchip-armv8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-armsr-armv8
-      id: asset-42594d3ca4d62d02b5fea14656d31538
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-armsr-armv8
+      id: asset-5af4b5fc98974ca1c9d72ca805e67b11
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-armsr-armv8.zip
-        asset_name: x-wrt-23.06_b202307220720-armsr-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-armsr-armv8.zip
+        asset_name: x-wrt-23.06_b202307220719-armsr-armv8.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64:
@@ -1384,8 +1384,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1418,14 +1418,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-x86_64
-      id: asset-414d192b326f2a0f5f350ba5a890d338
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-x86_64
+      id: asset-3611d6367d56ce674c0daa7dbe8f17b0
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-x86_64.zip
-        asset_name: x-wrt-23.06_b202307220720-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-x86_64.zip
+        asset_name: x-wrt-23.06_b202307220719-x86_64.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64-docker:
@@ -1462,8 +1462,8 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-    - name: Get disk info
-      run: du -sh /* && df -h
+    - name: Clean up disk
+      run: sudo rm -rf /mnt/* /opt/*
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
@@ -1496,13 +1496,13 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202307220720-x86_64-docker
-      id: asset-9abd82f3eabda574074aa64e06b21c47
+    - name: Upload Release Asset x-wrt-23.06_b202307220719-x86_64-docker
+      id: asset-fa7a278dd21701e01e9b71480acd1487
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202307220720-x86_64-docker.zip
-        asset_name: x-wrt-23.06_b202307220720-x86_64-docker.zip
+        asset_path: ./x-wrt/x-wrt-23.06_b202307220719-x86_64-docker.zip
+        asset_name: x-wrt-23.06_b202307220719-x86_64-docker.zip
         asset_content_type: application/zip
         overwrite: true
