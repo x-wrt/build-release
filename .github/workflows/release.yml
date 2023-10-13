@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 23.06_b202310091633
+name: Build Jobs 23.10_b202310140123
 
 on:
   push:
@@ -63,7 +63,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -100,24 +100,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ath79-generic
-      id: asset-3fd953e9bcc1f41c132758c1edd071b3
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ath79-generic
+      id: asset-18ee15934a39da057774ee6014e3b72e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ath79-generic.zip
-        asset_name: x-wrt-23.06_b202310091633-ath79-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ath79-generic.zip
+        asset_name: x-wrt-23.10_b202310140123-ath79-generic.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ath79-generic-nosymbol
-      id: asset-08a1cfb3ed3d8c3219749788e27752ad
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ath79-generic-nosymbol
+      id: asset-377f3ffb2c979a3b93d63f7c24b15094
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ath79-generic-nosymbol.zip
-        asset_name: x-wrt-23.06_b202310091633-ath79-generic-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ath79-generic-nosymbol.zip
+        asset_name: x-wrt-23.10_b202310140123-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ath79-nand:
@@ -151,7 +151,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -188,14 +188,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ath79-nand
-      id: asset-a7db2c6968ea5e9cb8122ae1132e5aab
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ath79-nand
+      id: asset-4f1ad16489468bdadaa0a48906c0c83a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ath79-nand.zip
-        asset_name: x-wrt-23.06_b202310091633-ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ath79-nand.zip
+        asset_name: x-wrt-23.10_b202310140123-ath79-nand.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq40xx-generic:
@@ -229,7 +229,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -266,14 +266,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ipq40xx-generic
-      id: asset-7bd05735b5312a40b2286b71e8114f22
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ipq40xx-generic
+      id: asset-20e0ffc79f34fbc960be49e369baf7bb
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ipq40xx-generic.zip
-        asset_name: x-wrt-23.06_b202310091633-ipq40xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ipq40xx-generic.zip
+        asset_name: x-wrt-23.10_b202310140123-ipq40xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2709_sunxi-cortexa7:
@@ -307,7 +307,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -344,24 +344,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-bcm27xx-bcm2709
-      id: asset-0540025344d75f50be870c6eb1ee6621
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-bcm27xx-bcm2709
+      id: asset-d9005c672caf472591a6671c3764ff09
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-bcm27xx-bcm2709.zip
-        asset_name: x-wrt-23.06_b202310091633-bcm27xx-bcm2709.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-bcm27xx-bcm2709.zip
+        asset_name: x-wrt-23.10_b202310140123-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-sunxi-cortexa7
-      id: asset-0736f54e80d6bae9311df694db5b4706
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-sunxi-cortexa7
+      id: asset-a0d6c23e13a7992c6bc2033582614195
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-sunxi-cortexa7.zip
-        asset_name: x-wrt-23.06_b202310091633-sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-sunxi-cortexa7.zip
+        asset_name: x-wrt-23.10_b202310140123-sunxi-cortexa7.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2710:
@@ -395,7 +395,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -432,14 +432,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-bcm27xx-bcm2710
-      id: asset-3e2f270e8f3ad4571829156a15a36591
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-bcm27xx-bcm2710
+      id: asset-488b13ebd3684f163ba2ab81e0e96272
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-bcm27xx-bcm2710.zip
-        asset_name: x-wrt-23.06_b202310091633-bcm27xx-bcm2710.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-bcm27xx-bcm2710.zip
+        asset_name: x-wrt-23.10_b202310140123-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
         overwrite: true
   build-mediatek-mt7622_mediatek-filogic:
@@ -473,7 +473,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -510,24 +510,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-mediatek-mt7622
-      id: asset-0895f50c7946c9d239fb7eade7198325
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-mediatek-mt7622
+      id: asset-50edeab67d4b5906ea07769e2c011d2a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-mediatek-mt7622.zip
-        asset_name: x-wrt-23.06_b202310091633-mediatek-mt7622.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-mediatek-mt7622.zip
+        asset_name: x-wrt-23.10_b202310140123-mediatek-mt7622.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-mediatek-filogic
-      id: asset-dba5d6220af982c9f24761b678492c49
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-mediatek-filogic
+      id: asset-087402c7f8443e2dc56a526612060cea
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-mediatek-filogic.zip
-        asset_name: x-wrt-23.06_b202310091633-mediatek-filogic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-mediatek-filogic.zip
+        asset_name: x-wrt-23.10_b202310140123-mediatek-filogic.zip
         asset_content_type: application/zip
         overwrite: true
   build-qualcommax-ipq807x:
@@ -561,7 +561,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -598,14 +598,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-qualcommax-ipq807x
-      id: asset-eed1b38622ff89fb3472c0b88ab3f890
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-qualcommax-ipq807x
+      id: asset-862b04a7c0450f7ca1bc0f8f418d3576
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-qualcommax-ipq807x.zip
-        asset_name: x-wrt-23.06_b202310091633-qualcommax-ipq807x.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-qualcommax-ipq807x.zip
+        asset_name: x-wrt-23.10_b202310140123-qualcommax-ipq807x.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2711:
@@ -639,7 +639,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -676,14 +676,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-bcm27xx-bcm2711
-      id: asset-8cd84d2213e940a6dcf9d00c02529e33
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-bcm27xx-bcm2711
+      id: asset-7b4e198cb658df5ef2ea3001e9625d63
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-bcm27xx-bcm2711.zip
-        asset_name: x-wrt-23.06_b202310091633-bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-bcm27xx-bcm2711.zip
+        asset_name: x-wrt-23.10_b202310140123-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm53xx-generic:
@@ -717,7 +717,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -754,14 +754,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-bcm53xx-generic
-      id: asset-239d70c623c189bfea693b0407f402e7
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-bcm53xx-generic
+      id: asset-66ba2e526b2af8525948ed60cca308a1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-bcm53xx-generic.zip
-        asset_name: x-wrt-23.06_b202310091633-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-bcm53xx-generic.zip
+        asset_name: x-wrt-23.10_b202310140123-bcm53xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq806x-generic:
@@ -795,7 +795,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -832,14 +832,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ipq806x-generic
-      id: asset-6708e3abb6e0b86c4301f20351dfee05
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ipq806x-generic
+      id: asset-42f15ea8689690c6306aeefb4f449d79
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ipq806x-generic.zip
-        asset_name: x-wrt-23.06_b202310091633-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ipq806x-generic.zip
+        asset_name: x-wrt-23.10_b202310140123-ipq806x-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-kirkwood-generic:
@@ -873,7 +873,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -910,14 +910,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-kirkwood-generic
-      id: asset-5cbd1a384081d0e89433b3b145da34b8
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-kirkwood-generic
+      id: asset-237926503d6aa54e267255332529d2d1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-kirkwood-generic.zip
-        asset_name: x-wrt-23.06_b202310091633-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-kirkwood-generic.zip
+        asset_name: x-wrt-23.10_b202310140123-kirkwood-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-mvebu-cortexa9:
@@ -951,7 +951,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -988,14 +988,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-mvebu-cortexa9
-      id: asset-c8f1e30e8c58dcda61190f15df648e5b
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-mvebu-cortexa9
+      id: asset-0b375c21d714c610851eb1e8c78dd14b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-mvebu-cortexa9.zip
-        asset_name: x-wrt-23.06_b202310091633-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-mvebu-cortexa9.zip
+        asset_name: x-wrt-23.10_b202310140123-mvebu-cortexa9.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7620_ramips-mt7620-nosymbol:
@@ -1029,7 +1029,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1066,24 +1066,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt7620
-      id: asset-4ceffc3c95cd1a056822d70c7582df39
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt7620
+      id: asset-defedd09a67e4b6c5cde3747151666bd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt7620.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt7620.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt7620.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt7620.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt7620-nosymbol
-      id: asset-19016a7a09669e4df5fdeb138b766065
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt7620-nosymbol
+      id: asset-8b99d72dbb7dc64a70aa07e8895b8d32
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt7620-nosymbol.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt7620-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt7620-nosymbol.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7621_ramips-mt7621-ext4fs:
@@ -1117,7 +1117,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1154,24 +1154,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt7621
-      id: asset-9ed30cff6ea2d689ba0d8fe690e400a9
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt7621
+      id: asset-3d0974a177a517d6d965b58f13e0cd67
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt7621.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt7621.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt7621.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt7621.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt7621-ext4fs
-      id: asset-007e0ba9ef9fc795afb026608749c1a9
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt7621-ext4fs
+      id: asset-6be224d001ddf54442067756faadf2a3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt7621-ext4fs.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt7621-ext4fs.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt7621-ext4fs.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt7621-ext4fs.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
@@ -1205,7 +1205,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1242,24 +1242,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt76x8
-      id: asset-6426947fe48ed98e86dc8156a1a7df50
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt76x8
+      id: asset-ca01c6bd8e327a33ee02fb3f62ca7f85
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt76x8.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt76x8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt76x8.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt76x8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-ramips-mt76x8-nosymbol
-      id: asset-f17631fdbd376da1248bf5d9279b791b
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-ramips-mt76x8-nosymbol
+      id: asset-f68f2f55fe63954e7bd31e15b0d79177
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-ramips-mt76x8-nosymbol.zip
-        asset_name: x-wrt-23.06_b202310091633-ramips-mt76x8-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-ramips-mt76x8-nosymbol.zip
+        asset_name: x-wrt-23.10_b202310140123-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-rockchip-armv8_armsr-armv8:
@@ -1293,7 +1293,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1330,24 +1330,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-rockchip-armv8
-      id: asset-b5338e3f40cd6b0e4e34697816e572b5
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-rockchip-armv8
+      id: asset-4e8ab97ae124c68665f4e3f38214d12a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-rockchip-armv8.zip
-        asset_name: x-wrt-23.06_b202310091633-rockchip-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-rockchip-armv8.zip
+        asset_name: x-wrt-23.10_b202310140123-rockchip-armv8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-armsr-armv8
-      id: asset-96c5a7fa7fae4667ea76f2de0b24da46
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-armsr-armv8
+      id: asset-3d0021b12d9c12439dfc4ac4b3f7a593
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-armsr-armv8.zip
-        asset_name: x-wrt-23.06_b202310091633-armsr-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-armsr-armv8.zip
+        asset_name: x-wrt-23.10_b202310140123-armsr-armv8.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64:
@@ -1381,7 +1381,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1418,14 +1418,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-x86_64
-      id: asset-9eb969e77cc3700eb1857f1fe0d3b6ac
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-x86_64
+      id: asset-b0a8604596ff413ac2753db85b8b0531
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-x86_64.zip
-        asset_name: x-wrt-23.06_b202310091633-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-x86_64.zip
+        asset_name: x-wrt-23.10_b202310140123-x86_64.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64-docker:
@@ -1459,7 +1459,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
@@ -1496,13 +1496,13 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.06_b202310091633-x86_64-docker
-      id: asset-39af14d4587429cd6b2c19c4d463d80d
+    - name: Upload Release Asset x-wrt-23.10_b202310140123-x86_64-docker
+      id: asset-9773966114fa7f75d44e768adcfb0316
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.06_b202310091633-x86_64-docker.zip
-        asset_name: x-wrt-23.06_b202310091633-x86_64-docker.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202310140123-x86_64-docker.zip
+        asset_name: x-wrt-23.10_b202310140123-x86_64-docker.zip
         asset_content_type: application/zip
         overwrite: true
