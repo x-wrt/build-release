@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 23.10_b202310280123
+name: Build Jobs 23.10_b202311041640
 
 on:
   push:
@@ -100,24 +100,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ath79-generic
-      id: asset-1df9293cb4443ec9d90aa2a9b2cfd3fb
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ath79-generic
+      id: asset-92d7cc01ff538aa84efba05172516cb5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ath79-generic.zip
-        asset_name: x-wrt-23.10_b202310280123-ath79-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ath79-generic.zip
+        asset_name: x-wrt-23.10_b202311041640-ath79-generic.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ath79-generic-nosymbol
-      id: asset-8e3977b010c87dd740ec1cd3e25c4854
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ath79-generic-nosymbol
+      id: asset-26319c50ab2ff7cdc3936c6f3888c795
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ath79-generic-nosymbol.zip
-        asset_name: x-wrt-23.10_b202310280123-ath79-generic-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ath79-generic-nosymbol.zip
+        asset_name: x-wrt-23.10_b202311041640-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ath79-nand:
@@ -188,14 +188,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ath79-nand
-      id: asset-1859539cdb6e42f13efa91c2a5aa4298
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ath79-nand
+      id: asset-072cd39fa9446d97a69cbabee1f0962c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ath79-nand.zip
-        asset_name: x-wrt-23.10_b202310280123-ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ath79-nand.zip
+        asset_name: x-wrt-23.10_b202311041640-ath79-nand.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq40xx-generic:
@@ -266,14 +266,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ipq40xx-generic
-      id: asset-699171fdab37b95d56396dc038569723
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ipq40xx-generic
+      id: asset-eb84f171093ccf9be095caa64e463852
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ipq40xx-generic.zip
-        asset_name: x-wrt-23.10_b202310280123-ipq40xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ipq40xx-generic.zip
+        asset_name: x-wrt-23.10_b202311041640-ipq40xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2709_sunxi-cortexa7:
@@ -344,24 +344,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-bcm27xx-bcm2709
-      id: asset-52ad8c6cf998dec68bb90f9455dbc2fd
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-bcm27xx-bcm2709
+      id: asset-b5c1235ea4a20d1dc7f104981764d5f6
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-bcm27xx-bcm2709.zip
-        asset_name: x-wrt-23.10_b202310280123-bcm27xx-bcm2709.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-bcm27xx-bcm2709.zip
+        asset_name: x-wrt-23.10_b202311041640-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-sunxi-cortexa7
-      id: asset-ef846ef24e2c468ec3de563df46c5582
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-sunxi-cortexa7
+      id: asset-ac0d1358d7dd30df857b82de836e94a5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-sunxi-cortexa7.zip
-        asset_name: x-wrt-23.10_b202310280123-sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-sunxi-cortexa7.zip
+        asset_name: x-wrt-23.10_b202311041640-sunxi-cortexa7.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2710:
@@ -432,14 +432,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-bcm27xx-bcm2710
-      id: asset-765a6a0ed040beef750730d658cb4bb0
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-bcm27xx-bcm2710
+      id: asset-e72d02730764ab962ceb316de6b4f340
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-bcm27xx-bcm2710.zip
-        asset_name: x-wrt-23.10_b202310280123-bcm27xx-bcm2710.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-bcm27xx-bcm2710.zip
+        asset_name: x-wrt-23.10_b202311041640-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
         overwrite: true
   build-mediatek-mt7622_mediatek-filogic:
@@ -510,24 +510,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-mediatek-mt7622
-      id: asset-4e51577f5d80dc876a9a3d2d5fe590a7
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-mediatek-mt7622
+      id: asset-23e9457a215749d6b307f4966a6eb0dd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-mediatek-mt7622.zip
-        asset_name: x-wrt-23.10_b202310280123-mediatek-mt7622.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-mediatek-mt7622.zip
+        asset_name: x-wrt-23.10_b202311041640-mediatek-mt7622.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-mediatek-filogic
-      id: asset-ac737f894504450599ce95252613f825
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-mediatek-filogic
+      id: asset-f10ed5047ae01f97b506b2ffdb8d0aa0
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-mediatek-filogic.zip
-        asset_name: x-wrt-23.10_b202310280123-mediatek-filogic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-mediatek-filogic.zip
+        asset_name: x-wrt-23.10_b202311041640-mediatek-filogic.zip
         asset_content_type: application/zip
         overwrite: true
   build-qualcommax-ipq807x:
@@ -598,14 +598,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-qualcommax-ipq807x
-      id: asset-431bb7514c8d767d3aadda2374329839
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-qualcommax-ipq807x
+      id: asset-d2f0fa94359567b330b2ebc0acabc7c4
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-qualcommax-ipq807x.zip
-        asset_name: x-wrt-23.10_b202310280123-qualcommax-ipq807x.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-qualcommax-ipq807x.zip
+        asset_name: x-wrt-23.10_b202311041640-qualcommax-ipq807x.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2711:
@@ -676,14 +676,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-bcm27xx-bcm2711
-      id: asset-5778d38d275f6983ed7f2e086d722df6
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-bcm27xx-bcm2711
+      id: asset-655c2b9a22d96d7fa6525be24f5d361b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-bcm27xx-bcm2711.zip
-        asset_name: x-wrt-23.10_b202310280123-bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-bcm27xx-bcm2711.zip
+        asset_name: x-wrt-23.10_b202311041640-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm53xx-generic:
@@ -754,14 +754,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-bcm53xx-generic
-      id: asset-233f93d328819c89d628602564a616d9
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-bcm53xx-generic
+      id: asset-f15ffcc1822998ba66dbe9b26a561ebb
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-bcm53xx-generic.zip
-        asset_name: x-wrt-23.10_b202310280123-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-bcm53xx-generic.zip
+        asset_name: x-wrt-23.10_b202311041640-bcm53xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq806x-generic:
@@ -832,14 +832,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ipq806x-generic
-      id: asset-34eb24ad6461404d23fe4773e8041ab9
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ipq806x-generic
+      id: asset-478154c024913cb6b837165a2c0f9213
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ipq806x-generic.zip
-        asset_name: x-wrt-23.10_b202310280123-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ipq806x-generic.zip
+        asset_name: x-wrt-23.10_b202311041640-ipq806x-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-kirkwood-generic:
@@ -910,14 +910,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-kirkwood-generic
-      id: asset-d666b294da5e17a6dcbdd3ab1a914819
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-kirkwood-generic
+      id: asset-0d7a51a91c9809ab328b54280be03147
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-kirkwood-generic.zip
-        asset_name: x-wrt-23.10_b202310280123-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-kirkwood-generic.zip
+        asset_name: x-wrt-23.10_b202311041640-kirkwood-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-mvebu-cortexa9:
@@ -988,14 +988,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-mvebu-cortexa9
-      id: asset-a962c5684a7aeb4bd890aebaede0caa1
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-mvebu-cortexa9
+      id: asset-a132a4508272648297707de99467483c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-mvebu-cortexa9.zip
-        asset_name: x-wrt-23.10_b202310280123-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-mvebu-cortexa9.zip
+        asset_name: x-wrt-23.10_b202311041640-mvebu-cortexa9.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7620_ramips-mt7620-nosymbol:
@@ -1066,24 +1066,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt7620
-      id: asset-cdd1aac245bb9b357e985c1f14bafb89
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt7620
+      id: asset-efaf3d089ea0e67b2b677ac617d7d169
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt7620.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt7620.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt7620.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt7620.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt7620-nosymbol
-      id: asset-cabca65672ee2aea4aba2ff413dfff50
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt7620-nosymbol
+      id: asset-00cc5156fb256f2a36755a73c0543cb9
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt7620-nosymbol.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt7620-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt7620-nosymbol.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7621_ramips-mt7621-ext4fs:
@@ -1154,24 +1154,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt7621
-      id: asset-5158bad3a0bbbc3c273e6db8eb5710e1
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt7621
+      id: asset-296d403f19f25e07819b89b828165b70
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt7621.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt7621.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt7621.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt7621.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt7621-ext4fs
-      id: asset-ba4372a101c3449f901d8734cea0dc16
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt7621-ext4fs
+      id: asset-b810de389cf6fa84c9ba55cb4fc23ef5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt7621-ext4fs.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt7621-ext4fs.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt7621-ext4fs.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt7621-ext4fs.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
@@ -1242,24 +1242,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt76x8
-      id: asset-51c392a6b8391c9ed19844cbeeb1cf7e
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt76x8
+      id: asset-0111c72f93371b9756f182463cfd7aaa
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt76x8.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt76x8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt76x8.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt76x8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-ramips-mt76x8-nosymbol
-      id: asset-cec0d0146ad329d936693f0c5f1e8a90
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-ramips-mt76x8-nosymbol
+      id: asset-308906968a5c40b09aa600bd628e403c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-ramips-mt76x8-nosymbol.zip
-        asset_name: x-wrt-23.10_b202310280123-ramips-mt76x8-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-ramips-mt76x8-nosymbol.zip
+        asset_name: x-wrt-23.10_b202311041640-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-rockchip-armv8_armsr-armv8:
@@ -1330,24 +1330,24 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-rockchip-armv8
-      id: asset-9b3aafa1645f8c46e7a287415dfc192c
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-rockchip-armv8
+      id: asset-077c70171cb252dcc9d2a6a2c31c65bf
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-rockchip-armv8.zip
-        asset_name: x-wrt-23.10_b202310280123-rockchip-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-rockchip-armv8.zip
+        asset_name: x-wrt-23.10_b202311041640-rockchip-armv8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-armsr-armv8
-      id: asset-94fae6954e554c0f132eb942fe4a7d51
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-armsr-armv8
+      id: asset-5e3e67747606d4f9d244109eabb981fa
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-armsr-armv8.zip
-        asset_name: x-wrt-23.10_b202310280123-armsr-armv8.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-armsr-armv8.zip
+        asset_name: x-wrt-23.10_b202311041640-armsr-armv8.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64:
@@ -1418,14 +1418,14 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-x86_64
-      id: asset-9d861b2f9d394ed9032a64d18547fd5c
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-x86_64
+      id: asset-52a9db6b509b5f5d60457f81ded74620
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-x86_64.zip
-        asset_name: x-wrt-23.10_b202310280123-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-x86_64.zip
+        asset_name: x-wrt-23.10_b202311041640-x86_64.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64-docker:
@@ -1496,13 +1496,13 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-23.10_b202310280123-x86_64-docker
-      id: asset-6932319b1f381422b107278194eb545a
+    - name: Upload Release Asset x-wrt-23.10_b202311041640-x86_64-docker
+      id: asset-3b9a1076f5a582850302dbb0f71b45db
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-23.10_b202310280123-x86_64-docker.zip
-        asset_name: x-wrt-23.10_b202310280123-x86_64-docker.zip
+        asset_path: ./x-wrt/x-wrt-23.10_b202311041640-x86_64-docker.zip
+        asset_name: x-wrt-23.10_b202311041640-x86_64-docker.zip
         asset_content_type: application/zip
         overwrite: true
