@@ -1,10 +1,10 @@
   build-_TARGETNAME_:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -48,13 +48,13 @@
         echo -e "$(nproc) thread build."
         BTARGET="_TARGET_" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-_TARGETNAME_
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url

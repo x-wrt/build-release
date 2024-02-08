@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 24.01_b202401270830
+name: Build Jobs 24.01_b202402082206
 
 on:
   push:
@@ -28,17 +28,17 @@ jobs:
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: release_url
         path: release_url.txt
   build-ath79-generic_ath79-generic-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -82,13 +82,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ath79-generic ath79-generic-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ath79-generic_ath79-generic-nosymbol
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -100,33 +100,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ath79-generic
-      id: asset-77b715a5cfe4c8ea077a8a21823b15d7
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ath79-generic
+      id: asset-69d12adb89aeafcab6f65bb524be45d1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ath79-generic.zip
-        asset_name: x-wrt-24.01_b202401270830-ath79-generic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ath79-generic.zip
+        asset_name: x-wrt-24.01_b202402082206-ath79-generic.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ath79-generic-nosymbol
-      id: asset-ba5933d34fffce4782953ad9b729ae92
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ath79-generic-nosymbol
+      id: asset-99895f7929939cb588a626448211aff9
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ath79-generic-nosymbol.zip
-        asset_name: x-wrt-24.01_b202401270830-ath79-generic-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ath79-generic-nosymbol.zip
+        asset_name: x-wrt-24.01_b202402082206-ath79-generic-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ath79-nand:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -170,13 +170,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ath79-nand" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ath79-nand
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -188,23 +188,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ath79-nand
-      id: asset-18ffe3471f0f40b006516148908c1c33
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ath79-nand
+      id: asset-d9d975fc8288e78b7623245f2056f94b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ath79-nand.zip
-        asset_name: x-wrt-24.01_b202401270830-ath79-nand.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ath79-nand.zip
+        asset_name: x-wrt-24.01_b202402082206-ath79-nand.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq40xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -248,13 +248,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ipq40xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ipq40xx-generic
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -266,23 +266,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ipq40xx-generic
-      id: asset-243ac80d128b898f531d2eb8f828b8b5
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ipq40xx-generic
+      id: asset-7937999629ca391534b1542b540b6d8a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ipq40xx-generic.zip
-        asset_name: x-wrt-24.01_b202401270830-ipq40xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ipq40xx-generic.zip
+        asset_name: x-wrt-24.01_b202402082206-ipq40xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2709_sunxi-cortexa7:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -326,13 +326,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2709 sunxi-cortexa7" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2709_sunxi-cortexa7
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -344,33 +344,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-bcm27xx-bcm2709
-      id: asset-135ed009c11771b3b2e1da7e44a97b3f
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-bcm27xx-bcm2709
+      id: asset-8816cd86f9bed13ac15e78cb5199ac41
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-bcm27xx-bcm2709.zip
-        asset_name: x-wrt-24.01_b202401270830-bcm27xx-bcm2709.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-bcm27xx-bcm2709.zip
+        asset_name: x-wrt-24.01_b202402082206-bcm27xx-bcm2709.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-sunxi-cortexa7
-      id: asset-6b6b2a8e3f6b0967ff73340188bf6870
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-sunxi-cortexa7
+      id: asset-071b324ee49a175ba656f72381f9e712
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-sunxi-cortexa7.zip
-        asset_name: x-wrt-24.01_b202401270830-sunxi-cortexa7.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-sunxi-cortexa7.zip
+        asset_name: x-wrt-24.01_b202402082206-sunxi-cortexa7.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2710:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -414,13 +414,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2710" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2710
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -432,23 +432,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-bcm27xx-bcm2710
-      id: asset-5457c825701ce3806a5390ce3c672731
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-bcm27xx-bcm2710
+      id: asset-d85f314452168d95e118d97762157d73
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-bcm27xx-bcm2710.zip
-        asset_name: x-wrt-24.01_b202401270830-bcm27xx-bcm2710.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-bcm27xx-bcm2710.zip
+        asset_name: x-wrt-24.01_b202402082206-bcm27xx-bcm2710.zip
         asset_content_type: application/zip
         overwrite: true
   build-mediatek-mt7622_mediatek-filogic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -492,13 +492,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-mt7622 mediatek-filogic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mediatek-mt7622_mediatek-filogic
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -510,33 +510,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-mediatek-mt7622
-      id: asset-6aef2e2cc65ba70256a9f7d06e5c4f6f
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-mediatek-mt7622
+      id: asset-2a3246b2dfd581b4ff4d8751bdbd0ee0
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-mediatek-mt7622.zip
-        asset_name: x-wrt-24.01_b202401270830-mediatek-mt7622.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-mediatek-mt7622.zip
+        asset_name: x-wrt-24.01_b202402082206-mediatek-mt7622.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-mediatek-filogic
-      id: asset-c55a89ede84f71b3fbd63180fa643e50
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-mediatek-filogic
+      id: asset-d054b3aa47a6c4327a5b45ae0a535fc4
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-mediatek-filogic.zip
-        asset_name: x-wrt-24.01_b202401270830-mediatek-filogic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-mediatek-filogic.zip
+        asset_name: x-wrt-24.01_b202402082206-mediatek-filogic.zip
         asset_content_type: application/zip
         overwrite: true
   build-qualcommax-ipq807x:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -580,13 +580,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="qualcommax-ipq807x" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq807x
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -598,23 +598,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-qualcommax-ipq807x
-      id: asset-f1aee167b9f24b0142f0c386e1c26366
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-qualcommax-ipq807x
+      id: asset-f66e2c841c4fe5c01f8b3abe893ea377
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-qualcommax-ipq807x.zip
-        asset_name: x-wrt-24.01_b202401270830-qualcommax-ipq807x.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-qualcommax-ipq807x.zip
+        asset_name: x-wrt-24.01_b202402082206-qualcommax-ipq807x.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2711:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -658,13 +658,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2711" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2711
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -676,23 +676,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-bcm27xx-bcm2711
-      id: asset-6d42e035f03eba3982e5ec4a4e3e7805
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-bcm27xx-bcm2711
+      id: asset-fa2e877908c6c52b4128367c0e73c81f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-bcm27xx-bcm2711.zip
-        asset_name: x-wrt-24.01_b202401270830-bcm27xx-bcm2711.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-bcm27xx-bcm2711.zip
+        asset_name: x-wrt-24.01_b202402082206-bcm27xx-bcm2711.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm27xx-bcm2712:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -736,13 +736,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2712" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2712
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -754,23 +754,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-bcm27xx-bcm2712
-      id: asset-95b0f27a606e7dab017bd4f17b375b7d
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-bcm27xx-bcm2712
+      id: asset-47657a299157dbde89e42afa3a3ec95b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-bcm27xx-bcm2712.zip
-        asset_name: x-wrt-24.01_b202401270830-bcm27xx-bcm2712.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-bcm27xx-bcm2712.zip
+        asset_name: x-wrt-24.01_b202402082206-bcm27xx-bcm2712.zip
         asset_content_type: application/zip
         overwrite: true
   build-bcm53xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -814,13 +814,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm53xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm53xx-generic
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -832,23 +832,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-bcm53xx-generic
-      id: asset-cdd7e3df205d91e2be927ca29f794947
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-bcm53xx-generic
+      id: asset-ab30d7fe2678344ed23879e713d69af0
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-bcm53xx-generic.zip
-        asset_name: x-wrt-24.01_b202401270830-bcm53xx-generic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-bcm53xx-generic.zip
+        asset_name: x-wrt-24.01_b202402082206-bcm53xx-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq806x-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -892,13 +892,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ipq806x-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ipq806x-generic
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -910,23 +910,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ipq806x-generic
-      id: asset-6ef04d7634a216a43a11d710a9949e98
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ipq806x-generic
+      id: asset-c143fbca1a99f619f7208709b5bfd34c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ipq806x-generic.zip
-        asset_name: x-wrt-24.01_b202401270830-ipq806x-generic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ipq806x-generic.zip
+        asset_name: x-wrt-24.01_b202402082206-ipq806x-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-kirkwood-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -970,13 +970,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="kirkwood-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-kirkwood-generic
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -988,23 +988,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-kirkwood-generic
-      id: asset-10972c9489bd26f1da2b899a3c5825d1
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-kirkwood-generic
+      id: asset-b6730d48c8e546c53025d705ba57d522
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-kirkwood-generic.zip
-        asset_name: x-wrt-24.01_b202401270830-kirkwood-generic.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-kirkwood-generic.zip
+        asset_name: x-wrt-24.01_b202402082206-kirkwood-generic.zip
         asset_content_type: application/zip
         overwrite: true
   build-mvebu-cortexa9:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1048,13 +1048,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mvebu-cortexa9" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mvebu-cortexa9
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1066,23 +1066,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-mvebu-cortexa9
-      id: asset-9cb9dc0a128915514f9742376c4e913b
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-mvebu-cortexa9
+      id: asset-390055d3f99f62a0ec791cde76070654
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-mvebu-cortexa9.zip
-        asset_name: x-wrt-24.01_b202401270830-mvebu-cortexa9.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-mvebu-cortexa9.zip
+        asset_name: x-wrt-24.01_b202402082206-mvebu-cortexa9.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7620_ramips-mt7620-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1126,13 +1126,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7620 ramips-mt7620-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620_ramips-mt7620-nosymbol
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1144,33 +1144,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt7620
-      id: asset-1e60a6edc5578aaf7751b6f4d478a5c7
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt7620
+      id: asset-899b621efc78ee2c40248adda9db1dae
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt7620.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt7620.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt7620.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt7620.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt7620-nosymbol
-      id: asset-7b6013844186f49954be7a7b263f1a68
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt7620-nosymbol
+      id: asset-9c5360595626ec5003be39fa35b17fb6
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt7620-nosymbol.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt7620-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt7620-nosymbol.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt7620-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt7621_ramips-mt7621-ext4fs:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1214,13 +1214,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7621 ramips-mt7621-ext4fs" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621_ramips-mt7621-ext4fs
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1232,33 +1232,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt7621
-      id: asset-7e344662713b173f86d6d24c37cdfbe2
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt7621
+      id: asset-147fd9b18ee7641bbfe2cd169ddee001
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt7621.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt7621.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt7621.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt7621.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt7621-ext4fs
-      id: asset-fddec598fe042f8a149b0e33c426e33c
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt7621-ext4fs
+      id: asset-27bf73c5300c7568d93108c51beeb3bb
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt7621-ext4fs.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt7621-ext4fs.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt7621-ext4fs.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt7621-ext4fs.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1302,13 +1302,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt76x8 ramips-mt76x8-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8_ramips-mt76x8-nosymbol
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1320,33 +1320,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt76x8
-      id: asset-0c7a54fc25f43003174c6bc3fc634d36
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt76x8
+      id: asset-e86a99062420fa359c1d813a6cfaeeb7
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt76x8.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt76x8.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt76x8.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt76x8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-ramips-mt76x8-nosymbol
-      id: asset-6949fa2c01ee13d18ec5a6fa28a81477
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-ramips-mt76x8-nosymbol
+      id: asset-993111c99a2ec20c21eec0132213312c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-ramips-mt76x8-nosymbol.zip
-        asset_name: x-wrt-24.01_b202401270830-ramips-mt76x8-nosymbol.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-ramips-mt76x8-nosymbol.zip
+        asset_name: x-wrt-24.01_b202402082206-ramips-mt76x8-nosymbol.zip
         asset_content_type: application/zip
         overwrite: true
   build-rockchip-armv8_armsr-armv8:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1390,13 +1390,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="rockchip-armv8 armsr-armv8" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-rockchip-armv8_armsr-armv8
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1408,33 +1408,33 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-rockchip-armv8
-      id: asset-e85e756ccfb2020816077d744d292660
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-rockchip-armv8
+      id: asset-9de098a7ea51da81c1c0d9d4a092cc11
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-rockchip-armv8.zip
-        asset_name: x-wrt-24.01_b202401270830-rockchip-armv8.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-rockchip-armv8.zip
+        asset_name: x-wrt-24.01_b202402082206-rockchip-armv8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-armsr-armv8
-      id: asset-2c69c6e545bd6d009870c85ee3afb750
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-armsr-armv8
+      id: asset-ba463d81c22087dcb48c520252feaa8c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-armsr-armv8.zip
-        asset_name: x-wrt-24.01_b202401270830-armsr-armv8.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-armsr-armv8.zip
+        asset_name: x-wrt-24.01_b202402082206-armsr-armv8.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1478,13 +1478,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="x86_64" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-x86_64
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1496,23 +1496,23 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-x86_64
-      id: asset-6336ed455c86998ae9a19f339d93e55d
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-x86_64
+      id: asset-a63ae00b368e74aa97a1ef2c0a1a9290
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-x86_64.zip
-        asset_name: x-wrt-24.01_b202401270830-x86_64.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-x86_64.zip
+        asset_name: x-wrt-24.01_b202402082206-x86_64.zip
         asset_content_type: application/zip
         overwrite: true
   build-x86_64-docker:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -1556,13 +1556,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="x86_64-docker" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-x86_64-docker
         path: make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release_url
         path: release_url
@@ -1574,13 +1574,13 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-24.01_b202401270830-x86_64-docker
-      id: asset-bcb127391f4cd8cd59c9b71326eb5fe6
+    - name: Upload Release Asset x-wrt-24.01_b202402082206-x86_64-docker
+      id: asset-fbc846bb925cc9542b1f88ad0c4ef42f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./x-wrt/x-wrt-24.01_b202401270830-x86_64-docker.zip
-        asset_name: x-wrt-24.01_b202401270830-x86_64-docker.zip
+        asset_path: ./x-wrt/x-wrt-24.01_b202402082206-x86_64-docker.zip
+        asset_name: x-wrt-24.01_b202402082206-x86_64-docker.zip
         asset_content_type: application/zip
         overwrite: true
