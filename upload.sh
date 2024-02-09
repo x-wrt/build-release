@@ -13,6 +13,9 @@ mv `cat sdk_upload.list` sdk_map.list sdk_sha256sums.txt rom/sdk
 sh -c "cd rom && sh ../gen_index.sh"
 sh -c "cd rom/sdk && sh ../../gen_sdk_index.sh"
 
+#cleanup space
+rm -rf build_dir/t* staging_dir/t*
+
 echo gen x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}.zip
 zip -r x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}.zip rom && rm -rf rom || exit 255
 
