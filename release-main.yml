@@ -34,6 +34,8 @@
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
+    - name: List installed apts
+      run: sudo -E apt list --installed
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
