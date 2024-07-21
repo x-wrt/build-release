@@ -5,11 +5,17 @@
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Pre Initialization environment
+      run: |
+        docker rmi `docker images -q`
+        sudo -E df -h
+        sudo -E apt-get -y purge libmono* libgtk* g++* clang* apache2* libnginx* nginx* docker*
+        sudo -E df -h
+	sudo -E df -h /*
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
         echo "Deleting files, please wait ..."
         sudo rm -rf \
           /usr/share/dotnet \
@@ -34,8 +40,6 @@
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
-    - name: List installed apts
-      run: sudo -E apt list --installed
     - name: Clone source code
       run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
