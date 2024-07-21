@@ -76,17 +76,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ath79-generic ath79-generic-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -172,17 +171,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ath79-nand" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -258,17 +256,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ipq40xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -344,17 +341,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2709" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -430,17 +426,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2710" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -516,17 +511,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-mt7622" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -602,17 +596,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-filogic" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -688,17 +681,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="qualcommax-ipq807x qualcommax-ipq60xx" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -784,17 +776,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2711" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -870,17 +861,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2712" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -956,17 +946,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="bcm53xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1042,17 +1031,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ipq806x-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1128,17 +1116,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="kirkwood-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1214,17 +1201,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="mvebu-cortexa9" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1300,17 +1286,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7620 ramips-mt7620-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1396,17 +1381,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7621 ramips-mt7621-ext4fs ramips-mt7621-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1502,17 +1486,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt76x8 ramips-mt76x8-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1598,17 +1581,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="rockchip-armv8 armsr-armv8" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1694,17 +1676,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="x86_64" sh build.sh $(nproc)
     - name : Upload make.log if failure
@@ -1780,17 +1761,16 @@ jobs:
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="x86_64-docker" sh build.sh $(nproc)
     - name : Upload make.log if failure

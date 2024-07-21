@@ -42,17 +42,16 @@
       run: |
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work
-        cd /mnt/work
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
-      run: cd x-wrt && ./scripts/feeds update -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
-      run: cd x-wrt && ./scripts/feeds install -a
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh x-wrt/
-        cp release.tag x-wrt/
-        cd x-wrt
+        cp *.sh /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
         BTARGET="_TARGET_" sh build.sh $(nproc)
     - name : Upload make.log if failure
