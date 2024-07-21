@@ -9,9 +9,7 @@
       run: |
         docker rmi `docker images -q`
         sudo -E df -h
-        sudo -E apt-get -y purge libmono* libgtk* g++* clang* apache2* libnginx* nginx* docker*
-        sudo -E df -h
-        sudo -E df -h /*
+        sudo ls -lh /mnt
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -41,7 +39,11 @@
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
-      run: git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
+      run: |
+        sudo -E mkdir /mnt/work
+        sudo -E chmod 777 /mnt/work
+        cd /mnt/work
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git
     - name: Update feeds
       run: cd x-wrt && ./scripts/feeds update -a
     - name: Install feeds
