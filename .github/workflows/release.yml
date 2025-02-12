@@ -35,7 +35,7 @@ jobs:
   build-ath79-generic_ath79-generic-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -130,7 +130,7 @@ jobs:
   build-ath79-nand:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -215,7 +215,7 @@ jobs:
   build-ipq40xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -300,7 +300,7 @@ jobs:
   build-bcm27xx-bcm2709:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -385,7 +385,7 @@ jobs:
   build-bcm27xx-bcm2710:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -470,7 +470,7 @@ jobs:
   build-mediatek-mt7622:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -555,7 +555,7 @@ jobs:
   build-mediatek-filogic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -640,7 +640,7 @@ jobs:
   build-mediatek-filogic-uncommon:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -725,7 +725,7 @@ jobs:
   build-qualcommax-ipq807x_qualcommax-ipq60xx:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -820,7 +820,7 @@ jobs:
   build-bcm27xx-bcm2711:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -905,7 +905,7 @@ jobs:
   build-bcm27xx-bcm2712:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -990,7 +990,7 @@ jobs:
   build-bcm53xx-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1075,7 +1075,7 @@ jobs:
   build-ipq806x-generic:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1160,7 +1160,7 @@ jobs:
   build-mvebu-cortexa9:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1245,7 +1245,7 @@ jobs:
   build-ramips-mt7620_ramips-mt7620-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1340,7 +1340,7 @@ jobs:
   build-ramips-mt7621_ramips-mt7621-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1435,7 +1435,7 @@ jobs:
   build-ramips-mt76x8_ramips-mt76x8-nosymbol:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1530,7 +1530,7 @@ jobs:
   build-rockchip-armv8_armsr-armv8:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1625,7 +1625,7 @@ jobs:
   build-x86_64:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -1710,7 +1710,7 @@ jobs:
   build-x86_64-docker:
     if: contains(github.ref, 'tags/v')
     needs: release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v4
