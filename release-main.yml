@@ -7,7 +7,7 @@
       uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
-        docker rmi `docker images -q`
+        docker rmi `docker images -q` || true
         sudo -E df -h
         sudo ls -lh /mnt
     - name: Initialization environment
