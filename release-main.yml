@@ -58,7 +58,7 @@
       if: failure()
       with:
         name: build-failure-log-_TARGETNAME_
-        path: make.log
+        path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v4
       with:

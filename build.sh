@@ -23,6 +23,6 @@ TMPFS=1 ./feeds/x/rom/lede/make.sh make -j$1 && sh upload.sh
 
 _EXIT=$?
 [ "x$_EXIT" = "x0" ] || {
-	make V=s >>../make.log 2>&1
+	make V=s >>make.log 2>&1
 	exit $_EXIT
 }
