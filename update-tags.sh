@@ -18,6 +18,9 @@ cat target.list | while read target; do
 	}
 	cat release-main.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
 	for bt in $BTARGET; do
+		ASSET_NAME=$(echo "x-wrt-${TAG}-${bt}-apps" | tr ' ' _)
+		ASSET_ID=$(echo ${ASSET_NAME} | md5sum | head -c32)
+		cat release-upload-one.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
 		cat ../feeds/x/rom/lede/config.$BTARGET | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
 			ASSET_NAME=$(echo "x-wrt-${TAG}-${bt}-${device}" | tr ' ' _)
 			ASSET_ID=$(echo ${ASSET_NAME} | md5sum | head -c32)
