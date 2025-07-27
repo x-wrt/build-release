@@ -1,13 +1,18 @@
 . .build_x/env
 
-for cfg in $CFGS; do
-
-export CFGS="$cfg"
 sh feeds/x/rom/lede/gen_map.sh
 rm -rf build_dir/t* staging_dir/t*
+
+for cfg in $CFGS; do
+
 echo gen zip
-cat .config | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
+cat .build_x/$cfg | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
 	mkdir -p rom
+	pwd
+	ls map.list upload.list sha256sums.txt
+	echo target=$target device=$device
+	head -n3 map.list
+	head -n3 upload.list
 	cp `find $(cat upload.list | cut -d/ -f1,2,3,4 | sort | uniq) | grep kmod-mtd-rw` rom
 	cp `find $(cat upload.list | cut -d/ -f1,2 | sort | uniq) | grep luci-theme-argon` rom
 	cp `find $(cat upload.list | cut -d/ -f1 | sort | uniq) | grep openlist` rom

@@ -19,6 +19,7 @@ sleep 10
 
 mkdir .build_x
 echo CONFIG_VERSION_NUMBER=\"`cat release.tag`\" >.build_x/env
+sed -i 's/CONFIG_SDK/# CONFIG_SDK is not set/' ./feeds/x/rom/lede/config.*
 TMPFS=1 ./feeds/x/rom/lede/make.sh make -j$1 && sh upload.sh
 
 _EXIT=$?
