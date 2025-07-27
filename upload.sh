@@ -15,7 +15,7 @@ zip -r x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}-apps.zip rom && rm -rf rom
 echo gen zip
 cat .build_x/$cfg | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
 	mkdir -p rom
-	target=$(echo $target | tr _ -)"
+	target="$(echo $target | tr _ -)"
 	echo target=$target device=$device
 	cat map.list | grep "${target}-${device}-" >rom/map.list
 	cat upload.list | grep "${target}-${device}-" >rom/upload.list
