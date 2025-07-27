@@ -13,7 +13,7 @@ echo gen x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}-apps.zip
 zip -r x-wrt-${CONFIG_VERSION_NUMBER}-${cfg##config.}-apps.zip rom && rm -rf rom || exit 255
 
 echo gen zip
-cat .build_x/$cfg | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
+cat .build_x/$cfg | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | awk '{print length(), $0 | "sort -n -r"}' | cut -d' ' -f2 | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
 	mkdir -p rom
 	target="$(echo $target | tr _ -)"
 	echo target=$target device=$device
