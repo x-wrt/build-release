@@ -27,13 +27,17 @@ mkdir -p /data_dir/bin && ln -s /data_dir/bin bin
 mkdir -p /data_dir/dl && ln -s /data_dir/dl dl
 mkdir -p /data_dir/host && mkdir -p build_dir && ln -s /data_dir/host build_dir/host
 mkdir -p /data_dir/hostpkg && mkdir -p build_dir && ln -s /data_dir/hostpkg build_dir/hostpkg
+mkdir -p /data_dir/build_dir_host
+mkdir -p build_dir/target-aarch64_cortex-a53_musl && ln -s /data/build_dir_host build_dir/target-aarch64_cortex-a53_musl/host
+mkdir -p build_dir/target-x86_64_musl && ln -s /data/build_dir_host build_dir/target-x86_64_musl/host
 
 TMPFS=1 ./feeds/x/rom/lede/make.sh make -j$1 && sh upload.sh
 
 _EXIT=$?
 [ "x$_EXIT" = "x0" ] || {
+	sudo -E du -sh /data_dir/*
 	sudo -E df -h
-	sudo du -sh bin build_dir/* staging_dir/*
+	sudo -E du -sh bin build_dir/* staging_dir/*
 	make V=s >>make.log 2>&1
 	exit $_EXIT
 }
