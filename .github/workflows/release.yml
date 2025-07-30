@@ -66,15 +66,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -910,15 +913,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1074,15 +1080,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1348,15 +1357,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1582,15 +1594,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1676,15 +1691,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1770,15 +1788,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -1854,15 +1875,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -2148,15 +2172,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -2422,15 +2449,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -3196,15 +3226,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -3430,15 +3463,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -3604,15 +3640,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -3918,15 +3957,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4102,15 +4144,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4376,15 +4421,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4510,15 +4558,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4624,15 +4675,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4718,15 +4772,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4812,15 +4869,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -4906,15 +4966,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -5000,15 +5063,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -5474,15 +5540,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -5868,15 +5937,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -6112,15 +6184,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
@@ -6366,15 +6441,18 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
+        sudo -E mkdir /data_dir
+        sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
-        sudo -E chmod 777 /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
