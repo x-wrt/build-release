@@ -43,7 +43,7 @@
         sudo -E mkdir /mnt/work_dir
         sudo -E mkdir /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
-        mergerfs -o defaults,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
+        sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=epmfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
