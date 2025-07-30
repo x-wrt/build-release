@@ -29,3 +29,7 @@ cat .build_x/$cfg | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | awk '{print
 done
 
 done
+ls -l /mnt/work_dir/
+echo
+ls -l /data_dir/
+echo
