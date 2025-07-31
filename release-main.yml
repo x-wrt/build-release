@@ -8,8 +8,9 @@
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
+        sudo -E rm -rf /mnt/tmp-pv.img || true
         sudo -E df -h
-        sudo ls -lh /mnt
+        sudo -E ls -lh /mnt
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
