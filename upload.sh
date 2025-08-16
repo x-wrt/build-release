@@ -11,6 +11,7 @@ cp `find bin | grep luci-theme-argon` rom || true
 cp `find bin | grep openlist` rom || true
 cp `find bin | grep zerotier` rom || true
 cp `find bin | grep tailscale` rom || true
+cp `find bin | grep openclash` rom || true
 echo gen x-wrt-${cfg##config.}-apps.zip
 zip -r x-wrt-${cfg##config.}-apps.zip rom && rm -rf rom || exit 255
 
