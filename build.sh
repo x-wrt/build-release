@@ -14,8 +14,15 @@ echo starting build...
 echo starting build....
 df -h .
 free -m
-echo start build in 10s
-sleep 10
+echo start build in 1s
+sleep 1
+(wget https://www.zlib.net/pigz/pigz.tar.gz && \
+tar xzf pigz.tar.gz && \
+cd pigz && \
+make && \
+sudo -E cp pigz /bin/pigz && sudo -E ln -sf pigz /bin/unpigz)
+sleep 1
+wget https://github.com/openwrt/openwrt/pull/19792.patch && git am 19792.patch
 
 mkdir .build_x
 echo CONFIG_VERSION_NUMBER=\"`cat release.tag`\" >.build_x/env
