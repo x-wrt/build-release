@@ -74,9 +74,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -942,9 +943,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1110,9 +1112,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1388,9 +1391,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1626,9 +1630,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1724,9 +1729,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1822,9 +1828,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -1920,9 +1927,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -2218,9 +2226,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -2496,9 +2505,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -3274,9 +3284,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -3512,9 +3523,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -3690,9 +3702,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4008,9 +4021,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4196,9 +4210,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4474,9 +4489,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4612,9 +4628,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4730,9 +4747,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4828,9 +4846,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -4926,9 +4945,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -5024,9 +5044,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -5122,9 +5143,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -5600,9 +5622,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -5998,9 +6021,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -6246,9 +6270,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
@@ -6504,9 +6529,10 @@ jobs:
       run: sudo rm -rf /opt/*
     - name: Clone source code
       run: |
-        sudo -E mkdir /data_dir
-        sudo -E mkdir /mnt/work_dir
-        sudo -E mkdir /mnt/work
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
         sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
         sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
