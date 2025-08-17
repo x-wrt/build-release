@@ -54,6 +54,7 @@
     - name: Building
       run: |
         cp *.sh /mnt/work/x-wrt/
+        cp *.tar.gz /mnt/work/x-wrt/
         cp release.tag /mnt/work/x-wrt/
         cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."

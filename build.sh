@@ -16,11 +16,12 @@ df -h .
 free -m
 echo start build in 1s
 sleep 1
-(wget https://www.zlib.net/pigz/pigz.tar.gz && \
-tar xzf pigz.tar.gz && \
-cd pigz && \
-make && \
-sudo -E cp pigz /bin/pigz && sudo -E ln -sf pigz /bin/unpigz)
+test -f pigz.tar.gz || wget https://www.zlib.net/pigz/pigz.tar.gz
+tar xzf pigz.tar.gz
+(cd pigz && \
+ make && \
+ sudo -E cp pigz /bin/pigz && \
+ sudo -E ln -sf pigz /bin/unpigz)
 sleep 1
 git config user.email "dev@x-wrt.com"
 git config user.name "Developer X"
@@ -36,6 +37,9 @@ _EXIT=$?
 [ "x$_EXIT" = "x0" ] || {
 	sudo -E df -h
 	sudo -E du -sh /data_dir/* /mnt/work_dir/
+	ls -l /mnt/work/x-wrt/staging_dir/host/bin/pigz
+	file /mnt/work/x-wrt/staging_dir/host/bin/pigz
+	/mnt/work/x-wrt/staging_dir/host/bin/pigz -h
 	make V=s >>make.log 2>&1
 	exit $_EXIT
 }
