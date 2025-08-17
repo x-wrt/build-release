@@ -25,8 +25,6 @@ sleep 1
 git config user.email "dev@x-wrt.com"
 git config user.name "Developer X"
 sleep 1
-wget https://github.com/openwrt/openwrt/pull/19792.patch && git am 19792.patch
-sleep 1
 
 mkdir .build_x
 echo CONFIG_VERSION_NUMBER=\"`cat release.tag`\" >.build_x/env
