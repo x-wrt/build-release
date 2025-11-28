@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 25.04_b202511200721
+name: Build Jobs 25.04_b202511290046
 
 on:
   push:
@@ -412,6 +412,16 @@ jobs:
         asset_name: x-wrt-mediatek-filogic-cudy_wr3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
+    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000e-v1
+      id: asset-02c231b93e11b1d36acd3f8faa8ecaa4
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000e-v1.zip
+        asset_name: x-wrt-mediatek-filogic-cudy_wr3000e-v1.zip
+        asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000h-v1
       id: asset-284b1f58499024a789c41b5cc5f9b7af
       uses: shogo82148/actions-upload-release-asset@v1
@@ -470,6 +480,16 @@ jobs:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
         asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt3000.zip
         asset_name: x-wrt-mediatek-filogic-glinet_gl-mt3000.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt3600be
+      id: asset-5471843e4d958b1ed13514ffd468c93e
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt3600be.zip
+        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt3600be.zip
         asset_content_type: application/zip
         overwrite: true
     - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt6000
