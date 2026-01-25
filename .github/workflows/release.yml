@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.04_b202601170930
+name: Build Jobs 26.04_b202601250827
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       with:
         name: release_url
         path: release_url.txt
-  build-mediatek-filogic:
+  build-mediatek-filogic-0:
     if: contains(github.ref, 'tags/v')
     needs: release
     runs-on: ubuntu-24.04
@@ -92,12 +92,12 @@ jobs:
         cp release.tag /mnt/work/x-wrt/
         cd /mnt/work/x-wrt
         echo -e "$(nproc) thread build."
-        BTARGET="mediatek-filogic" sh build.sh $(nproc)
+        BTARGET="mediatek-filogic-0" sh build.sh $(nproc)
     - name : Upload make.log if failure
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: build-failure-log-mediatek-filogic
+        name: build-failure-log-mediatek-filogic-0
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v4
@@ -112,884 +112,974 @@ jobs:
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
-    - name: Upload Release Asset x-wrt-mediatek-filogic-apps
-      id: asset-043dc3f01e812a86099fa758971a62cc
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-apps
+      id: asset-607c9a8262e0c905a025221cfbe3bead
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-apps.zip
-        asset_name: x-wrt-mediatek-filogic-apps.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-apps.zip
+        asset_name: x-wrt-mediatek-filogic-0-apps.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-abt_asr3000
-      id: asset-9ae47c013db8f3c8fc1a46bd2f921aff
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-imou_lc-hx3001-ubootlayout
+      id: asset-1f2e84720d72d85e84e8f2768524276a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-abt_asr3000.zip
-        asset_name: x-wrt-mediatek-filogic-abt_asr3000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-imou_lc-hx3001-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-0-imou_lc-hx3001-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-abt_asr3000-ubootlayout
-      id: asset-f61af14717ff28266d784d1608e8f627
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-jcg_q30-pro
+      id: asset-70dbb12d97a83b0b5f2a7cd09bf61b93
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-abt_asr3000-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-abt_asr3000-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-jcg_q30-pro.zip
+        asset_name: x-wrt-mediatek-filogic-0-jcg_q30-pro.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-acer_predator-w6
-      id: asset-d185e48f10d7ad60211438191e23e157
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-jcg_q30-pro-nmbm
+      id: asset-5107e4cc5ab33322ea538c359d750c05
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-acer_predator-w6.zip
-        asset_name: x-wrt-mediatek-filogic-acer_predator-w6.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-jcg_q30-pro-nmbm.zip
+        asset_name: x-wrt-mediatek-filogic-0-jcg_q30-pro-nmbm.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-asus_rt-ax59u
-      id: asset-1027f504ed7c3a3dfd7738e27243e5aa
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-jdcloud_re-cp-03
+      id: asset-e286ddacc32bfae47f3f2290c177e446
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-asus_rt-ax59u.zip
-        asset_name: x-wrt-mediatek-filogic-asus_rt-ax59u.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-jdcloud_re-cp-03.zip
+        asset_name: x-wrt-mediatek-filogic-0-jdcloud_re-cp-03.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-asus_tuf-ax4200
-      id: asset-831a24bd34255099625e87c20d7c9c34
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-mercusys_mr90x-v1
+      id: asset-93095e60f29dc43ed75718a54fe42bd1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-asus_tuf-ax4200.zip
-        asset_name: x-wrt-mediatek-filogic-asus_tuf-ax4200.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-mercusys_mr90x-v1.zip
+        asset_name: x-wrt-mediatek-filogic-0-mercusys_mr90x-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-asus_tuf-ax6000
-      id: asset-11b23ec994979f90746915c5be171092
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-netcore_n60
+      id: asset-ac6b5f834cf4f620485d3b5ac6bd95d8
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-asus_tuf-ax6000.zip
-        asset_name: x-wrt-mediatek-filogic-asus_tuf-ax6000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-netcore_n60.zip
+        asset_name: x-wrt-mediatek-filogic-0-netcore_n60.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-asus_zenwifi-bt8
-      id: asset-1840e98ac66560ccd77b119d6961d38b
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-netgear_wax220
+      id: asset-1ac531c34bb06e959883ace10979654b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-asus_zenwifi-bt8.zip
-        asset_name: x-wrt-mediatek-filogic-asus_zenwifi-bt8.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-netgear_wax220.zip
+        asset_name: x-wrt-mediatek-filogic-0-netgear_wax220.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod
-      id: asset-749bd670a863fa3acf1b1071328bff15
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-netis_nx31
+      id: asset-041efe8b642f3e40981a62ffa469120a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-netis_nx31.zip
+        asset_name: x-wrt-mediatek-filogic-0-netis_nx31.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-bananapi_bpi-r3
-      id: asset-63d406da4273b32f0830218dad2b7786
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-nokia_ea0326gmp
+      id: asset-58a70b98847b1107ed211171f8ca64c3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-bananapi_bpi-r3.zip
-        asset_name: x-wrt-mediatek-filogic-bananapi_bpi-r3.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-nokia_ea0326gmp.zip
+        asset_name: x-wrt-mediatek-filogic-0-nokia_ea0326gmp.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-bananapi_bpi-r3-mini
-      id: asset-a62fe5600ad3ddbc59dcb2f249839231
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-nradio_c8-660
+      id: asset-994bac737614a61dfa44c0f7f374e01e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-bananapi_bpi-r3-mini.zip
-        asset_name: x-wrt-mediatek-filogic-bananapi_bpi-r3-mini.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-nradio_c8-660.zip
+        asset_name: x-wrt-mediatek-filogic-0-nradio_c8-660.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-bananapi_bpi-r4
-      id: asset-a62d1abeb732cd13291fcf9a83038081
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-nradio_c8-668gl
+      id: asset-43970f141545851f90926df8140b5410
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-bananapi_bpi-r4.zip
-        asset_name: x-wrt-mediatek-filogic-bananapi_bpi-r4.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-nradio_c8-668gl.zip
+        asset_name: x-wrt-mediatek-filogic-0-nradio_c8-668gl.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-bananapi_bpi-r4-poe
-      id: asset-f0ecbe41049ce39c14d4e664aa0623af
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-openfi_6c
+      id: asset-ceffcfda8068a0f0cdebbfd02255431e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-bananapi_bpi-r4-poe.zip
-        asset_name: x-wrt-mediatek-filogic-bananapi_bpi-r4-poe.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-openfi_6c.zip
+        asset_name: x-wrt-mediatek-filogic-0-openfi_6c.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-bananapi_bpi-r4-lite
-      id: asset-af2498e74ed31cf99fc8ffd12dc05b53
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-openwrt_one
+      id: asset-34c4ead8b653b9fe8562becf417728cc
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-bananapi_bpi-r4-lite.zip
-        asset_name: x-wrt-mediatek-filogic-bananapi_bpi-r4-lite.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-openwrt_one.zip
+        asset_name: x-wrt-mediatek-filogic-0-openwrt_one.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cetron_ct3003
-      id: asset-797d7d2646af033f1efba0d89d2b5ab6
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-qihoo_360t7
+      id: asset-67e6e28173f0226c4d0fb5af29aa7921
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cetron_ct3003.zip
-        asset_name: x-wrt-mediatek-filogic-cetron_ct3003.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-qihoo_360t7.zip
+        asset_name: x-wrt-mediatek-filogic-0-qihoo_360t7.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cetron_ct3003-ubootlayout
-      id: asset-503ac9638d2b97b3a3c18a53ea90efb8
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-qihoo_360t7-ubootlayout
+      id: asset-0d4bd5e9fef7094a0769491e36b4c42e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cetron_ct3003-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-cetron_ct3003-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-qihoo_360t7-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-0-qihoo_360t7-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_a10-ubootmod
-      id: asset-52b55eb1b7436ab7cee8f038cf9a9be1
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro
+      id: asset-62baee31d4d7ff715545e96a79dba246
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_a10-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_a10-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro.zip
+        asset_name: x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_a10-stock
-      id: asset-28b3e6eb3cbd4f4525556b71a90a9a45
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro-ubootlayout
+      id: asset-e60f7f70831f96ecc49f508ca5a243e3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_a10-stock.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_a10-stock.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-0-ruijie_rg-x60-pro-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_a10-ubootlayout
-      id: asset-b0907104664e5f5d706750558a54f2c8
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenbay_ac-2205ex
+      id: asset-5328294e854f1174b821b121cd257aa1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_a10-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_a10-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenbay_ac-2205ex.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenbay_ac-2205ex.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_rax3000m
-      id: asset-deddc6f7ec2d4e4171e3e0a9714a313a
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenbay_ac-2210e
+      id: asset-a8322e79e7feb865fcc9cf178cee75da
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_rax3000m.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_rax3000m.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenbay_ac-2210e.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenbay_ac-2210e.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_rax3000m-emmc-ubootlayout
-      id: asset-322b24756063313ab6991d91a3017e61
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenbay_ms3000k
+      id: asset-a6fc2e1ae07aaefe14d465e506e9aeda
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_rax3000m-emmc-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_rax3000m-emmc-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenbay_ms3000k.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenbay_ms3000k.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cmcc_rax3000m-nand-ubootlayout
-      id: asset-c84865bbe9568c08f1e4a4cff7d56b08
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenbay_wr3000k
+      id: asset-0b6cb50e034893b1e609e5fbf04752e2
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cmcc_rax3000m-nand-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-cmcc_rax3000m-nand-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenbay_wr3000k.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenbay_wr3000k.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_ap3000outdoor-v1
-      id: asset-a39c4f8d0b2a89532c87e8ff737ee2b1
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenda_ax12l-pro
+      id: asset-1677021d0a65068cd300bedb42e6d465
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_ap3000outdoor-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_ap3000outdoor-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenda_ax12l-pro.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenda_ax12l-pro.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_ap3000-v1
-      id: asset-43e81c294d61539113edfc012baa3e89
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tenda_be12-pro
+      id: asset-ba622eaeaae6a08c436e89395087c9f7
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_ap3000-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_ap3000-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tenda_be12-pro.zip
+        asset_name: x-wrt-mediatek-filogic-0-tenda_be12-pro.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_m3000-v1
-      id: asset-de0fc1612d2c3c7946b71c1e03d8743f
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tplink_be450
+      id: asset-da7fba9c321372dfbba62bbb57c241b5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_m3000-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_m3000-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tplink_be450.zip
+        asset_name: x-wrt-mediatek-filogic-0-tplink_be450.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_re3000-v1
-      id: asset-eba2a9f5ab10fe8f1c11f01d10f2dd45
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tplink_tl-xdr4288
+      id: asset-8d735a6d138e670dcb9f2e74a9c1890b
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_re3000-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_re3000-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tplink_tl-xdr4288.zip
+        asset_name: x-wrt-mediatek-filogic-0-tplink_tl-xdr4288.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_tr3000-256mb-v1
-      id: asset-9a53ffa0dc7192ae46bec25b713882dc
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tplink_tl-xdr6086
+      id: asset-0a09130ebe7639c37a172cdd4528aa9f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_tr3000-256mb-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_tr3000-256mb-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tplink_tl-xdr6086.zip
+        asset_name: x-wrt-mediatek-filogic-0-tplink_tl-xdr6086.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_tr3000-v1
-      id: asset-d1be6f7d5013216fd658a5c90dce89e9
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tplink_tl-xdr6088
+      id: asset-ca2753aceca88e7bb3f6309643439bfd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_tr3000-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_tr3000-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tplink_tl-xdr6088.zip
+        asset_name: x-wrt-mediatek-filogic-0-tplink_tl-xdr6088.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_tr3000-v1-ubootmod
-      id: asset-bf2a7df098c678d00dcdcce8ddf14d7c
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-tplink_tl-xtr8488
+      id: asset-c34ee4ea5d7b687c0c45d289a741c1e3
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_tr3000-v1-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_tr3000-v1-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-tplink_tl-xtr8488.zip
+        asset_name: x-wrt-mediatek-filogic-0-tplink_tl-xtr8488.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000-v1
-      id: asset-c6e47f9a21757e5d5947369a99b8a562
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t
+      id: asset-0e0639bbf1f815755b8ecdc85990eca9
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_wr3000-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000e-v1
-      id: asset-02c231b93e11b1d36acd3f8faa8ecaa4
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t-ubootmod
+      id: asset-b395116986fd96a93c905306d71bdc76
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000e-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_wr3000e-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_mi-router-ax3000t-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000h-v1
-      id: asset-284b1f58499024a789c41b5cc5f9b7af
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-112m-nmbm
+      id: asset-3fb176233390fe86fd1d6a43e7a50662
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000h-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_wr3000h-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-112m-nmbm.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-112m-nmbm.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000p-v1
-      id: asset-f6b513a9a2d37bc669b49b2d03560074
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-ubootmod
+      id: asset-6856efae63898efac3e45a2a9f85c3b5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000p-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_wr3000p-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-cudy_wr3000s-v1
-      id: asset-d86de8467cc7a54b9506d0b58c4679a3
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-stock
+      id: asset-db342bfe8ffbaf055f2523335cb0a332
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-cudy_wr3000s-v1.zip
-        asset_name: x-wrt-mediatek-filogic-cudy_wr3000s-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-stock.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_mi-router-wr30u-stock.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-konka_komi-a31
-      id: asset-5622afc8c329adb26b393a07a55d9332
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootmod
+      id: asset-c408c1f873848c7a250ea2f53736846a
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-konka_komi-a31.zip
-        asset_name: x-wrt-mediatek-filogic-konka_komi-a31.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt2500-airoha
-      id: asset-caa1aa6cd68a4a7373241076eb157951
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-stock
+      id: asset-7412bb2778e1d864f4ca2472e09281cc
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt2500-airoha.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt2500-airoha.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-stock.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-stock.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt2500
-      id: asset-681fa4a26a9559959297f98bdb8b54a3
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootlayout
+      id: asset-d408358cc70bafd22af0a64ac138ba47
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt2500.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt2500.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-0-xiaomi_redmi-router-ax6000-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt3000
-      id: asset-102eac595ba1c46689d01ce064b891ba
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-xwrt_wr3000k-emmc-nor
+      id: asset-9b429d268e6c0a8efc9e0fa7495667fa
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt3000.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt3000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-xwrt_wr3000k-emmc-nor.zip
+        asset_name: x-wrt-mediatek-filogic-0-xwrt_wr3000k-emmc-nor.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt3600be
-      id: asset-5471843e4d958b1ed13514ffd468c93e
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-yuncore_ax835
+      id: asset-208c5111cb40023e160be4def6c13996
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt3600be.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt3600be.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-yuncore_ax835.zip
+        asset_name: x-wrt-mediatek-filogic-0-yuncore_ax835.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-mt6000
-      id: asset-d79923cfd712f6a667d76f8f5e2c68de
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax
+      id: asset-3f3a9b08f531439107116953ce36d4d6
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-mt6000.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-mt6000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax.zip
+        asset_name: x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-x3000
-      id: asset-3c51c9f1b2609ad19c1dbd2762a9996b
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax-v2
+      id: asset-873ce9afbb1ed5e4b4c4331c338af880
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-x3000.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-x3000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax-v2.zip
+        asset_name: x-wrt-mediatek-filogic-0-zbtlink_zbt-z8102ax-v2.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-glinet_gl-xe3000
-      id: asset-c20d1e981969c68dd27b00cafe4752d7
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-zbtlink_zbt-z8103ax
+      id: asset-9d1a40c1c87c48c3574ddb3fdebfe419
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-glinet_gl-xe3000.zip
-        asset_name: x-wrt-mediatek-filogic-glinet_gl-xe3000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-zbtlink_zbt-z8103ax.zip
+        asset_name: x-wrt-mediatek-filogic-0-zbtlink_zbt-z8103ax.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-h3c_magic-nx30-pro
-      id: asset-b5e424a61594319957ad52930a6a40c4
+    - name: Upload Release Asset x-wrt-mediatek-filogic-0-zyxel_ex5700-telenor
+      id: asset-de79e07989cb42acf1fa51cce2efdbfd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-h3c_magic-nx30-pro.zip
-        asset_name: x-wrt-mediatek-filogic-h3c_magic-nx30-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-0-zyxel_ex5700-telenor.zip
+        asset_name: x-wrt-mediatek-filogic-0-zyxel_ex5700-telenor.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-h3c_magic-nx30-pro-nmbm
-      id: asset-d30ac08776b69c9fc6bfa8a933122976
+  build-mediatek-filogic-1:
+    if: contains(github.ref, 'tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Pre Initialization environment
+      run: |
+        docker rmi `docker images -q` || true
+        sudo -E rm -rf /mnt/tmp-pv.img || true
+        sudo -E df -h
+        sudo -E ls -lh /mnt
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clean up disk
+      run: sudo rm -rf /opt/*
+    - name: Clone source code
+      run: |
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+    - name: Update feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh /mnt/work/x-wrt/
+        cp *.tar.gz /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
+        echo -e "$(nproc) thread build."
+        BTARGET="mediatek-filogic-1" sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: build-failure-log-mediatek-filogic-1
+        path: /mnt/work/x-wrt/make.log
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v4
+      with:
+        name: release_url
+        path: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt || cat release_url.txt`
+        echo "upload_url=$value" >> $GITHUB_OUTPUT
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-apps
+      id: asset-98e677e0cd6112699d1355cd15d96ac8
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-apps.zip
+        asset_name: x-wrt-mediatek-filogic-1-apps.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-abt_asr3000
+      id: asset-5285bf9f11eab78dbe80ece43f5bd8aa
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-h3c_magic-nx30-pro-nmbm.zip
-        asset_name: x-wrt-mediatek-filogic-h3c_magic-nx30-pro-nmbm.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-abt_asr3000.zip
+        asset_name: x-wrt-mediatek-filogic-1-abt_asr3000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-huasifei_wh3000
-      id: asset-aeb9d9e5cd18a6eaf65481003bc27960
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-abt_asr3000-ubootlayout
+      id: asset-67a8f73b24da1cdf8400b4a9c5132452
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-huasifei_wh3000.zip
-        asset_name: x-wrt-mediatek-filogic-huasifei_wh3000.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-abt_asr3000-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-1-abt_asr3000-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-huasifei_wh3000-pro
-      id: asset-63b634ec2494f440ef757ec2ac241df7
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-acer_predator-w6
+      id: asset-e9ed198cbc4b10a269b89937c765be00
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-huasifei_wh3000-pro.zip
-        asset_name: x-wrt-mediatek-filogic-huasifei_wh3000-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-acer_predator-w6.zip
+        asset_name: x-wrt-mediatek-filogic-1-acer_predator-w6.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-imou_lc-hx3001-ubootlayout
-      id: asset-7e67bcb77b3b1198acc1739ad11db9ab
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-asus_rt-ax59u
+      id: asset-7907e3314e6fa4b2b78edd215d009ebc
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-imou_lc-hx3001-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-imou_lc-hx3001-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-asus_rt-ax59u.zip
+        asset_name: x-wrt-mediatek-filogic-1-asus_rt-ax59u.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-jcg_q30-pro
-      id: asset-d086306e8183fe2b59ec857a0f188367
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-asus_tuf-ax4200
+      id: asset-45ff7de3b01e76e9bea0cff036c0dedd
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-jcg_q30-pro.zip
-        asset_name: x-wrt-mediatek-filogic-jcg_q30-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-asus_tuf-ax4200.zip
+        asset_name: x-wrt-mediatek-filogic-1-asus_tuf-ax4200.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-jcg_q30-pro-nmbm
-      id: asset-9909892dfd3fe780029f3769a361f9d9
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-asus_tuf-ax6000
+      id: asset-03bf72bd7b0d6f0caabcb27a11b25b17
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-jcg_q30-pro-nmbm.zip
-        asset_name: x-wrt-mediatek-filogic-jcg_q30-pro-nmbm.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-asus_tuf-ax6000.zip
+        asset_name: x-wrt-mediatek-filogic-1-asus_tuf-ax6000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-jdcloud_re-cp-03
-      id: asset-a5cf8dbe98c6d65784226ff7f60cb743
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-asus_zenwifi-bt8
+      id: asset-eb895c7a70978037ff65077c909f6dad
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-jdcloud_re-cp-03.zip
-        asset_name: x-wrt-mediatek-filogic-jdcloud_re-cp-03.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-asus_zenwifi-bt8.zip
+        asset_name: x-wrt-mediatek-filogic-1-asus_zenwifi-bt8.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-mercusys_mr90x-v1
-      id: asset-f13694aee83a39710dc786fbf028745c
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-asus_zenwifi-bt8-ubootmod
+      id: asset-36df48e73cd5eef3763121bb505fb526
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-mercusys_mr90x-v1.zip
-        asset_name: x-wrt-mediatek-filogic-mercusys_mr90x-v1.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-asus_zenwifi-bt8-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-1-asus_zenwifi-bt8-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-netcore_n60
-      id: asset-5ced8d3640178761d68c2c873404d57d
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-bananapi_bpi-r3
+      id: asset-b8813a2bb3692bc33cb22d5c88902dbb
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-netcore_n60.zip
-        asset_name: x-wrt-mediatek-filogic-netcore_n60.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-bananapi_bpi-r3.zip
+        asset_name: x-wrt-mediatek-filogic-1-bananapi_bpi-r3.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-netgear_wax220
-      id: asset-6bc2dba7eeb4002d07117eb2d1dec8a6
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-bananapi_bpi-r3-mini
+      id: asset-cb23e38b10ac23876ddd42ca742c9aa7
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-netgear_wax220.zip
-        asset_name: x-wrt-mediatek-filogic-netgear_wax220.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-bananapi_bpi-r3-mini.zip
+        asset_name: x-wrt-mediatek-filogic-1-bananapi_bpi-r3-mini.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-netis_nx31
-      id: asset-927bb5d18be71749c17004462774f373
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-bananapi_bpi-r4
+      id: asset-454ab1974e7310c9a0486ff9d0539320
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-netis_nx31.zip
-        asset_name: x-wrt-mediatek-filogic-netis_nx31.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-bananapi_bpi-r4.zip
+        asset_name: x-wrt-mediatek-filogic-1-bananapi_bpi-r4.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-nokia_ea0326gmp
-      id: asset-f4a8b55c2761dfef676338eebd761d78
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-bananapi_bpi-r4-poe
+      id: asset-f9896516d1dbdb271ff337e1dc911651
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-nokia_ea0326gmp.zip
-        asset_name: x-wrt-mediatek-filogic-nokia_ea0326gmp.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-bananapi_bpi-r4-poe.zip
+        asset_name: x-wrt-mediatek-filogic-1-bananapi_bpi-r4-poe.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-nradio_c8-660
-      id: asset-3ffb85ead7c5e41dad4d6c7eb45ab66f
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-bananapi_bpi-r4-lite
+      id: asset-4596de37c29e1e020a1a091e8ba6f4d5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-nradio_c8-660.zip
-        asset_name: x-wrt-mediatek-filogic-nradio_c8-660.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-bananapi_bpi-r4-lite.zip
+        asset_name: x-wrt-mediatek-filogic-1-bananapi_bpi-r4-lite.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-nradio_c8-668gl
-      id: asset-51fcbbd3af20838c6fdd5e95a4f84403
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cetron_ct3003
+      id: asset-c55537d4cccbc59eaaaab3f2bc70d3f5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-nradio_c8-668gl.zip
-        asset_name: x-wrt-mediatek-filogic-nradio_c8-668gl.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cetron_ct3003.zip
+        asset_name: x-wrt-mediatek-filogic-1-cetron_ct3003.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-openfi_6c
-      id: asset-9e002305fa33fe8984ea778957756ce1
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cetron_ct3003-ubootlayout
+      id: asset-e284d68b3f15af6487c649597f87156e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-openfi_6c.zip
-        asset_name: x-wrt-mediatek-filogic-openfi_6c.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cetron_ct3003-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-1-cetron_ct3003-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-openwrt_one
-      id: asset-fb6f82bfc9f27b22bb6768f83c6aae02
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_a10-ubootmod
+      id: asset-60ed94139b906c5922b661d07c60310d
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-openwrt_one.zip
-        asset_name: x-wrt-mediatek-filogic-openwrt_one.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_a10-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_a10-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-qihoo_360t7
-      id: asset-5d255e84366faf15ee9a9575b6d55caa
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_a10-stock
+      id: asset-3d178c724bb46188598928287063c596
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-qihoo_360t7.zip
-        asset_name: x-wrt-mediatek-filogic-qihoo_360t7.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_a10-stock.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_a10-stock.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-qihoo_360t7-ubootlayout
-      id: asset-ea039cf18a274a3ac7396bfe885a7d0a
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_a10-ubootlayout
+      id: asset-0efee541f5ff2ea12e7b6d0b093fe51e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-qihoo_360t7-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-qihoo_360t7-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_a10-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_a10-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-ruijie_rg-x60-pro
-      id: asset-5521766ae7e25650998153206247716c
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_rax3000m
+      id: asset-2e5a32d5f8cda652d8069cf049d09745
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-ruijie_rg-x60-pro.zip
-        asset_name: x-wrt-mediatek-filogic-ruijie_rg-x60-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_rax3000m.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_rax3000m.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-ruijie_rg-x60-pro-ubootlayout
-      id: asset-64f8ed516f84a763dff69b604425de7f
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_rax3000m-emmc-ubootlayout
+      id: asset-1b6ab90d80ecac0d303cb1f9a2067793
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-ruijie_rg-x60-pro-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-ruijie_rg-x60-pro-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_rax3000m-emmc-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_rax3000m-emmc-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenbay_ac-2205ex
-      id: asset-9b14daaf387abe6d9117b36ae011e05e
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cmcc_rax3000m-nand-ubootlayout
+      id: asset-0fc946b4d42cf89247fcc89a5ee21d82
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenbay_ac-2205ex.zip
-        asset_name: x-wrt-mediatek-filogic-tenbay_ac-2205ex.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cmcc_rax3000m-nand-ubootlayout.zip
+        asset_name: x-wrt-mediatek-filogic-1-cmcc_rax3000m-nand-ubootlayout.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenbay_ac-2210e
-      id: asset-de184a5aa9bb6760ba0f741b9ab33ccd
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_ap3000outdoor-v1
+      id: asset-98f82d519f0d84125ecc0c9c6b92c94e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenbay_ac-2210e.zip
-        asset_name: x-wrt-mediatek-filogic-tenbay_ac-2210e.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_ap3000outdoor-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_ap3000outdoor-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenbay_ms3000k
-      id: asset-d8671b256f3a17b496c48732122f0990
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_ap3000-v1
+      id: asset-33e71927d55064ee08b7e7b9f8c4fa2e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenbay_ms3000k.zip
-        asset_name: x-wrt-mediatek-filogic-tenbay_ms3000k.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_ap3000-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_ap3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenbay_wr3000k
-      id: asset-1f4e95493e84bf4a2f0bf9ea97d9e835
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_m3000-v1
+      id: asset-763ab0012fd4347c37f3c7b83189f83f
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenbay_wr3000k.zip
-        asset_name: x-wrt-mediatek-filogic-tenbay_wr3000k.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_m3000-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_m3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenda_ax12l-pro
-      id: asset-e83638e52d3446e3c0292c29fbfea57a
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_re3000-v1
+      id: asset-49c60cb120d2b89d079b3b083d1f1ddc
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenda_ax12l-pro.zip
-        asset_name: x-wrt-mediatek-filogic-tenda_ax12l-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_re3000-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_re3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tenda_be12-pro
-      id: asset-da10afb4f4f32317ed2e82176205a188
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_tr3000-256mb-v1
+      id: asset-f54c7c4349ed74d1ea020049389393d5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tenda_be12-pro.zip
-        asset_name: x-wrt-mediatek-filogic-tenda_be12-pro.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_tr3000-256mb-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_tr3000-256mb-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tplink_be450
-      id: asset-2b3c240a00739f52f2e76c7dba59a3a9
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_tr3000-v1
+      id: asset-c20a858e057db499eb11d4bfd4e996ea
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tplink_be450.zip
-        asset_name: x-wrt-mediatek-filogic-tplink_be450.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_tr3000-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_tr3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tplink_tl-xdr4288
-      id: asset-d200f7720e4711d162e0c579d18f9efb
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_tr3000-v1-ubootmod
+      id: asset-cc7e5ae6cb32a364eb49a3096fc2208c
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tplink_tl-xdr4288.zip
-        asset_name: x-wrt-mediatek-filogic-tplink_tl-xdr4288.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_tr3000-v1-ubootmod.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_tr3000-v1-ubootmod.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tplink_tl-xdr6086
-      id: asset-5a2d19411810d0a2eb4eef78dca21a1e
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_wr3000-v1
+      id: asset-bd1f0b29efaaa0a72db171fa8a6ffcae
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tplink_tl-xdr6086.zip
-        asset_name: x-wrt-mediatek-filogic-tplink_tl-xdr6086.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_wr3000-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tplink_tl-xdr6088
-      id: asset-55bcff5e9d11f3f0e16b653967a71e93
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_wr3000e-v1
+      id: asset-d2d173ddb9b4457829c012c7b1d11107
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tplink_tl-xdr6088.zip
-        asset_name: x-wrt-mediatek-filogic-tplink_tl-xdr6088.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000e-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_wr3000e-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-tplink_tl-xtr8488
-      id: asset-412fcdf4b7730d4d4908aecb08c99f4e
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_wr3000h-v1
+      id: asset-791fec3419123793b179a4d54f0577ec
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-tplink_tl-xtr8488.zip
-        asset_name: x-wrt-mediatek-filogic-tplink_tl-xtr8488.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000h-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_wr3000h-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t
-      id: asset-5964801df7a0df0cbffe4d7b6122bd1b
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_wr3000p-v1
+      id: asset-694b0fb34767d1e37b8dd0a98fed0098
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000p-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_wr3000p-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod
-      id: asset-59aec17b9452a2f3bc5bfa582a058963
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-cudy_wr3000s-v1
+      id: asset-f079448931b0006a36893d311f359479
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000s-v1.zip
+        asset_name: x-wrt-mediatek-filogic-1-cudy_wr3000s-v1.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-112m-nmbm
-      id: asset-4ec5b7cef2ca993e5069e393274d0ef0
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-konka_komi-a31
+      id: asset-d0a471a86488f642560de53ab10ad249
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-112m-nmbm.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-112m-nmbm.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-konka_komi-a31.zip
+        asset_name: x-wrt-mediatek-filogic-1-konka_komi-a31.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod
-      id: asset-5de352d739b8a5e8547d8722c688c77b
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-mt2500-airoha
+      id: asset-71eb0b488b5accda1c26b448d984c94e
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt2500-airoha.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-mt2500-airoha.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock
-      id: asset-33e226a94bc9263b2c1a9ef9f2a11b54
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-mt2500
+      id: asset-9a76e2a46fd852fb260c52814e07b0a5
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt2500.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-mt2500.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod
-      id: asset-deea5471a075f2a11fc72b081380c576
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-mt3000
+      id: asset-d3afc7a838c3d4bbb803e0ebe1f4dd41
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt3000.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-mt3000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock
-      id: asset-67ddb2c8df9173dd507df3cacb47a613
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-mt3600be
+      id: asset-e1a7966893fcc9d3352294bc70a0fce1
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt3600be.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-mt3600be.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootlayout
-      id: asset-aac991e9862272476c3a232a38f63750
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-mt6000
+      id: asset-7283712e5f032b876894c96bd8c25b40
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootlayout.zip
-        asset_name: x-wrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootlayout.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt6000.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-mt6000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-xwrt_wr3000k-emmc-nor
-      id: asset-16b034508d1870f780bbbd1afd31f1c5
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-x3000
+      id: asset-06584f451b8e99599d91243ff3464cca
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-xwrt_wr3000k-emmc-nor.zip
-        asset_name: x-wrt-mediatek-filogic-xwrt_wr3000k-emmc-nor.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-x3000.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-x3000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-yuncore_ax835
-      id: asset-4b87180e2539698dc39673fa8e871291
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-glinet_gl-xe3000
+      id: asset-f686afdb18b7dc8fb29a6fecb1043bb8
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-yuncore_ax835.zip
-        asset_name: x-wrt-mediatek-filogic-yuncore_ax835.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-xe3000.zip
+        asset_name: x-wrt-mediatek-filogic-1-glinet_gl-xe3000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax
-      id: asset-9143b48bf7e9c6074d103e857aa38f69
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro
+      id: asset-5ae254b59d05ac87c99dbf9f6516d2da
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax.zip
-        asset_name: x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro.zip
+        asset_name: x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2
-      id: asset-ee55d143df2f77827d8d5d4e600a1952
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro-nmbm
+      id: asset-a672914ace6e6e35247d63aaee81df88
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2.zip
-        asset_name: x-wrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro-nmbm.zip
+        asset_name: x-wrt-mediatek-filogic-1-h3c_magic-nx30-pro-nmbm.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-zbtlink_zbt-z8103ax
-      id: asset-0ea6dbf4deeaa7d07145ac33f9b72302
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-huasifei_wh3000
+      id: asset-de2b3c9cc246c4bab97de64d18a765e7
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-zbtlink_zbt-z8103ax.zip
-        asset_name: x-wrt-mediatek-filogic-zbtlink_zbt-z8103ax.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-huasifei_wh3000.zip
+        asset_name: x-wrt-mediatek-filogic-1-huasifei_wh3000.zip
         asset_content_type: application/zip
         overwrite: true
-    - name: Upload Release Asset x-wrt-mediatek-filogic-zyxel_ex5700-telenor
-      id: asset-59c6f829e97c4255d36b59a9bc8f6dcd
+    - name: Upload Release Asset x-wrt-mediatek-filogic-1-huasifei_wh3000-pro
+      id: asset-7e424c08d0ce8deb27b5285e03521f65
       uses: shogo82148/actions-upload-release-asset@v1
       with:
         github_token: ${{ secrets.WORKFLOW_TOKEN }}
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-zyxel_ex5700-telenor.zip
-        asset_name: x-wrt-mediatek-filogic-zyxel_ex5700-telenor.zip
+        asset_path: /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-huasifei_wh3000-pro.zip
+        asset_name: x-wrt-mediatek-filogic-1-huasifei_wh3000-pro.zip
         asset_content_type: application/zip
         overwrite: true
   build-mediatek-mt7622:
@@ -4252,6 +4342,36 @@ jobs:
         asset_name: x-wrt-rockchip-armv8-friendlyarm_nanopi-r6s.zip
         asset_content_type: application/zip
         overwrite: true
+    - name: Upload Release Asset x-wrt-rockchip-armv8-hinlink_h28k
+      id: asset-44d69c7f496fd4e6ffa7832bcc77e766
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-rockchip-armv8-hinlink_h28k.zip
+        asset_name: x-wrt-rockchip-armv8-hinlink_h28k.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-rockchip-armv8-hinlink_h66k
+      id: asset-01a6923cca82b75476ae0cd9fb31b230
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-rockchip-armv8-hinlink_h66k.zip
+        asset_name: x-wrt-rockchip-armv8-hinlink_h66k.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-rockchip-armv8-hinlink_h68k
+      id: asset-d6059c5bbca925a14743621e483f5d4f
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-rockchip-armv8-hinlink_h68k.zip
+        asset_name: x-wrt-rockchip-armv8-hinlink_h68k.zip
+        asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-rockchip-armv8-radxa_rock-5a
       id: asset-c30d4c923be38b4f596caf9431c83ebc
       uses: shogo82148/actions-upload-release-asset@v1
@@ -4660,6 +4780,36 @@ jobs:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
         asset_path: /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-glinet_gl-axt1800.zip
         asset_name: x-wrt-qualcommax-ipq60xx-glinet_gl-axt1800.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-02
+      id: asset-5033275dcbac7d0b6c03a6f07bcfe960
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-02.zip
+        asset_name: x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-02.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-07
+      id: asset-4da7719f82276a901142b5203ed45a89
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-07.zip
+        asset_name: x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-07.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-qualcommax-ipq60xx-jdcloud_re-ss-01
+      id: asset-972f28aea82586267db6764931608e3c
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-ss-01.zip
+        asset_name: x-wrt-qualcommax-ipq60xx-jdcloud_re-ss-01.zip
         asset_content_type: application/zip
         overwrite: true
     - name: Upload Release Asset x-wrt-qualcommax-ipq60xx-linksys_mr7350
