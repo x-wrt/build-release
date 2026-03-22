@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.04_b202603200745
+name: Build Jobs 26.04_b202603221644
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: release_url
         path: release_url.txt
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -94,13 +94,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-filogic-0" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-0
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -558,7 +558,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -614,13 +614,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-filogic-1" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-1
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1108,7 +1108,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -1164,13 +1164,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mediatek-mt7622" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-mediatek-mt7622
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1278,7 +1278,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -1334,13 +1334,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ipq40xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ipq40xx-generic
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1558,7 +1558,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -1614,13 +1614,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ipq806x-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ipq806x-generic
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1798,7 +1798,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -1854,13 +1854,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="armsr-armv8" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-armsr-armv8
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1898,7 +1898,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -1954,13 +1954,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="x86_64" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-x86_64
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -1998,7 +1998,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -2054,13 +2054,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="x86_64-docker" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-x86_64-docker
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -2098,7 +2098,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -2154,13 +2154,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7620" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -2398,7 +2398,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -2454,13 +2454,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7620-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620-nosymbol
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -2678,7 +2678,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -2734,13 +2734,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7621" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -3458,7 +3458,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -3514,13 +3514,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt7621-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621-nosymbol
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -3698,7 +3698,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -3754,13 +3754,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt76x8" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -3878,7 +3878,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -3934,13 +3934,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ramips-mt76x8-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8-nosymbol
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -4198,7 +4198,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -4254,13 +4254,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="rockchip-armv8" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-rockchip-armv8
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -4418,7 +4418,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -4474,13 +4474,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="qualcommax-ipq807x" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq807x
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -4698,7 +4698,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -4754,13 +4754,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="qualcommax-ipq60xx" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq60xx
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -4868,7 +4868,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -4924,13 +4924,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="qualcommax-ipq50xx" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq50xx
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -4998,7 +4998,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5054,13 +5054,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2712" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2712
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -5098,7 +5098,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5154,13 +5154,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2711" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2711
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -5198,7 +5198,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5254,13 +5254,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2710" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2710
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -5298,7 +5298,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5354,13 +5354,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2709" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2709
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -5398,7 +5398,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5454,13 +5454,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ath79-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ath79-generic
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -5878,7 +5878,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -5934,13 +5934,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ath79-generic-nosymbol" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ath79-generic-nosymbol
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -6298,7 +6298,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -6354,13 +6354,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="ath79-nand" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-ath79-nand
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -6548,7 +6548,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -6604,13 +6604,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="bcm53xx-generic" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-bcm53xx-generic
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
@@ -6828,7 +6828,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
         docker rmi `docker images -q` || true
@@ -6884,13 +6884,13 @@ jobs:
         echo -e "$(nproc) thread build."
         BTARGET="mvebu-cortexa9" sh build.sh $(nproc)
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: build-failure-log-mvebu-cortexa9
         path: /mnt/work/x-wrt/make.log
     - name: Load Release URL File from release job
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: release_url
         path: release_url
