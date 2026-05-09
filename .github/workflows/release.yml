@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.04_b202605010101
+name: Build Jobs 26.04_b202605090803
 
 on:
   push:
@@ -3112,6 +3112,26 @@ jobs:
         asset_name: x-wrt-ramips-mt7621-totolink_x5000r.zip
         asset_content_type: application/zip
         overwrite: true
+    - name: Upload Release Asset x-wrt-ramips-mt7621-ubnt_edgerouter-x-sfp
+      id: asset-8f417d217a68155a68cfa9197e83877f
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-ubnt_edgerouter-x-sfp.zip
+        asset_name: x-wrt-ramips-mt7621-ubnt_edgerouter-x-sfp.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-ramips-mt7621-ubnt_edgerouter-x
+      id: asset-88e5e1f14995e242c776ef32388645cf
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-ubnt_edgerouter-x.zip
+        asset_name: x-wrt-ramips-mt7621-ubnt_edgerouter-x.zip
+        asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-ramips-mt7621-zbtlink_zbt-we1326
       id: asset-148f9acd8872a964ced4e75752aafcd0
       uses: shogo82148/actions-upload-release-asset@v1
@@ -3710,26 +3730,6 @@ jobs:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
         asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-nosymbol-tplink_re650-v1.zip
         asset_name: x-wrt-ramips-mt7621-nosymbol-tplink_re650-v1.zip
-        asset_content_type: application/zip
-        overwrite: true
-    - name: Upload Release Asset x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x-sfp
-      id: asset-9c5b36cb500b363f077cea37450cc099
-      uses: shogo82148/actions-upload-release-asset@v1
-      with:
-        github_token: ${{ secrets.WORKFLOW_TOKEN }}
-        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x-sfp.zip
-        asset_name: x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x-sfp.zip
-        asset_content_type: application/zip
-        overwrite: true
-    - name: Upload Release Asset x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x
-      id: asset-8d8648e4a1d1ad3158c5f981d8372117
-      uses: shogo82148/actions-upload-release-asset@v1
-      with:
-        github_token: ${{ secrets.WORKFLOW_TOKEN }}
-        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x.zip
-        asset_name: x-wrt-ramips-mt7621-nosymbol-ubnt_edgerouter-x.zip
         asset_content_type: application/zip
         overwrite: true
   build-ramips-mt76x8:
