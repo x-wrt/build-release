@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.04_b202608061331
+name: Build Jobs 26.04_b202608102022
 
 on:
   push:
@@ -3072,6 +3072,16 @@ jobs:
         asset_name: x-wrt-ramips-mt7621-planex_vr500.zip
         asset_content_type: application/zip
         overwrite: true
+    - name: Upload Release Asset x-wrt-ramips-mt7621-z-router_zr-2660
+      id: asset-a20df29794c7ee8f310765cd2aeb26cc
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-z-router_zr-2660.zip
+        asset_name: x-wrt-ramips-mt7621-z-router_zr-2660.zip
+        asset_content_type: application/zip
+        overwrite: true
     - name: Upload Release Asset x-wrt-ramips-mt7621-ruijie_rg-ew1200g-pro-v1.1
       id: asset-c78f7b9706d336b855c0ef4c8874bedc
       uses: shogo82148/actions-upload-release-asset@v1
@@ -3440,6 +3450,16 @@ jobs:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
         asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-youku_yk-l2.zip
         asset_name: x-wrt-ramips-mt7621-youku_yk-l2.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-ramips-mt7621-z-router_zr-2662
+      id: asset-9289144b12f7519e989acf117bf08732
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-ramips-mt7621-z-router_zr-2662.zip
+        asset_name: x-wrt-ramips-mt7621-z-router_zr-2662.zip
         asset_content_type: application/zip
         overwrite: true
     - name: Upload Release Asset x-wrt-ramips-mt7621-zbtlink_zbt-we3526
