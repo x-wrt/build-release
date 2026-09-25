@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.04_b202609161234
+name: Build Jobs 26.04_b202609260308
 
 on:
   push:
@@ -1340,6 +1340,116 @@ jobs:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
         asset_path: /mnt/work/x-wrt/x-wrt-mediatek-mt7622-xiaomi_redmi-router-ax6s.zip
         asset_name: x-wrt-mediatek-mt7622-xiaomi_redmi-router-ax6s.zip
+        asset_content_type: application/zip
+        overwrite: true
+  build-airoha-an7563:
+    if: contains(github.ref, 'tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Pre Initialization environment
+      run: |
+        docker rmi `docker images -q` || true
+        sudo -E rm -rf /mnt/tmp-pv.img || true
+        sudo -E df -h
+        sudo -E ls -lh /mnt
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clean up disk
+      run: sudo rm -rf /opt/*
+    - name: Clone source code
+      run: |
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+    - name: Update feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh /mnt/work/x-wrt/
+        cp *.tar.gz /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
+        echo -e "$(nproc) thread build."
+        BTARGET="airoha-an7563" sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: build-failure-log-airoha-an7563
+        path: /mnt/work/x-wrt/make.log
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v8
+      with:
+        name: release_url
+        path: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt || cat release_url.txt`
+        echo "upload_url=$value" >> $GITHUB_OUTPUT
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset x-wrt-airoha-an7563-apps
+      id: asset-f931a003b03a17877d5cf905da066b45
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7563-apps.zip
+        asset_name: x-wrt-airoha-an7563-apps.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7563-tenda_be6l-pro
+      id: asset-d319d024bb88d65fbbd1ee382fa792b1
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7563-tenda_be6l-pro.zip
+        asset_name: x-wrt-airoha-an7563-tenda_be6l-pro.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7563-xiaomi_be5000
+      id: asset-725773fb7e5f1db87c1aa9924819f7c9
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7563-xiaomi_be5000.zip
+        asset_name: x-wrt-airoha-an7563-xiaomi_be5000.zip
         asset_content_type: application/zip
         overwrite: true
   build-ipq40xx-generic:
