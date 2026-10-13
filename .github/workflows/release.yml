@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.10_b202610121907
+name: Build Jobs 26.10_b202610132026
 
 on:
   push:
@@ -32,6 +32,316 @@ jobs:
       with:
         name: release_url
         path: release_url.txt
+  build-airoha-an7581:
+    if: contains(github.ref, 'tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Pre Initialization environment
+      run: |
+        docker rmi `docker images -q` || true
+        sudo -E rm -rf /mnt/tmp-pv.img || true
+        sudo -E df -h
+        sudo -E ls -lh /mnt
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clean up disk
+      run: sudo rm -rf /opt/*
+    - name: Clone source code
+      run: |
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+    - name: Update feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh /mnt/work/x-wrt/
+        cp *.tar.gz /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
+        echo -e "$(nproc) thread build."
+        BTARGET="airoha-an7581" sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: build-failure-log-airoha-an7581
+        path: /mnt/work/x-wrt/make.log
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v8
+      with:
+        name: release_url
+        path: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt || cat release_url.txt`
+        echo "upload_url=$value" >> $GITHUB_OUTPUT
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset x-wrt-airoha-an7581-apps
+      id: asset-8e24c016fb1105086465c33370cfdc32
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-apps.zip
+        asset_name: x-wrt-airoha-an7581-apps.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-fiberhome_hg5382a
+      id: asset-870a0077e2bba9432f7ab8e6fda33d90
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-fiberhome_hg5382a.zip
+        asset_name: x-wrt-airoha-an7581-fiberhome_hg5382a.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-fiberhome_hg5585f-ct
+      id: asset-66486166eead8604b3d9ef99029904c4
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-fiberhome_hg5585f-ct.zip
+        asset_name: x-wrt-airoha-an7581-fiberhome_hg5585f-ct.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-fiberhome_hg5585f-cu
+      id: asset-aa1f44cddce1ec35b9d686d5e65765e7
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-fiberhome_hg5585f-cu.zip
+        asset_name: x-wrt-airoha-an7581-fiberhome_hg5585f-cu.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-gemtek_xg2010g
+      id: asset-c07abbb8a033a74e0c7eedc0fbc7c99e
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-gemtek_xg2010g.zip
+        asset_name: x-wrt-airoha-an7581-gemtek_xg2010g.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-h3c_hm2004-du
+      id: asset-b40a297b0b2dd6483f09858c5dfa306d
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-h3c_hm2004-du.zip
+        asset_name: x-wrt-airoha-an7581-h3c_hm2004-du.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-nokia_xg-040g-md
+      id: asset-3524791bde9e1e7fc7c1ff7aafb816ac
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-nokia_xg-040g-md.zip
+        asset_name: x-wrt-airoha-an7581-nokia_xg-040g-md.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-nokia_xg-040g-md-ubi
+      id: asset-1a5d561ee9a234bad501ced0a4b983bf
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-nokia_xg-040g-md-ubi.zip
+        asset_name: x-wrt-airoha-an7581-nokia_xg-040g-md-ubi.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-nokia_xg-040g-tf-ubi
+      id: asset-190dcf0f5efc7e6ebf94ff8d7feb9fc4
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-nokia_xg-040g-tf-ubi.zip
+        asset_name: x-wrt-airoha-an7581-nokia_xg-040g-tf-ubi.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-unionman_ung00a
+      id: asset-5c880fdec5a75a45e771db50e4fd7ef2
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-unionman_ung00a.zip
+        asset_name: x-wrt-airoha-an7581-unionman_ung00a.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-znxt_zn504xg-d
+      id: asset-dbc011e2105fb0174035b5f0c7ed7eed
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-znxt_zn504xg-d.zip
+        asset_name: x-wrt-airoha-an7581-znxt_zn504xg-d.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7581-znxt_zn515xg-d
+      id: asset-fe6afcb766e308aecad794f51250e9ac
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7581-znxt_zn515xg-d.zip
+        asset_name: x-wrt-airoha-an7581-znxt_zn515xg-d.zip
+        asset_content_type: application/zip
+        overwrite: true
+  build-airoha-an7583:
+    if: contains(github.ref, 'tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Pre Initialization environment
+      run: |
+        docker rmi `docker images -q` || true
+        sudo -E rm -rf /mnt/tmp-pv.img || true
+        sudo -E df -h
+        sudo -E ls -lh /mnt
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clean up disk
+      run: sudo rm -rf /opt/*
+    - name: Clone source code
+      run: |
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
+        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+    - name: Update feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
+    - name: Building
+      run: |
+        cp *.sh /mnt/work/x-wrt/
+        cp *.tar.gz /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt
+        echo -e "$(nproc) thread build."
+        BTARGET="airoha-an7583" sh build.sh $(nproc)
+    - name : Upload make.log if failure
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: build-failure-log-airoha-an7583
+        path: /mnt/work/x-wrt/make.log
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v8
+      with:
+        name: release_url
+        path: release_url
+    - name: Get Release Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url/release_url.txt || cat release_url.txt`
+        echo "upload_url=$value" >> $GITHUB_OUTPUT
+      env:
+        TAG_REF_NAME: ${{ github.ref }}
+        REPOSITORY_NAME: ${{ github.repository }}
+    - name: Upload Release Asset x-wrt-airoha-an7583-apps
+      id: asset-afe39d4c127af3f4aa43027249fe78d1
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7583-apps.zip
+        asset_name: x-wrt-airoha-an7583-apps.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7583-nokia_xg-040g-mf
+      id: asset-f94c94b9c33c241e6778c246f543c121
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7583-nokia_xg-040g-mf.zip
+        asset_name: x-wrt-airoha-an7583-nokia_xg-040g-mf.zip
+        asset_content_type: application/zip
+        overwrite: true
+    - name: Upload Release Asset x-wrt-airoha-an7583-nokia_xg-040g-mf-ubi
+      id: asset-9f528038d5e363a01ef00212ebfdd4c6
+      uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: /mnt/work/x-wrt/x-wrt-airoha-an7583-nokia_xg-040g-mf-ubi.zip
+        asset_name: x-wrt-airoha-an7583-nokia_xg-040g-mf-ubi.zip
+        asset_content_type: application/zip
+        overwrite: true
   build-mediatek-filogic-0:
     if: contains(github.ref, 'tags/v')
     needs: release
