@@ -7,7 +7,11 @@
       uses: actions/checkout@v6
     - name: Pre Initialization environment
       run: |
-        docker rmi `docker images -q` || true
+        images=$(docker images -q)
+        if [ -n "$images" ]; then
+          mapfile -t image_ids <<< "$images"
+          docker rmi "${image_ids[@]}" || true
+        fi
         sudo -E rm -rf /mnt/tmp-pv.img || true
         sudo -E df -h
         sudo -E ls -lh /mnt
@@ -20,18 +24,23 @@
           /usr/share/dotnet \
           /etc/mysql \
           /etc/php
-        sudo -E apt-get -y purge \
+        packages=$(dpkg-query -W -f='${db:Status-Status} ${binary:Package}\n' \
           azure-cli \
-          ghc* \
-          zulu* \
-          llvm* \
+          'ghc*' \
+          'zulu*' \
+          'llvm*' \
           firefox \
-          google* \
-          dotnet* \
+          'google*' \
+          'dotnet*' \
           powershell \
-          openjdk* \
-          mysql* \
-          php*
+          'openjdk*' \
+          'mysql*' \
+          'php*' 2>/dev/null || true)
+        packages=$(printf '%s\n' "$packages" | awk '$1 == "installed" {print $2}')
+        if [ -n "$packages" ]; then
+          mapfile -t installed_packages <<< "$packages"
+          sudo -E apt-get -y purge -- "${installed_packages[@]}"
+        fi
         sudo -E apt-get update
         sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
         sudo -E apt-get -y autoremove --purge
@@ -49,19 +58,19 @@
         if [ "$(stat -c %d /mnt/work_dir)" != "$(stat -c %d /data_dir)" ]; then
           sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
         fi
-        git clone --depth 1 --branch `cat release.tag` https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+        git clone --depth 1 --branch "$(cat release.tag)" https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
     - name: Update feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
     - name: Install feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
       run: |
-        cp *.sh /mnt/work/x-wrt/
-        cp *.tar.gz /mnt/work/x-wrt/
+        cp ./*.sh /mnt/work/x-wrt/
+        cp ./*.tar.gz /mnt/work/x-wrt/
         cp release.tag /mnt/work/x-wrt/
-        cd /mnt/work/x-wrt
-        echo -e "$(nproc) thread build."
-        BTARGET="_TARGET_" sh build.sh $(nproc)
+        cd /mnt/work/x-wrt || exit
+        echo "$(nproc) thread build."
+        BTARGET="_TARGET_" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
       uses: actions/upload-artifact@v6
       if: failure()
@@ -76,8 +85,8 @@
     - name: Get Release Upload URL
       id: get_release_info
       run: |
-        value=`cat release_url/release_url.txt || cat release_url.txt`
-        echo "upload_url=$value" >> $GITHUB_OUTPUT
+        value=$(cat release_url/release_url.txt || cat release_url.txt)
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}

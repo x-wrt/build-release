@@ -1,37 +1,82 @@
+#!/bin/sh
+set -eu
+set -f
+# shellcheck source=release-common.sh
+. "$(dirname "$0")/release-common.sh"
 
-change=
+generate_only=0
+if [ "${1-}" = --generate-only ]; then
+	generate_only=1
+	shift
+fi
+[ "$#" -le 1 ] || { echo "Usage: sh $0 [--generate-only] [target]" >&2; exit 1; }
+filter=${1-}
+[ -z "$filter" ] || release_check_name target "$filter"
+release=$(cat release.tag)
+release_check_name "release tag" "$release"
+TAG="v$release"
+config_dir=${RELEASE_CONFIG_DIR:-../feeds/x/rom/lede}
 
-cat target.list | while read target; do
-	test -n "$1" && {
-		echo $target | grep -q "$1$" || continue
+if [ "$generate_only" -eq 0 ]; then
+	branch=$(git symbolic-ref --short HEAD) && [ "$branch" = parallel-jobs ] || {
+		echo "Run this script from the parallel-jobs branch" >&2
+		exit 1
 	}
-	TAG=$(cat release.tag)
-	BTARGET=$(echo $target | sed 's/BTARGET=//')
-	ASSET_NAME=$(echo "x-wrt-${TAG}-${BTARGET}" | tr ' ' _)
-	ASSET_ID=$(echo ${ASSET_NAME} | md5sum | head -c32)
-	TARGETNAME=$(echo ${BTARGET} | tr ' ' _)
-	echo push ${ASSET_NAME}
+	if git show-ref --verify --quiet "refs/tags/$TAG"; then
+		echo "Tag $TAG already exists; update release.tag first" >&2
+		exit 1
+	fi
+fi
 
-	test -n "$change" || {
-		cat release-header.yml | sed "s/_TAG_/${TAG}/g" >.github/workflows/release.yml
-		change=1
-	}
-	cat release-main.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
-	for bt in $BTARGET; do
-		ASSET_NAME=$(echo "x-wrt-${bt}-apps" | tr ' ' _)
-		ASSET_ID=$(echo ${ASSET_NAME} | md5sum | head -c32)
-		cat release-upload-one.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
-		cat ../feeds/x/rom/lede/config.$BTARGET | grep "^CONFIG_TARGET_DEVICE_[^P]*_DEVICE_.*=y" | sed 's/_DEVICE_/ /g;s/=y//' | while read _ target device; do
-			ASSET_NAME=$(echo "x-wrt-${bt}-${device}" | tr ' ' _)
-			ASSET_ID=$(echo ${ASSET_NAME} | md5sum | head -c32)
-			cat release-upload-one.yml | sed "s/_TARGET_/${BTARGET}/g;s/_TARGETNAME_/${TARGETNAME}/g;s/_ASSET_NAME_/${ASSET_NAME}/g;s/_ASSET_ID_/${ASSET_ID}/g" >>.github/workflows/release.yml
-		done
+workflow=.github/workflows/release.yml
+tmp=$(mktemp "$workflow.XXXXXX")
+trap 'rm -f "$tmp" "$tmp.devices"' EXIT
+trap 'exit 1' HUP INT TERM
+sed "s/_TAG_/$release/g" release-header.yml >"$tmp"
+matched=0
+
+append_asset() {
+	asset_name=$1
+	asset_id=$(printf '%s\n' "$asset_name" | md5sum)
+	asset_id=${asset_id%% *}
+	sed -e "s/_ASSET_NAME_/$asset_name/g" -e "s/_ASSET_ID_/$asset_id/g" \
+		release-upload-one.yml >>"$tmp"
+}
+
+while IFS= read -r line || [ -n "$line" ]; do
+	[ -n "$line" ] || continue
+	case "$line" in
+		BTARGET=*) targets=${line#BTARGET=} ;;
+		*) echo "Invalid target.list entry: $line" >&2; exit 1 ;;
+	esac
+	[ -n "$targets" ] || { echo "Empty build target" >&2; exit 1; }
+	if [ -n "$filter" ]; then
+		case " $targets " in *" $filter "*) ;; *) continue ;; esac
+	fi
+	matched=$((matched+1))
+	target_name=$(printf '%s' "$targets" | tr ' ' _)
+	sed -e "s/_TARGET_/$targets/g" -e "s/_TARGETNAME_/$target_name/g" \
+		release-main.yml >>"$tmp"
+	for bt in $targets; do
+		release_check_name target "$bt"
+		devices=$(release_devices "$config_dir/config.$bt")
+		[ -n "$devices" ] || { echo "No devices in config.$bt" >&2; exit 1; }
+		append_asset "x-wrt-$bt-apps"
+		# A redirected loop keeps failures in this shell.
+		printf '%s\n' "$devices" >"$tmp.devices"
+		while read -r target device; do
+			release_check_name "device target" "$target"
+			release_check_name device "$device"
+			append_asset "x-wrt-$bt-$device"
+		done <"$tmp.devices"
+		rm -f "$tmp.devices"
 	done
-done
+done <target.list
+[ "$matched" -gt 0 ] || { echo "Unknown target: $filter" >&2; exit 1; }
+chmod 644 "$tmp"
+mv -- "$tmp" "$workflow"
 
-git diff release.tag || exit 0
-
-TAG=v$(cat release.tag)
-git commit --signoff -am "release: $TAG" && \
-		git tag $TAG && \
-		git push origin parallel-jobs
+[ "$generate_only" -eq 0 ] || exit 0
+git commit --only --signoff -m "release: $TAG" -- "$workflow" release.tag
+git tag "$TAG"
+git push --atomic origin HEAD:refs/heads/parallel-jobs "refs/tags/$TAG"

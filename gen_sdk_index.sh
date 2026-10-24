@@ -1,6 +1,17 @@
-cp index.html index.html.old
-echo -n >index.html
-cat <<EOF >>index.html
+#!/bin/sh
+set -eu
+set -f
+
+[ -f sdk_map.list ] || { echo "Missing sdk_map.list" >&2; exit 1; }
+OUT=$(mktemp ./index.html.XXXXXX)
+trap 'rm -f "$OUT"' EXIT
+trap 'exit 1' HUP INT TERM
+
+html_escape() {
+	sed -e 's/\&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g'
+}
+
+cat <<EOF >"$OUT"
 <html><head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style type="text/css">
@@ -43,7 +54,7 @@ cat <<EOF >>index.html
     background: -moz-linear-gradient(top, #444, #000);
     background: -ms-linear-gradient(top, #444, #000);
     background: -o-linear-gradient(top, #444, #000);
-    background: linear-gradient(top, #444, #000);
+    background: linear-gradient(to bottom, #444, #000);
     font-size: 14px;
     line-height: 24px;
     border: none;
@@ -100,15 +111,21 @@ cat <<EOF >>index.html
   </p>
 EOF
 
-echo '<table><tr><th>Image SDK for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>index.html
-cat sdk_map.list | while read name; do
-	files=$name
-	for _file in $files; do echo $_file; done | sort -n | while read file; do
-		TZ=:/usr/share/zoneinfo/Asia/Shanghai LC_ALL=C ls -lh --full-time $file | awk '{print $5" "$6" "$7}' | while read size _date; do
-			image='<a href="'$file'">'$file'</a>'
-			echo '<tr><td>'$image'</td><td>'$size'</td><td>'$_date'</td></tr>' >>index.html
-		done
+echo '<table><tr><th>Image SDK for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>"$OUT"
+while IFS= read -r files || [ -n "$files" ]; do
+	files=$(for file in $files; do printf '%s\n' "$file"; done | LC_ALL=C sort)
+	for file in $files; do
+		info=$(TZ=Asia/Shanghai LC_ALL=C ls -lh --full-time -- "$file")
+		info=$(printf '%s\n' "$info" | awk '{print $5" "$6" "$7}')
+		size=${info%% *}
+		_date=${info#* }
+		file=$(printf '%s' "$file" | html_escape)
+		printf '<tr><td><a href="%s">%s</a></td><td>%s</td><td>%s</td></tr>\n' \
+			"$file" "$file" "$size" "$_date" >>"$OUT"
 	done
-done
+done <sdk_map.list
 
-echo '</table></body></html>' >>index.html
+echo '</table></body></html>' >>"$OUT"
+chmod 644 "$OUT"
+[ ! -e index.html ] || cp -p index.html index.html.old
+mv -- "$OUT" index.html

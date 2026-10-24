@@ -1,7 +1,17 @@
-OUT=index.html
-cp $OUT $OUT.old
-echo -n >$OUT
-cat <<EOF >>$OUT
+#!/bin/sh
+set -eu
+set -f
+
+[ -f map.list ] || { echo "Missing map.list" >&2; exit 1; }
+OUT=$(mktemp ./index.html.XXXXXX)
+trap 'rm -f "$OUT"' EXIT
+trap 'exit 1' HUP INT TERM
+
+html_escape() {
+	sed -e 's/\&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g'
+}
+
+cat <<EOF >"$OUT"
 <html><head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style type="text/css">
@@ -44,16 +54,13 @@ cat <<EOF >>$OUT
     background: -moz-linear-gradient(top, #444, #000);
     background: -ms-linear-gradient(top, #444, #000);
     background: -o-linear-gradient(top, #444, #000);
-    background: linear-gradient(top, #444, #000);
+    background: linear-gradient(to bottom, #444, #000);
     font-size: 14px;
     line-height: 24px;
     border: none;
     text-align: left;
     color: #fff;
   }
-//  tr {
-//    background: rgba(255, 255, 255, 0.8);
-//  }
   tr:hover {
     background: rgba(255, 255, 127, 0.7);
   }
@@ -121,25 +128,27 @@ SSH登录账户/密码：root/admin  需要<a href="https://blog.x-wrt.com/docs/
   </p>
 EOF
 
-echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>$OUT
+echo '<table><tr><th>Image for your Device</th><th>File Size</th><th>Date(GMT+8)</th></tr>' >>"$OUT"
 idx=0
-cat map.list | while read line; do
+while IFS=: read -r name files || [ -n "$name$files" ]; do
+	[ -n "$name" ] || continue
 	idx=$((idx+1))
-	name=`echo $line | cut -d: -f1`
-	files=`echo $line | cut -d: -f2`
-	filen=`echo $files | wc -w`
-	files=`for _file in $files; do echo $_file; done | sort -n`
-	#TRS='style="background: rgba(255, 255, 255, 0.8);"'
+	name=$(printf '%s' "$name" | html_escape)
+	files=$(for file in $files; do printf '%s\n' "$file"; done | LC_ALL=C sort)
 	TRS='class="tr'$((idx%2))'"'
-	#test $((idx%2)) -eq 1 && TRS=""
-	echo '<tr '$TRS'><td colspan=3>'$name'</td></td>' >>$OUT
+	printf '<tr %s><td colspan="3">%s</td></tr>\n' "$TRS" "$name" >>"$OUT"
 	for file in $files; do
-		TZ=:/usr/share/zoneinfo/Asia/Shanghai LC_ALL=C ls -lh --full-time $file | awk '{print $5" "$6" "$7}' | while read size _date; do
-			image='<a href="'$file'">'$file'</a>'
-			echo '<tr '$TRS'><td>'$image'</td><td>'$size'</td><td>'$_date'</td></tr>' >>$OUT
-		done
-		td=""
+		info=$(TZ=Asia/Shanghai LC_ALL=C ls -lh --full-time -- "$file")
+		info=$(printf '%s\n' "$info" | awk '{print $5" "$6" "$7}')
+		size=${info%% *}
+		_date=${info#* }
+		file=$(printf '%s' "$file" | html_escape)
+		printf '<tr %s><td><a href="%s">%s</a></td><td>%s</td><td>%s</td></tr>\n' \
+			"$TRS" "$file" "$file" "$size" "$_date" >>"$OUT"
 	done
-done
+done <map.list
 
-echo '</table></body></html>' >>$OUT
+echo '</table></body></html>' >>"$OUT"
+chmod 644 "$OUT"
+[ ! -e index.html ] || cp -p index.html index.html.old
+mv -- "$OUT" index.html
