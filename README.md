@@ -60,6 +60,26 @@ For example, to build all `ipq40xx-generic` target devices, please run:
 sh update-tags.sh ipq40xx-generic
 ```
 
+Run this script from the `master` branch. Use the full target name from
+`target.list`; partial names and patterns are rejected.
+The script commits `.github/workflows/main.yml` and `release.tag`, then pushes
+`master` to `origin`. Other modified or staged files are left in place. Running
+the same release and target again creates a new build commit.
+
+Release tags may contain letters, digits, dots, underscores, and hyphens.
+
+## Check the release scripts locally
+
+Run the regression tests with Python 3:
+
+```
+python3 -m unittest discover -s tests -v
+TEST_SHELL='busybox ash' python3 -m unittest discover -s tests -v
+```
+
+The tests use temporary directories and local Git repositories. They do not
+build firmware or push to GitHub.
+
 ## What is your device target?
 
 You can find your device firmware at [https://downloads.x-wrt.com/rom/](https://downloads.x-wrt.com/rom/)
