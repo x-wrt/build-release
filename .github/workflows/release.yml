@@ -267,6 +267,113 @@ jobs:
         gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
           --repo "$GITHUB_REPOSITORY" \
           --clobber
+  build-airoha-an7563:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: release
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    - name: Pre Initialization environment
+      run: |
+        images=$(docker images -q)
+        if [ -n "$images" ]; then
+          mapfile -t image_ids <<< "$images"
+          docker rmi "${image_ids[@]}" || true
+        fi
+        sudo -E rm -rf /mnt/tmp-pv.img || true
+        sudo -E df -h
+        sudo -E ls -lh /mnt
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /etc/mysql \
+          /etc/php
+        packages=$(dpkg-query -W -f='${db:Status-Status} ${binary:Package}\n' \
+          azure-cli \
+          'ghc*' \
+          'zulu*' \
+          'llvm*' \
+          firefox \
+          'google*' \
+          'dotnet*' \
+          powershell \
+          'openjdk*' \
+          'mysql*' \
+          'php*' 2>/dev/null || true)
+        packages=$(printf '%s\n' "$packages" | awk '$1 == "installed" {print $2}')
+        if [ -n "$packages" ]; then
+          mapfile -t installed_packages <<< "$packages"
+          sudo -E apt-get -y purge -- "${installed_packages[@]}"
+        fi
+        sudo -E apt-get update
+        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+    - name: Clean up disk
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
+    - name: Clone source code
+      run: |
+        sudo -E umount /mnt/work 2>/dev/null || true
+        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
+        sudo -E mkdir -p /data_dir
+        sudo -E mkdir -p /mnt/work_dir
+        sudo -E mkdir -p /mnt/work
+        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
+        if [ "$(stat -c %d /mnt/work_dir)" != "$(stat -c %d /data_dir)" ]; then
+          sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
+        fi
+        git clone --depth 1 --branch "$(cat release.tag)" https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
+    - name: Update feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
+    - name: Install feeds
+      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
+    - name: Building
+      id: build
+      run: |
+        cp ./*.sh /mnt/work/x-wrt/
+        cp ./*.tar.gz /mnt/work/x-wrt/
+        cp release.tag /mnt/work/x-wrt/
+        cd /mnt/work/x-wrt || exit
+        echo "$(nproc) thread build."
+        BTARGET="airoha-an7563" sh build.sh "$(nproc)" 2>&1 | tee build.log
+    - name: Upload build logs on failure
+      uses: actions/upload-artifact@v7
+      if: failure() && steps.build.outcome == 'failure'
+      with:
+        name: build-failure-log-airoha-an7563
+        path: |
+          /mnt/work/x-wrt/build.log
+          /mnt/work/x-wrt/make.log
+    - name: Upload Release Assets
+      env:
+        GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        RELEASE_ASSETS: |-
+          /mnt/work/x-wrt/x-wrt-airoha-an7563-apps.zip
+          /mnt/work/x-wrt/x-wrt-airoha-an7563-tenda_be6l-pro.zip
+          /mnt/work/x-wrt/x-wrt-airoha-an7563-xiaomi_be5000.zip
+      run: |
+        mapfile -t assets <<< "$RELEASE_ASSETS"
+        gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
+          --repo "$GITHUB_REPOSITORY" \
+          --clobber
   build-mediatek-filogic-0:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: release
@@ -682,113 +789,6 @@ jobs:
           /mnt/work/x-wrt/x-wrt-mediatek-mt7622-ruijie_rg-ew3200gx-pro.zip
           /mnt/work/x-wrt/x-wrt-mediatek-mt7622-totolink_a8000ru.zip
           /mnt/work/x-wrt/x-wrt-mediatek-mt7622-xiaomi_redmi-router-ax6s.zip
-      run: |
-        mapfile -t assets <<< "$RELEASE_ASSETS"
-        gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
-          --repo "$GITHUB_REPOSITORY" \
-          --clobber
-  build-airoha-an7563:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: release
-    runs-on: ubuntu-24.04
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v7
-      with:
-        persist-credentials: false
-    - name: Pre Initialization environment
-      run: |
-        images=$(docker images -q)
-        if [ -n "$images" ]; then
-          mapfile -t image_ids <<< "$images"
-          docker rmi "${image_ids[@]}" || true
-        fi
-        sudo -E rm -rf /mnt/tmp-pv.img || true
-        sudo -E df -h
-        sudo -E ls -lh /mnt
-    - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        echo "Deleting files, please wait ..."
-        sudo rm -rf \
-          /usr/share/dotnet \
-          /etc/mysql \
-          /etc/php
-        packages=$(dpkg-query -W -f='${db:Status-Status} ${binary:Package}\n' \
-          azure-cli \
-          'ghc*' \
-          'zulu*' \
-          'llvm*' \
-          firefox \
-          'google*' \
-          'dotnet*' \
-          powershell \
-          'openjdk*' \
-          'mysql*' \
-          'php*' 2>/dev/null || true)
-        packages=$(printf '%s\n' "$packages" | awk '$1 == "installed" {print $2}')
-        if [ -n "$packages" ]; then
-          mapfile -t installed_packages <<< "$packages"
-          sudo -E apt-get -y purge -- "${installed_packages[@]}"
-        fi
-        sudo -E apt-get update
-        sudo -E apt-get -y install mergerfs build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler tzdata python3-pyelftools python3-dev
-        sudo -E apt-get -y autoremove --purge
-        sudo -E apt-get clean
-    - name: Clean up disk
-      run: |
-        # Preserve runner installations, action caches and Node runtimes for post-job actions.
-        sudo rm -rf \
-          /opt/az \
-          /opt/ghc \
-          /opt/google \
-          /opt/microsoft \
-          /opt/pipx \
-          /opt/selenium \
-          /opt/hostedtoolcache/CodeQL \
-          /usr/local/lib/android
-        df -h
-    - name: Clone source code
-      run: |
-        sudo -E umount /mnt/work 2>/dev/null || true
-        sudo -E rm -rf /mnt/work /mnt/work_dir /data_dir
-        sudo -E mkdir -p /data_dir
-        sudo -E mkdir -p /mnt/work_dir
-        sudo -E mkdir -p /mnt/work
-        sudo -E chmod 777 /mnt/work /mnt/work_dir /data_dir
-        if [ "$(stat -c %d /mnt/work_dir)" != "$(stat -c %d /data_dir)" ]; then
-          sudo -E mergerfs -o defaults,allow_other,use_ino,category.create=mfs /mnt/work_dir:/data_dir /mnt/work
-        fi
-        git clone --depth 1 --branch "$(cat release.tag)" https://github.com/x-wrt/x-wrt.git /mnt/work/x-wrt
-    - name: Update feeds
-      run: cd /mnt/work/x-wrt && ./scripts/feeds update -a
-    - name: Install feeds
-      run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
-    - name: Building
-      id: build
-      run: |
-        cp ./*.sh /mnt/work/x-wrt/
-        cp ./*.tar.gz /mnt/work/x-wrt/
-        cp release.tag /mnt/work/x-wrt/
-        cd /mnt/work/x-wrt || exit
-        echo "$(nproc) thread build."
-        BTARGET="airoha-an7563" sh build.sh "$(nproc)" 2>&1 | tee build.log
-    - name: Upload build logs on failure
-      uses: actions/upload-artifact@v7
-      if: failure() && steps.build.outcome == 'failure'
-      with:
-        name: build-failure-log-airoha-an7563
-        path: |
-          /mnt/work/x-wrt/build.log
-          /mnt/work/x-wrt/make.log
-    - name: Upload Release Assets
-      env:
-        GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        RELEASE_ASSETS: |-
-          /mnt/work/x-wrt/x-wrt-airoha-an7563-apps.zip
-          /mnt/work/x-wrt/x-wrt-airoha-an7563-tenda_be6l-pro.zip
-          /mnt/work/x-wrt/x-wrt-airoha-an7563-xiaomi_be5000.zip
       run: |
         mapfile -t assets <<< "$RELEASE_ASSETS"
         gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
