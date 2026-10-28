@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.10_b202610280155
+name: Build Jobs 26.10_b202610282028
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
     - name: Create or update Release
       env:
         GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        EXPECTED_TAG: v26.10_b202610280155
+        EXPECTED_TAG: v26.10_b202610282028
       run: |
         if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
           echo "Release tag mismatch: expected $EXPECTED_TAG, got $GITHUB_REF_NAME" >&2
