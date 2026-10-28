@@ -30,7 +30,7 @@ jobs:
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: release_url
         path: release_url.txt
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -108,7 +108,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7581" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-airoha-an7581
@@ -256,7 +256,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -324,7 +324,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7583" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-airoha-an7583
@@ -382,7 +382,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -450,7 +450,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-filogic-0" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-0
@@ -978,7 +978,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1046,7 +1046,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-filogic-1" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-1
@@ -1564,7 +1564,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1632,7 +1632,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-mt7622" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-mediatek-mt7622
@@ -1750,7 +1750,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1818,7 +1818,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7563" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-airoha-an7563
@@ -1876,7 +1876,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1944,7 +1944,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ipq40xx-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ipq40xx-generic
@@ -2172,7 +2172,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2240,7 +2240,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ipq806x-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ipq806x-generic
@@ -2428,7 +2428,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2496,7 +2496,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="armsr-armv8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-armsr-armv8
@@ -2544,7 +2544,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2612,7 +2612,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="x86_64" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-x86_64
@@ -2660,7 +2660,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2728,7 +2728,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="x86_64-docker" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-x86_64-docker
@@ -2776,7 +2776,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2844,7 +2844,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7620" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620
@@ -3092,7 +3092,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -3160,7 +3160,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7620-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620-nosymbol
@@ -3388,7 +3388,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -3456,7 +3456,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7621" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621
@@ -4224,7 +4224,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4292,7 +4292,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7621-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621-nosymbol
@@ -4460,7 +4460,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4528,7 +4528,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt76x8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8
@@ -4656,7 +4656,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4724,7 +4724,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt76x8-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8-nosymbol
@@ -4992,7 +4992,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5060,7 +5060,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="rockchip-armv8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-rockchip-armv8
@@ -5228,7 +5228,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5296,7 +5296,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq807x" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq807x
@@ -5524,7 +5524,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5592,7 +5592,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq60xx" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq60xx
@@ -5710,7 +5710,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5778,7 +5778,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq50xx" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq50xx
@@ -5866,7 +5866,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5934,7 +5934,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2712" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2712
@@ -5982,7 +5982,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6050,7 +6050,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2711" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2711
@@ -6098,7 +6098,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6166,7 +6166,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2710" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2710
@@ -6214,7 +6214,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6282,7 +6282,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2709" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2709
@@ -6330,7 +6330,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6398,7 +6398,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ath79-generic
@@ -6826,7 +6826,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6894,7 +6894,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-generic-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ath79-generic-nosymbol
@@ -7262,7 +7262,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7330,7 +7330,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-nand" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-ath79-nand
@@ -7528,7 +7528,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7596,7 +7596,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm53xx-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-bcm53xx-generic
@@ -7824,7 +7824,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7892,7 +7892,7 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mvebu-cortexa9" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: build-failure-log-mvebu-cortexa9
