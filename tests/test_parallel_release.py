@@ -159,7 +159,7 @@ class GeneratorTests(GeneratorFixture):
         text = self.workflow()
         self.assertIn('build-first_second:', text)
         self.assertIn('BTARGET="first second"', text)
-        self.assertEqual(re.findall(r'asset_name: (.*)', text), [
+        self.assertEqual(re.findall(r'"/mnt/work/x-wrt/([^"\n]+\.zip)"', text), [
             'x-wrt-first-apps.zip', 'x-wrt-first-one.zip',
             'x-wrt-second-apps.zip', 'x-wrt-second-two.zip',
             'x-wrt-third-apps.zip', 'x-wrt-third-three.zip'])
