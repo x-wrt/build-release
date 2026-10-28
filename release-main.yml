@@ -1,10 +1,12 @@
   build-_TARGETNAME_:
-    if: contains(github.ref, 'tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     needs: release
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
       uses: actions/checkout@v7
+      with:
+        persist-credentials: false
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -64,16 +66,23 @@
     - name: Install feeds
       run: cd /mnt/work/x-wrt && ./scripts/feeds install -a
     - name: Building
+      id: build
       run: |
         cp ./*.sh /mnt/work/x-wrt/
         cp ./*.tar.gz /mnt/work/x-wrt/
         cp release.tag /mnt/work/x-wrt/
         cd /mnt/work/x-wrt || exit
         echo "$(nproc) thread build."
-        BTARGET="_TARGET_" sh build.sh "$(nproc)"
-    - name : Upload make.log if failure
+        BTARGET="_TARGET_" sh build.sh "$(nproc)" 2>&1 | tee build.log
+    - name: Upload build logs on failure
       uses: actions/upload-artifact@v7
-      if: failure()
+      if: failure() && steps.build.outcome == 'failure'
       with:
         name: build-failure-log-_TARGETNAME_
-        path: /mnt/work/x-wrt/make.log
+        path: |
+          /mnt/work/x-wrt/build.log
+          /mnt/work/x-wrt/make.log
+    - name: Upload Release Assets
+      env:
+        GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        RELEASE_ASSETS: |-

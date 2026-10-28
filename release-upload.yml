@@ -1,0 +1,5 @@
+      run: |
+        mapfile -t assets <<< "$RELEASE_ASSETS"
+        gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
+          --repo "$GITHUB_REPOSITORY" \
+          --clobber

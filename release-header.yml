@@ -11,17 +11,36 @@ on:
     tags:
     - 'v*'
 
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   release:
     name: Create Github Release
-    if: contains(github.ref, 'tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-24.04
     steps:
-    - name: Create Release
-      id: create_release
-      uses: ncipollo/release-action@v1
-      with:
-        token: ${{ secrets.WORKFLOW_TOKEN }}
-        name: X-WRT ${{ github.ref_name }}
-        draft: false
-        allowUpdates: true
+    - name: Create or update Release
+      env:
+        GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        EXPECTED_TAG: v_TAG_
+      run: |
+        if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
+          echo "Release tag mismatch: expected $EXPECTED_TAG, got $GITHUB_REF_NAME" >&2
+          exit 1
+        fi
+        if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null; then
+          gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --title "X-WRT $GITHUB_REF_NAME" --draft=false --prerelease=false
+        else
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --verify-tag --title "X-WRT $GITHUB_REF_NAME" --notes ""
+        fi

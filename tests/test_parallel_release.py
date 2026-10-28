@@ -10,6 +10,7 @@ import shlex
 import shutil
 import subprocess
 import tempfile
+import textwrap
 import unittest
 from html.parser import HTMLParser
 
@@ -134,7 +135,7 @@ class IndexTests(Fixture):
 class GeneratorFixture(Fixture):
     def setUp(self):
         super().setUp()
-        for name in ('release-header.yml', 'release-main.yml', 'release-upload-one.yml'):
+        for name in ('release-header.yml', 'release-main.yml', 'release-upload.yml'):
             shutil.copy(REPO / name, self.work / name)
         self.write('.github/workflows/release.yml', 'original workflow\n')
         self.write('target.list', 'BTARGET=first second\nBTARGET=third\n')
@@ -159,12 +160,11 @@ class GeneratorTests(GeneratorFixture):
         text = self.workflow()
         self.assertIn('build-first_second:', text)
         self.assertIn('BTARGET="first second"', text)
-        self.assertEqual(re.findall(r'"/mnt/work/x-wrt/([^"\n]+\.zip)"', text), [
+        self.assertEqual(re.findall(r'^          /mnt/work/x-wrt/(.*\.zip)$', text, re.M), [
             'x-wrt-first-apps.zip', 'x-wrt-first-one.zip',
             'x-wrt-second-apps.zip', 'x-wrt-second-two.zip',
             'x-wrt-third-apps.zip', 'x-wrt-third-three.zip'])
-        ids = re.findall(r'id: asset-(.*)', text)
-        self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(text.count('gh release upload '), 2)
         self.assertSuccess(self.generate())
         self.assertEqual(self.workflow(), text)
 
@@ -196,6 +196,127 @@ class GeneratorTests(GeneratorFixture):
         self.write('target.list', 'BTARGET=third')
         self.assertSuccess(self.generate())
         self.assertIn('x-wrt-third-three.zip', self.workflow())
+
+    def test_group_whitespace_is_normalized_before_selection(self):
+        self.write('target.list', 'BTARGET=  first\tsecond  \nBTARGET=third\n')
+        self.assertSuccess(self.generate('second'))
+        self.assertIn('build-first_second:', self.workflow())
+        self.assertIn('BTARGET="first second"', self.workflow())
+        self.assertNotIn('build-third:', self.workflow())
+
+    def test_duplicate_targets_preserve_workflow(self):
+        for targets in ('BTARGET=first first\n', 'BTARGET=first\nBTARGET=first\n',
+                        'BTARGET=first second\nBTARGET=second third\n'):
+            with self.subTest(targets=targets):
+                self.write('target.list', targets)
+                self.assertNotEqual(self.generate().returncode, 0)
+                self.assertEqual(self.workflow(), 'original workflow\n')
+                self.assertEqual(list((self.work / '.github/workflows').glob('release.yml.*')), [])
+
+    def test_dotted_target_generates_a_valid_job_identifier(self):
+        shutil.copy(self.config_dir / 'config.first', self.config_dir / 'config.first.part')
+        self.write('target.list', 'BTARGET=first.part\n')
+        self.assertSuccess(self.generate())
+        self.assertIn('build-first_part:', self.workflow())
+        self.assertIn('x-wrt-first.part-one.zip', self.workflow())
+
+    def test_colliding_job_identifiers_preserve_workflow(self):
+        for target in ('first.part', 'first_part'):
+            shutil.copy(self.config_dir / 'config.first', self.config_dir / ('config.' + target))
+        self.write('target.list', 'BTARGET=first.part\nBTARGET=first_part\n')
+        result = self.generate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Duplicate build job', result.stderr)
+        self.assertEqual(self.workflow(), 'original workflow\n')
+
+    def test_duplicate_asset_names_preserve_workflow(self):
+        with (self.config_dir / 'config.first').open('a') as config:
+            config.write('CONFIG_TARGET_DEVICE_other_generic_DEVICE_one=y\n')
+        result = self.generate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Duplicate release asset', result.stderr)
+        self.assertEqual(self.workflow(), 'original workflow\n')
+
+
+class WorkflowCommandTests(GeneratorFixture):
+    def setUp(self):
+        super().setUp()
+        self.env.update(TEST_WORK=str(self.work), GH_TOKEN='test-token',
+                        GITHUB_REF_NAME='vtest-v1', GITHUB_REPOSITORY='x-wrt/build-release',
+                        EXPECTED_TAG='vtest-v1')
+        self.mock('gh', 'test "$GH_TOKEN" = test-token || exit 9\n'
+                       'printf "%s\\0" "$@" >>"$TEST_WORK/gh.calls"\n'
+                       'printf "\\n" >>"$TEST_WORK/gh.calls"\n'
+                       'if [ "$2" = view ]; then exit "${GH_VIEW_STATUS:-0}"; fi\n'
+                       'exit "${GH_STATUS:-0}"\n')
+
+    def run_workflow_command(self, template, **env):
+        script = (self.work / template).read_text().split('      run: |\n', 1)[1]
+        return subprocess.run(
+            ['bash', '--noprofile', '--norc', '-e', '-o', 'pipefail', '-c',
+             textwrap.dedent(script)], cwd=self.work, env=dict(self.env, **env),
+            text=True, capture_output=True, timeout=20,
+        )
+
+    def gh_calls(self):
+        path = self.work / 'gh.calls'
+        return [line.decode().split('\0')[:-1]
+                for line in path.read_bytes().splitlines()] if path.exists() else []
+
+    def test_new_release_requires_existing_tag(self):
+        self.assertSuccess(self.run_workflow_command('release-header.yml', GH_VIEW_STATUS='1'))
+        calls = self.gh_calls()
+        self.assertEqual(calls[0], ['release', 'view', 'vtest-v1', '--repo', 'x-wrt/build-release'])
+        self.assertEqual(calls[1], ['release', 'create', 'vtest-v1', '--repo', 'x-wrt/build-release',
+                                    '--verify-tag', '--title', 'X-WRT vtest-v1', '--notes', ''])
+
+    def test_existing_release_is_updated_without_clearing_notes(self):
+        self.assertSuccess(self.run_workflow_command('release-header.yml'))
+        self.assertEqual(self.gh_calls()[1], [
+            'release', 'edit', 'vtest-v1', '--repo', 'x-wrt/build-release',
+            '--title', 'X-WRT vtest-v1', '--draft=false', '--prerelease=false'])
+
+    def test_tag_mismatch_stops_before_release_mutation(self):
+        result = self.run_workflow_command('release-header.yml', GITHUB_REF_NAME='vwrong')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Release tag mismatch', result.stderr)
+        self.assertEqual(self.gh_calls(), [])
+
+    def test_release_command_failure_is_propagated(self):
+        for view_status in ('0', '1'):
+            with self.subTest(view_status=view_status):
+                result = self.run_workflow_command('release-header.yml',
+                                                   GH_VIEW_STATUS=view_status, GH_STATUS='23')
+                self.assertEqual(result.returncode, 23)
+
+    def test_batch_upload_uses_only_the_selected_groups_assets(self):
+        self.assertSuccess(self.generate('second'))
+        paths = re.search(r'        RELEASE_ASSETS: \|-\n((?:          /mnt/[^\n]+\n)+)',
+                          self.workflow()).group(1)
+        assets = textwrap.dedent(paths).rstrip('\n')
+        self.assertSuccess(self.run_workflow_command('release-upload.yml',
+                                                     RELEASE_ASSETS=assets))
+        self.assertEqual(self.gh_calls(), [[
+            'release', 'upload', 'vtest-v1',
+            '/mnt/work/x-wrt/x-wrt-first-apps.zip', '/mnt/work/x-wrt/x-wrt-first-one.zip',
+            '/mnt/work/x-wrt/x-wrt-second-apps.zip', '/mnt/work/x-wrt/x-wrt-second-two.zip',
+            '--repo', 'x-wrt/build-release', '--clobber']])
+
+    def test_upload_failure_is_propagated(self):
+        result = self.run_workflow_command('release-upload.yml', GH_STATUS='31',
+                                           RELEASE_ASSETS='/tmp/asset.zip')
+        self.assertEqual(result.returncode, 31)
+
+    def test_logging_preserves_build_output_and_failure(self):
+        self.write('build.sh', 'echo build-failure-details\nexit 17\n')
+        pipeline = re.search(r'^        BTARGET=.*$',
+                             (self.work / 'release-main.yml').read_text(), re.M).group(0)
+        result = subprocess.run(
+            ['bash', '--noprofile', '--norc', '-e', '-o', 'pipefail', '-c', pipeline],
+            cwd=self.work, env=self.env, text=True, capture_output=True, timeout=20,
+        )
+        self.assertEqual(result.returncode, 17)
+        self.assertEqual((self.work / 'build.log').read_text(), 'build-failure-details\n')
 
 
 class PublishTests(GeneratorFixture):

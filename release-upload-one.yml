@@ -1,9 +1,0 @@
-    - name: Upload Release Asset _ASSET_NAME_
-      id: asset-_ASSET_ID_
-      env:
-        GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      run: |
-        gh release upload "$GITHUB_REF_NAME" \
-          "/mnt/work/x-wrt/_ASSET_NAME_.zip" \
-          --repo "$GITHUB_REPOSITORY" \
-          --clobber

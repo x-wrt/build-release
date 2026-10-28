@@ -34,13 +34,17 @@ trap 'rm -f "$tmp" "$tmp.devices"' EXIT
 trap 'exit 1' HUP INT TERM
 sed "s/_TAG_/$release/g" release-header.yml >"$tmp"
 matched=0
+seen_targets=
+seen_jobs=
+seen_assets=
 
 append_asset() {
 	asset_name=$1
-	asset_id=$(printf '%s\n' "$asset_name" | md5sum)
-	asset_id=${asset_id%% *}
-	sed -e "s/_ASSET_NAME_/$asset_name/g" -e "s/_ASSET_ID_/$asset_id/g" \
-		release-upload-one.yml >>"$tmp"
+	case " $seen_assets " in
+		*" $asset_name "*) echo "Duplicate release asset: $asset_name" >&2; exit 1 ;;
+	esac
+	seen_assets="${seen_assets:+$seen_assets }$asset_name"
+	printf '          /mnt/work/x-wrt/%s.zip\n' "$asset_name" >>"$tmp"
 }
 
 while IFS= read -r line || [ -n "$line" ]; do
@@ -49,16 +53,29 @@ while IFS= read -r line || [ -n "$line" ]; do
 		BTARGET=*) targets=${line#BTARGET=} ;;
 		*) echo "Invalid target.list entry: $line" >&2; exit 1 ;;
 	esac
+	target_group=
+	for bt in $targets; do
+		release_check_name target "$bt"
+		target_group="${target_group:+$target_group }$bt"
+	done
+	targets=$target_group
 	[ -n "$targets" ] || { echo "Empty build target" >&2; exit 1; }
 	if [ -n "$filter" ]; then
 		case " $targets " in *" $filter "*) ;; *) continue ;; esac
 	fi
 	matched=$((matched+1))
-	target_name=$(printf '%s' "$targets" | tr ' ' _)
+	target_name=$(printf '%s' "$targets" | tr ' .' __)
+	case " $seen_jobs " in
+		*" $target_name "*) echo "Duplicate build job: $target_name" >&2; exit 1 ;;
+	esac
+	seen_jobs="${seen_jobs:+$seen_jobs }$target_name"
 	sed -e "s/_TARGET_/$targets/g" -e "s/_TARGETNAME_/$target_name/g" \
 		release-main.yml >>"$tmp"
 	for bt in $targets; do
-		release_check_name target "$bt"
+		case " $seen_targets " in
+			*" $bt "*) echo "Duplicate build target: $bt" >&2; exit 1 ;;
+		esac
+		seen_targets="${seen_targets:+$seen_targets }$bt"
 		devices=$(release_devices "$config_dir/config.$bt")
 		[ -n "$devices" ] || { echo "No devices in config.$bt" >&2; exit 1; }
 		append_asset "x-wrt-$bt-apps"
@@ -71,6 +88,7 @@ while IFS= read -r line || [ -n "$line" ]; do
 		done <"$tmp.devices"
 		rm -f "$tmp.devices"
 	done
+	cat release-upload.yml >>"$tmp"
 done <target.list
 [ "$matched" -gt 0 ] || { echo "Unknown target: $filter" >&2; exit 1; }
 chmod 644 "$tmp"

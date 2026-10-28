@@ -21,7 +21,19 @@ sh update-tags.sh --generate-only airoha-an7581
 
 The optional target selector matches a full target name and includes its entire
 job. Generation replaces `.github/workflows/release.yml` only after every
-selected configuration has been read successfully.
+selected configuration has been read successfully. Duplicate targets, job names,
+and release asset names are rejected. Group whitespace is normalized, and dots
+in target names become underscores in job identifiers.
+
+The workflow uses the runner's GitHub CLI to create or update the release and
+upload each build job's exact asset list in one batch. Configure `WORKFLOW_TOKEN`
+with permission to write repository contents. The workflow's `GITHUB_TOKEN` has
+read-only contents access, and checkout does not persist credentials. Runs for
+the same release tag are serialized to prevent overlapping uploads. The pushed
+tag must match `v<release.tag>` in the generated workflow.
+
+Failed builds save the complete console output as `build.log` and the diagnostic
+`make.log`, when available, in a `build-failure-log-<target>` Actions artifact.
 
 To publish a new version, commit script/template changes first, update
 `release.tag`, then run `sh update-tags.sh` on `parallel-jobs`. This commits only
