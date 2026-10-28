@@ -16,6 +16,8 @@ jobs:
     name: Create Github Release
     if: contains(github.ref, 'tags/v')
     runs-on: ubuntu-24.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
     - name: Create Release
       id: create_release
@@ -28,7 +30,7 @@ jobs:
     - name: Output Release URL File
       run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
     - name: Save Release URL File for publish
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       with:
         name: release_url
         path: release_url.txt
@@ -38,7 +40,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -106,24 +108,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7581" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-airoha-an7581
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-airoha-an7581-apps
       id: asset-8e24c016fb1105086465c33370cfdc32
       uses: shogo82148/actions-upload-release-asset@v1
@@ -250,7 +256,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -318,24 +324,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7583" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-airoha-an7583
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-airoha-an7583-apps
       id: asset-afe39d4c127af3f4aa43027249fe78d1
       uses: shogo82148/actions-upload-release-asset@v1
@@ -372,7 +382,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -440,24 +450,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-filogic-0" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-0
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-mediatek-filogic-0-apps
       id: asset-607c9a8262e0c905a025221cfbe3bead
       uses: shogo82148/actions-upload-release-asset@v1
@@ -964,7 +978,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1032,24 +1046,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-filogic-1" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mediatek-filogic-1
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-mediatek-filogic-1-apps
       id: asset-98e677e0cd6112699d1355cd15d96ac8
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1546,7 +1564,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1614,24 +1632,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mediatek-mt7622" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mediatek-mt7622
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-mediatek-mt7622-apps
       id: asset-c35804ebcc781cf4579aa1dfb612774d
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1728,7 +1750,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1796,24 +1818,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="airoha-an7563" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-airoha-an7563
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-airoha-an7563-apps
       id: asset-f931a003b03a17877d5cf905da066b45
       uses: shogo82148/actions-upload-release-asset@v1
@@ -1850,7 +1876,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -1918,24 +1944,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ipq40xx-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ipq40xx-generic
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ipq40xx-generic-apps
       id: asset-7a3502e049b4dee312c085b937626c94
       uses: shogo82148/actions-upload-release-asset@v1
@@ -2142,7 +2172,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2210,24 +2240,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ipq806x-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ipq806x-generic
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ipq806x-generic-apps
       id: asset-788830478c01a2d6e71c1a369bd08678
       uses: shogo82148/actions-upload-release-asset@v1
@@ -2394,7 +2428,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2462,24 +2496,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="armsr-armv8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-armsr-armv8
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-armsr-armv8-apps
       id: asset-5733cf5d09f79e44532ca6d184ab6c09
       uses: shogo82148/actions-upload-release-asset@v1
@@ -2506,7 +2544,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2574,24 +2612,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="x86_64" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-x86_64
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-x86_64-apps
       id: asset-19a865998a3f4df87e4fc91d6e38c769
       uses: shogo82148/actions-upload-release-asset@v1
@@ -2618,7 +2660,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2686,24 +2728,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="x86_64-docker" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-x86_64-docker
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-x86_64-docker-apps
       id: asset-508f24a21dad6890a735508d9ec9eaef
       uses: shogo82148/actions-upload-release-asset@v1
@@ -2730,7 +2776,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -2798,24 +2844,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7620" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt7620-apps
       id: asset-ba2700859c070896a9439cb6ae39a22f
       uses: shogo82148/actions-upload-release-asset@v1
@@ -3042,7 +3092,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -3110,24 +3160,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7620-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7620-nosymbol
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt7620-nosymbol-apps
       id: asset-8552a820c6849819a7671396ff33dcda
       uses: shogo82148/actions-upload-release-asset@v1
@@ -3334,7 +3388,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -3402,24 +3456,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7621" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt7621-apps
       id: asset-a55e843c5b4fd63c3e9de50e1daacaf1
       uses: shogo82148/actions-upload-release-asset@v1
@@ -4166,7 +4224,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4234,24 +4292,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt7621-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt7621-nosymbol
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt7621-nosymbol-apps
       id: asset-8ce9d40a0dc728e4b104e4b3e0dba885
       uses: shogo82148/actions-upload-release-asset@v1
@@ -4398,7 +4460,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4466,24 +4528,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt76x8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt76x8-apps
       id: asset-1025535af69c41817626baacee8f7a4d
       uses: shogo82148/actions-upload-release-asset@v1
@@ -4590,7 +4656,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4658,24 +4724,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ramips-mt76x8-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ramips-mt76x8-nosymbol
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ramips-mt76x8-nosymbol-apps
       id: asset-f0f4edb58216c07c78bcecb9590109d4
       uses: shogo82148/actions-upload-release-asset@v1
@@ -4922,7 +4992,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -4990,24 +5060,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="rockchip-armv8" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-rockchip-armv8
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-rockchip-armv8-apps
       id: asset-a185da6a175c8342c2e36105dec1e0b4
       uses: shogo82148/actions-upload-release-asset@v1
@@ -5154,7 +5228,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5222,24 +5296,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq807x" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq807x
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-qualcommax-ipq807x-apps
       id: asset-696474174d015c91675bb3f215b4ea3e
       uses: shogo82148/actions-upload-release-asset@v1
@@ -5446,7 +5524,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5514,24 +5592,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq60xx" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq60xx
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-qualcommax-ipq60xx-apps
       id: asset-e76e70ca651dad5dee29e6daf0d7cf13
       uses: shogo82148/actions-upload-release-asset@v1
@@ -5628,7 +5710,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5696,24 +5778,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="qualcommax-ipq50xx" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-qualcommax-ipq50xx
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-qualcommax-ipq50xx-apps
       id: asset-3c7518b12a45a10296759fa10c10c65a
       uses: shogo82148/actions-upload-release-asset@v1
@@ -5780,7 +5866,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5848,24 +5934,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2712" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2712
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-bcm27xx-bcm2712-apps
       id: asset-eeb7bef2bbde6b69215dbdbe12e5bb77
       uses: shogo82148/actions-upload-release-asset@v1
@@ -5892,7 +5982,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -5960,24 +6050,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2711" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2711
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-bcm27xx-bcm2711-apps
       id: asset-200245b79e225980496409d554e5fbd7
       uses: shogo82148/actions-upload-release-asset@v1
@@ -6004,7 +6098,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6072,24 +6166,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2710" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2710
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-bcm27xx-bcm2710-apps
       id: asset-c5cb14a81a01c9d8633a1b1c2b4a076b
       uses: shogo82148/actions-upload-release-asset@v1
@@ -6116,7 +6214,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6184,24 +6282,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm27xx-bcm2709" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm27xx-bcm2709
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-bcm27xx-bcm2709-apps
       id: asset-4ed355ee8948dd86b2fa195f5661dbff
       uses: shogo82148/actions-upload-release-asset@v1
@@ -6228,7 +6330,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6296,24 +6398,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ath79-generic
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ath79-generic-apps
       id: asset-34bc982c73b42ff126e6e3c050af2690
       uses: shogo82148/actions-upload-release-asset@v1
@@ -6720,7 +6826,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -6788,24 +6894,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-generic-nosymbol" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ath79-generic-nosymbol
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ath79-generic-nosymbol-apps
       id: asset-e8768105f290a2ce0f0134ba9b000fb2
       uses: shogo82148/actions-upload-release-asset@v1
@@ -7152,7 +7262,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7220,24 +7330,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="ath79-nand" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-ath79-nand
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-ath79-nand-apps
       id: asset-39e597ec0e9982e59cdab1938902140b
       uses: shogo82148/actions-upload-release-asset@v1
@@ -7414,7 +7528,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7482,24 +7596,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="bcm53xx-generic" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-bcm53xx-generic
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-bcm53xx-generic-apps
       id: asset-8d1dbedebfb90283639da73111d5ffcc
       uses: shogo82148/actions-upload-release-asset@v1
@@ -7706,7 +7824,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
     - name: Pre Initialization environment
       run: |
         images=$(docker images -q)
@@ -7774,24 +7892,28 @@ jobs:
         echo "$(nproc) thread build."
         BTARGET="mvebu-cortexa9" sh build.sh "$(nproc)"
     - name : Upload make.log if failure
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-failure-log-mvebu-cortexa9
         path: /mnt/work/x-wrt/make.log
-    - name: Load Release URL File from release job
-      uses: actions/download-artifact@v8
-      with:
-        name: release_url
-        path: release_url
     - name: Get Release Upload URL
       id: get_release_info
-      run: |
-        value=$(cat release_url/release_url.txt || cat release_url.txt)
-        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
       env:
+        UPLOAD_URL: ${{ needs.release.outputs.upload_url }}
         TAG_REF_NAME: ${{ github.ref }}
         REPOSITORY_NAME: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      run: |
+        value="${UPLOAD_URL:-$(cat release_url/release_url.txt 2>/dev/null || cat release_url.txt 2>/dev/null || true)}"
+        if [ -z "$value" ]; then
+          tag="${TAG_REF_NAME#refs/tags/}"
+          value=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" | \
+            jq -r '.upload_url // empty')
+        fi
+        [ -n "$value" ] || { echo "Failed to get upload_url" >&2; exit 1; }
+        echo "upload_url=$value" >> "$GITHUB_OUTPUT"
     - name: Upload Release Asset x-wrt-mvebu-cortexa9-apps
       id: asset-dcbd5a300665009a4b8691c0de5deea3
       uses: shogo82148/actions-upload-release-asset@v1
