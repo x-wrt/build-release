@@ -32,6 +32,9 @@ read-only contents access, and checkout does not persist credentials. Runs for
 the same release tag are serialized to prevent overlapping uploads. The pushed
 tag must match `v<release.tag>` in the generated workflow.
 
+Disk cleanup removes only named, unused SDK directories. Runner installations,
+action caches, and Node runtimes are retained so post-job actions can still run.
+
 Failed builds save the complete console output as `build.log` and the diagnostic
 `make.log`, when available, in a `build-failure-log-<target>` Actions artifact.
 

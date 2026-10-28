@@ -94,7 +94,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -199,7 +210,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -295,7 +317,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -438,7 +471,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -580,7 +624,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -682,7 +737,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -778,7 +844,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -891,7 +968,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1000,7 +1088,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1095,7 +1194,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1190,7 +1300,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1285,7 +1406,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1400,7 +1532,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1513,7 +1656,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1680,7 +1834,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1787,7 +1952,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -1890,7 +2066,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2007,7 +2194,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2114,7 +2312,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2227,7 +2436,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2329,7 +2549,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2428,7 +2659,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2523,7 +2765,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2618,7 +2871,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2713,7 +2977,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2808,7 +3083,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -2941,7 +3227,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -3068,7 +3365,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -3178,7 +3486,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true
@@ -3291,7 +3610,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clean up disk
-      run: sudo rm -rf /opt/*
+      run: |
+        # Preserve runner installations, action caches and Node runtimes for post-job actions.
+        sudo rm -rf \
+          /opt/az \
+          /opt/ghc \
+          /opt/google \
+          /opt/microsoft \
+          /opt/pipx \
+          /opt/selenium \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/lib/android
+        df -h
     - name: Clone source code
       run: |
         sudo -E umount /mnt/work 2>/dev/null || true

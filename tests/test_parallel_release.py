@@ -318,6 +318,48 @@ class WorkflowCommandTests(GeneratorFixture):
         self.assertEqual(result.returncode, 17)
         self.assertEqual((self.work / 'build.log').read_text(), 'build-failure-details\n')
 
+    def test_disk_cleanup_preserves_runner_and_action_runtimes(self):
+        runner_root = self.root / 'runner-root'
+        runtime = runner_root / 'opt/runner-cache/externals/node24/bin/node'
+        self.executable(runtime, 'echo v24.0.0\n')
+        node = runner_root / 'home/runner/actions-runner/cached/2.338.0/externals/node24/bin/node'
+        node.parent.mkdir(parents=True)
+        node.symlink_to(runtime)
+        protected = [
+            runner_root / 'opt/actionarchivecache/checkout/post.js',
+            runner_root / 'opt/hostedtoolcache/node/24.0.0/x64/bin/node',
+            runner_root / 'opt/unrecognized-runner-directory/keep',
+        ]
+        removable = [runner_root / path for path in (
+            'opt/ghc/unused-sdk', 'opt/hostedtoolcache/CodeQL/unused-sdk',
+            'usr/local/lib/android/unused-sdk')]
+        for path in protected + removable:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('fixture\n')
+        self.mock('sudo', 'test "$1" = rm || exit 99\nshift\n'
+                         'test "$1" = -rf || exit 99\nshift\n'
+                         'for path do\n'
+                         '  case "$path" in "$TEST_RUNNER_ROOT/"*) ;; *) exit 99 ;; esac\n'
+                         'done\nexec rm -rf -- "$@"\n')
+        script = re.search(r'    - name: Clean up disk\n      run: \|\n(.*?)    - name:',
+                           (self.work / 'release-main.yml').read_text(), re.S).group(1)
+        script = textwrap.dedent(script)
+        for prefix in ('/opt/', '/usr/local/lib/'):
+            script = script.replace(prefix, shlex.quote(str(runner_root)) + prefix)
+        for attempt in range(2):
+            with self.subTest(attempt=attempt):
+                result = subprocess.run(
+                    ['bash', '--noprofile', '--norc', '-e', '-o', 'pipefail', '-c', script],
+                    cwd=self.work, env=dict(self.env, TEST_RUNNER_ROOT=str(runner_root)),
+                    text=True, capture_output=True, timeout=20,
+                )
+                self.assertSuccess(result)
+                self.assertTrue(all(path.is_file() for path in protected))
+                self.assertTrue(all(not path.exists() for path in removable))
+                version = subprocess.run([str(node), '--version'],
+                                         text=True, capture_output=True, check=True).stdout.strip()
+                self.assertEqual(version, 'v24.0.0')
+
 
 class PublishTests(GeneratorFixture):
     def git(self, *args):
