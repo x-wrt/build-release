@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.10_b202610300244
+name: Build Jobs 26.10_b202611022026
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
     - name: Create or update Release
       env:
         GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        EXPECTED_TAG: v26.10_b202610300244
+        EXPECTED_TAG: v26.10_b202611022026
       run: |
         if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
           echo "Release tag mismatch: expected $EXPECTED_TAG, got $GITHUB_REF_NAME" >&2
@@ -2486,13 +2486,13 @@ jobs:
         GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         RELEASE_ASSETS: |-
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-apps.zip
+          /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-netgear_wax214.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-glinet_gl-ax1800.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-glinet_gl-axt1800.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-02.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-cs-07.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-jdcloud_re-ss-01.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-linksys_mr7350.zip
-          /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-netgear_wax214.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq60xx-qihoo_360v6.zip
       run: |
         mapfile -t assets <<< "$RELEASE_ASSETS"
