@@ -19,6 +19,7 @@ work=$(mktemp -d "$root/.release-pack.XXXXXX")
 trap 'rm -rf "$work"' EXIT
 trap 'exit 1' HUP INT TERM
 sort -u sha256sums.txt >"$work/checksums"
+sort -u upload.list >"$work/expected"
 : >"$work/claimed"
 
 archive() {
@@ -36,6 +37,9 @@ for cfg in $CFGS; do
 	for value in "$board" "$subtarget" "$arch"; do release_check_name architecture "$value"; done
 	target_dir="bin/targets/$board/$subtarget"
 	[ -d "$target_dir" ] || { echo "Missing $target_dir" >&2; exit 1; }
+	# gen_map.sh omits some initramfs formats from upload.list.
+	find "$target_dir" -maxdepth 1 -type f -name '*-initramfs*' >"$work/initramfs"
+	sort -u upload.list "$work/initramfs" >"$work/artifacts"
 	devices=$(release_devices "$config")
 	[ -n "$devices" ] || { echo "No devices in $cfg" >&2; exit 1; }
 	# Assign overlapping device names to the longest matching name first.
@@ -61,6 +65,7 @@ for cfg in $CFGS; do
 		target=$(printf '%s' "$target" | tr _ -)
 		mkdir "$work/rom"
 		: >"$work/names"
+		: >"$work/extra-names"
 		while IFS= read -r file || [ -n "$file" ]; do
 			case "$file" in "$target_dir/"*) ;; *) continue ;; esac
 			name=${file##*/}
@@ -71,7 +76,11 @@ for cfg in $CFGS; do
 			cp -- "$file" "$work/rom/"
 			printf '%s\n' "$name" >>"$work/names"
 			printf '%s\n' "$file" >>"$work/claimed"
-		done <upload.list
+			if ! grep -Fxq -- "$file" upload.list; then
+				printf '%s\n' "$file" >>"$work/expected"
+				printf '%s\n' "$name" >>"$work/extra-names"
+			fi
+		done <"$work/artifacts"
 		[ -s "$work/names" ] || { echo "No firmware for $cfg / $device" >&2; exit 1; }
 		printf 'sha256sums: sha256sums.txt\n' >"$work/rom/map.list"
 		: >"$work/indexed"
@@ -85,19 +94,28 @@ for cfg in $CFGS; do
 			done
 			[ -z "$selected" ] || printf '%s: %s\n' "$name" "$selected" >>"$work/rom/map.list"
 		done <map.list
+		while IFS= read -r name; do
+			grep -Fxq -- "$name" "$work/indexed" && continue
+			printf 'initramfs: %s\n' "$name" >>"$work/rom/map.list"
+			printf '%s\n' "$name" >>"$work/indexed"
+		done <"$work/extra-names"
 		sort -u "$work/names" -o "$work/names"
 		sort -u "$work/indexed" -o "$work/indexed"
 		cmp -s "$work/names" "$work/indexed" || { echo "Firmware missing from map.list" >&2; exit 1; }
 		: >"$work/rom/sha256sums.txt"
 		while IFS= read -r name; do
+			checksums="$work/checksums"
+			if grep -Fxq -- "$name" "$work/extra-names"; then
+				checksums="$target_dir/sha256sums"
+			fi
 			awk -v name="$name" '$2 == name || $2 == "*" name { print; count++ }
-				END { if (count != 1) exit 1 }' "$work/checksums" >>"$work/rom/sha256sums.txt"
+				END { if (count != 1) exit 1 }' "$checksums" >>"$work/rom/sha256sums.txt"
 		done <"$work/names"
 		(cd "$work/rom" && sha256sum -c sha256sums.txt && sh "$root/gen_index.sh")
 		archive "x-wrt-${cfg#config.}-$device"
 	done <"$work/devices"
 done
 
-sort -u upload.list >"$work/expected"
+sort -u "$work/expected" -o "$work/expected"
 sort -u "$work/claimed" -o "$work/claimed"
 cmp -s "$work/expected" "$work/claimed" || { echo "Unpackaged firmware in upload.list" >&2; exit 1; }

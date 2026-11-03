@@ -45,7 +45,9 @@ the branch and that tag together with `git push --atomic`. Existing tags are
 rejected before committing. Other modified and staged files are preserved.
 
 Packaging selects firmware by target and device, and application packages by
-target and architecture. Device ZIPs contain a download index and checked
+target and architecture. Device ZIPs also include matching initramfs images
+when present, including formats omitted by `gen_map.sh`, with checksums from
+the target's `sha256sums`. Device ZIPs contain a download index and checked
 SHA-256 sums. Archives are created from fresh temporary directories, so a
 rerun replaces old ZIP contents and leaves existing `rom/` files in place.
 

@@ -514,6 +514,14 @@ class UploadTests(Fixture):
         self.manifests()
         return path
 
+    def add_initramfs(self, board, device, suffix='kernel.bin'):
+        name = f'x-wrt-test-{board}-generic-{device}-initramfs-{suffix}'
+        path = self.write(f'bin/targets/{board}/generic/{name}', board + ':' + device)
+        with (path.parent / 'sha256sums').open('a') as checksums:
+            checksums.write(hashlib.sha256(path.read_bytes()).hexdigest()
+                            + ' *' + path.name + '\n')
+        return path
+
     def manifests(self):
         self.write('upload.list', '\n'.join(str(path.relative_to(self.work)) for path in self.paths))
         self.write('map.list', ''.join(f'P&W: {path.name}\n' for path in self.paths))
@@ -539,14 +547,44 @@ class UploadTests(Fixture):
         self.assertEqual((self.work / 'rom/unrelated.txt').read_text(), 'keep\n')
         self.assertEqual(list(self.work.glob('.release-pack.*')), [])
 
+    def test_initramfs_images_are_included_with_index_and_checksums(self):
+        extra = [self.add_initramfs('first', 'board', suffix)
+                 for suffix in ('kernel.bin', 'kernel.uImage', 'recovery.itb')]
+        # Already listed images must still appear only once.
+        self.paths.append(extra.pop())
+        self.manifests()
+        self.assertSuccess(self.run_script('upload.sh'))
+        images = self.paths + extra
+        data = self.check_archive('x-wrt-first-board.zip',
+                                  ['rom/' + path.name for path in images]
+                                  + ['rom/map.list', 'rom/sha256sums.txt', 'rom/index.html'])
+        checksums = data['rom/sha256sums.txt'].decode().splitlines()
+        self.assertEqual(len(checksums), len(images))
+        for image in images:
+            self.assertEqual(data['rom/' + image.name], image.read_bytes())
+            self.assertIn(image.name.encode(), data['rom/map.list'])
+            self.assertIn(image.name.encode(), data['rom/index.html'])
+            self.assertTrue(any(line.split()[0] == hashlib.sha256(image.read_bytes()).hexdigest()
+                                and line.split()[1].lstrip('*') == image.name
+                                for line in checksums))
+
     def test_device_prefix_overlap_does_not_mix_firmware(self):
         self.configure('first', 'first', 'arch_one', ('board', 'board-pro'))
         pro = self.add_image('first', 'board-pro')
+        initramfs = {device: self.add_initramfs('first', device)
+                     for device in ('board', 'board-pro', 'unknown')}
         self.assertSuccess(self.run_script('upload.sh'))
         for device, image in (('board', self.paths[0]), ('board-pro', pro)):
             with zipfile.ZipFile(self.work / f'x-wrt-first-{device}.zip') as archive:
                 binaries = [path for path in archive.namelist() if path.endswith('.bin')]
-                self.assertEqual(binaries, ['rom/' + image.name])
+                self.assertEqual(set(binaries),
+                                 {'rom/' + image.name, 'rom/' + initramfs[device].name})
+
+    def test_initramfs_checksum_mismatch_fails(self):
+        image = self.add_initramfs('first', 'board')
+        image.write_text('corrupt')
+        self.assertNotEqual(self.run_script('upload.sh').returncode, 0)
+        self.assertFalse((self.work / 'x-wrt-first-board.zip').exists())
 
     def test_multi_target_apps_and_firmware_use_matching_architecture(self):
         self.configure('second', 'second', 'arch_two', ('other',))
