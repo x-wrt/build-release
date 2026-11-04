@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.10_b202611032026
+name: Build Jobs 26.10_b202611040756
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
     - name: Create or update Release
       env:
         GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        EXPECTED_TAG: v26.10_b202611032026
+        EXPECTED_TAG: v26.10_b202611040756
       run: |
         if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
           echo "Release tag mismatch: expected $EXPECTED_TAG, got $GITHUB_REF_NAME" >&2
@@ -664,6 +664,8 @@ jobs:
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-cudy_wr3000s-v1.zip
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-konka_komi-a31.zip
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-be10000.zip
+          /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-be10000-ubootmod.zip
+          /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-be14000.zip
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt2500-airoha.zip
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt2500.zip
           /mnt/work/x-wrt/x-wrt-mediatek-filogic-1-glinet_gl-mt3000.zip
