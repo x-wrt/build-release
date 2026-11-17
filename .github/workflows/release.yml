@@ -4,7 +4,7 @@
 #   Author: ptpt52
 #=================================================
 
-name: Build Jobs 26.10_b202611050153
+name: Build Jobs 26.10_b202611171234
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
     - name: Create or update Release
       env:
         GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-        EXPECTED_TAG: v26.10_b202611050153
+        EXPECTED_TAG: v26.10_b202611171234
       run: |
         if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
           echo "Release tag mismatch: expected $EXPECTED_TAG, got $GITHUB_REF_NAME" >&2
@@ -2366,7 +2366,6 @@ jobs:
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-apps.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-aliyun_ap8220.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-arcadyan_aw1000.zip
-          /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-asus_rt-ax89x.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-cmcc_rm2-6.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-linksys_mx4200v1.zip
           /mnt/work/x-wrt/x-wrt-qualcommax-ipq807x-linksys_mx4200v2.zip
